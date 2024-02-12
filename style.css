@@ -1,3 +1,49 @@
-p {
-  color: pink;
+.page-wrapper {
+  padding: 76px 24px;
+}
+
+.form-container {
+  display: flex;
+  flex-flow: column;
+  gap: 16px;
+  padding: 36px 44px;
+  background-color: rgb(223, 230, 195);
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 4px;
+
+  h3 {
+    margin: 0;
+  }
+
+  .field-group {
+    display: flex;
+    flex-flow: column;
+
+    label {
+      color: rgb(98, 96, 100);
+    }
+
+    input {
+      height: 36px;
+      border-radius: 4px;
+      border-style: none;
+      padding: 0 8px;
+    }
+  }
+
+  .filled-button {
+    height: 36px;
+    background-color: rgb(38, 128, 83);
+    color: white;
+    border-style: none;
+    border-radius: 4px;
+  }
+
+
+}
+
+button {
+  cursor: pointer;
 }
