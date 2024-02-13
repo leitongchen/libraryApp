@@ -4,16 +4,25 @@ class BooksLibrary {
   }
 
   addBook() {
-    const titleInput = document.getElementById('title-field');
-    const titleValue = titleInput.value.trim();
-    const authorInput = document.getElementById('author-field');
-    const authorValue = authorInput.value.trim();
+    const titleValue = document.getElementById('title-field').value.trim();
+    const authorValue = document.getElementById('author-field').value.trim();
   
-    console.log(titleValue, authorValue);
-
-    // titleInput.textContent = '';
-    // authorInput.textContent = '';
+    const book = new Book(titleValue, authorValue);
+    this.books.push(book);
+    
+    this.renderBook(book);
     addBookForm.reset();
+  }
+
+  renderBook(book) {
+    const booksListEl = document.getElementById('books-list');
+    //booksListEl.textContent = '';
+    const listItem = document.createElement('li');
+    listItem.innerHTML = `
+      <p>${book.getBookDetails()}</p>
+    `
+
+    booksListEl.append(listItem);
   }
 
   static checkTitles(a, b) {
