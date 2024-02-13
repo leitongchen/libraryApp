@@ -1,12 +1,10 @@
-const hello = 'Benvenuti';
+const booksLib = new BooksLibrary;
 
-document.getElementById('title').innerHTML = hello;
+const addBookForm = document.getElementById('add-book-form');
 
-let newBook1 = new Book('Orgoglio e pregiudizio', 'Jane Austen');
-let newBook3 = new Book('Orgoglio e pregiudizio', 'Jane Austen');
-let newBook2 = new Book('La Divina Commedia', 'Dante Alighieri');
+addBookForm.addEventListener('submit', (e) => {
+  e.preventDefault(); 
+  console.log('clicked');
+  booksLib.addBook(); 
+});
 
-console.log(newBook1.getBookDetails());
-console.log(newBook2.getBookDetails());
-
-console.log(Book.checkTitles(newBook1, newBook3));

@@ -15,8 +15,4 @@ class Book {
   getBookDetails() {
     return this.title + ', ' + this.author;
   }
-
-  static checkTitles(a, b) {
-    return a.title === b.title;
-  }
 }

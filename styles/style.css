@@ -31,8 +31,9 @@ body {
 }
 
 .book-illustration {
-  height: 300px;
-  width: 300px;
+  max-height: 300px;
+  width: 40%;
+  max-width: 300px;
 }
 
 .form-container h3 {
@@ -47,6 +48,7 @@ body {
 .field-group label {
   color: var(--grey-1);
   font-size: 12px;
+  margin-bottom: 4px;
 }
 
 .field-group input {
