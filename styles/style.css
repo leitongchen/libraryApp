@@ -9,18 +9,30 @@ body {
 
 .page-wrapper {
   padding: 20px 24px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 70%;
 }
 
 .form-container {
   display: flex;
   flex-flow: column;
   gap: 16px;
+  border-radius: 4px;
+  flex-grow: 2;
+}
+
+.form-wrapper {
+  display: flex;
+  gap: 44px;
+
   padding: 36px 44px;
   background-color: var(--grey-6);
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 4px;
+}
+
+.book-illustration {
+  height: 300px;
+  width: 300px;
 }
 
 .form-container h3 {
@@ -30,7 +42,6 @@ body {
 .form-container .field-group {
   display: flex;
   flex-flow: column;
-
 }
 
 .field-group label {
