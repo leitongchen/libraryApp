@@ -1,6 +1,5 @@
 class Book {
   constructor(_title, _author) {
-    // console.log('I am a new book');
     this.title = _title;
     this.author = _author;
   }
