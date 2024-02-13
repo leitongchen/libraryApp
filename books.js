@@ -1,6 +1,6 @@
 class BooksLibrary {
   constructor() {
-    this.books = []
+    this.booksList = []
   }
 
   addBook() {
@@ -8,7 +8,7 @@ class BooksLibrary {
     const authorValue = document.getElementById('author-field').value.trim();
   
     const book = new Book(titleValue, authorValue);
-    this.books.push(book);
+    this.booksList.push(book);
     
     this.renderBook(book);
     addBookForm.reset();
