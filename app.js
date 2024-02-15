@@ -7,3 +7,6 @@ addBookForm.addEventListener('submit', (e) => {
   booksLib.addBook(); 
 });
 
+window.addEventListener('DOMContentLoaded', () => {
+  booksLib.loadBooks();
+})
