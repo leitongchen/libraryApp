@@ -1,15 +1,15 @@
 class BooksLibrary {
   constructor() {
-    this.booksList = []
+    this.booksList = [];
   }
 
   addBook() {
     const titleValue = document.getElementById('title-field').value.trim();
     const authorValue = document.getElementById('author-field').value.trim();
-  
+
     const book = new Book(titleValue, authorValue);
     this.booksList.push(book);
-    
+
     this.renderBook(book);
     addBookForm.reset();
     this.saveBooksToLocalStorage();
@@ -22,14 +22,14 @@ class BooksLibrary {
       <h3>${book.title}</h3>
       <span>${book.author}</span>
       <button id="delete-book" class="filled-button" onClick="booksLib.deleteBook(${index})">Delete</button>
-    `
+    `;
 
     booksListEl.append(listItem);
   }
 
   deleteBook(index) {
     this.booksList.splice(index, 1);
-    this.updatesBooks(); 
+    this.updatesBooks();
   }
 
   updatesBooks() {
@@ -50,22 +50,20 @@ class BooksLibrary {
 
   loadBooks() {
     const storedBooks = this.getBooksFromLocalStorage();
-    
+
     if (storedBooks) {
       this.booksList = storedBooks;
       this.renderBooks(storedBooks);
       return;
     }
-    return false; 
+    return false;
   }
 
   renderBooks(booksList) {
     booksList.forEach((book, index) => {
-      console.log(book);
       this.renderBook(book, index);
-    })
+    });
   }
-
 
   static checkTitles(a, b) {
     return a.title === b.title;
