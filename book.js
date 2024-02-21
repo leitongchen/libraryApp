@@ -1,18 +1,11 @@
 class Book {
-  constructor(_title, _author) {
+  constructor(_title, _authors, _publicationYear, _publisher, _isbn, _price, _languages) {
     this.title = _title;
-    this.author = _author;
-  }
-
-  get authorName() {
-    return this.author;
-  }
-
-  get fullTitle() {
-    return this.title;
-  }
-
-  getBookDetails() {
-    return this.title + ', ' + this.author;
+    this.authors = _authors;
+    this.publicationYear = _publicationYear;
+    this.publisher = _publisher;
+    this.isbn = _isbn;
+    this.price = _price;
+    this.languages = _languages;
   }
 }
