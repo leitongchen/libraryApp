@@ -1,9 +1,16 @@
 class Author {
-  constructor(_name, _surname, _birthDate, _books) {
+  constructor(_name, _surname, _alias, _birthDate, _email, _address) {
     this.name = _name;
-    this.name = _surname;
-    this.name = _birthDate;
-    this.name = _books;
+    this.surname = _surname;
+    this.alias = _alias;
+    this.birthDate = _birthDate;
+    this.email = _email;
+    this.address = _address;
+  }
 
+  getAge() {
+    const currentYear = new Date().getFullYear();
+    const birthYear = new Date(this.birthDate).getFullYear();
+    return currentYear - birthYear; // TODO: should return real age
   }
 }

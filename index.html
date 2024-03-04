@@ -8,27 +8,37 @@
   </head>
   <body>
     <div class="page-wrapper">
+      <button id="test-button">Click me</button>
       <h1>Book Catalogue</h1>
       <form id="add-author-form" class="form-wrapper">
         <div class="form-container">
           <h3>Add a new author</h3>
           <div class="field-group">
             <label for="name">Name</label>
-            <input id="name" placeholder="Enter the name" />
+            <input id="name" name="name" placeholder="Enter the name" />
             <label for="surname">Surname</label>
-            <input id="surname" placeholder="Enter the surname" />
+            <input
+              id="surname"
+              name="surname"
+              placeholder="Enter the surname"
+            />
           </div>
           <div class="field-group">
             <label for="alias">Alias</label>
-            <input id="alias" placeholder="Enter alias" />
+            <input id="alias" name="alias" placeholder="Enter alias" />
             <label for="birthdate">Birth Date</label>
-            <input type="date" name="" id="birthdate" />
+            <input type="date" name="birthDate" id="birthdate" />
           </div>
           <div class="field-group">
             <label for="email">E-mail</label>
-            <input id="email" type="email" placeholder="Enter e-mail" />
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="Enter e-mail"
+            />
             <label for="address">Address</label>
-            <input id="address" placeholder="Enter address" />
+            <input id="address" name="address" placeholder="Enter address" />
           </div>
           <button id="save-button" class="filled-button">Save</button>
         </div>
@@ -59,5 +69,6 @@
     </div>
 
     <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="author.js"></script>
   </body>
 </html>
