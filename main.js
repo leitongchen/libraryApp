@@ -1,8 +1,18 @@
-const authorsArray = [];
+const AUTHORS = 'authors';
+const BOOKS = 'books';
+
+let authorsArray = [];
 
 const addAuthorForm = document.getElementById('add-author-form');
 
 addAuthorForm.addEventListener('submit', onAuthorFormSubmit);
+
+window.addEventListener('DOMContentLoaded', () => {
+  authorsArray = getDataFromLocalStorage(AUTHORS);
+  if (addAuthor.length > 0) {
+    renderEntities(authorsArray);
+  }
+});
 
 function onAuthorFormSubmit(e) {
   e.preventDefault();
@@ -28,10 +38,39 @@ function addAuthor(author) {
   );
 
   authorsArray.push(currentAuthor);
+
+  renderElement(currentAuthor);
+  saveDataToLocalStorage(AUTHORS, authorsArray);
 }
 
-document.getElementById('test-button').addEventListener('click', (e) => {
-  authorsArray.forEach((author) => {
-    console.log(author.getAge());
+function saveDataToLocalStorage(key, array) {
+  localStorage.setItem(key, JSON.stringify(array));
+}
+
+function getDataFromLocalStorage(key) {
+  if (localStorage.getItem(key) === null) return;
+  const storedElementsArr = JSON.parse(localStorage.getItem(key));
+  return storedElementsArr;
+}
+
+function renderEntities(entityList) {
+  entityList.forEach((entity, i) => {
+    entity.id = i + 1;
+    renderElement(entity);
+    console.log(entity);
   });
-});
+}
+
+function renderElement(entity) {
+  const listElement = document.getElementById('authors-list');
+  const listItem = document.createElement('ol');
+
+  listItem.innerHTML = createListItem(entity);
+  listElement.append(listItem);
+}
+
+function createListItem(entity) {
+  return `
+    <p>${entity.id}:   <b>${entity.surname}</b>, ${entity.name}</p>
+  `;
+}
