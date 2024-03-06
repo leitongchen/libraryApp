@@ -13,9 +13,13 @@ h1, h2, h3,h4, h5, h6, p, span {
 
 ul {
   padding: 0;
+  margin: 0;
 }
 
-
+a {
+  color: black;
+  text-decoration: none;
+}
 
 .page-wrapper {
   padding: 20px 24px;
@@ -127,5 +131,42 @@ button {
   li {
     background-color: white;
     padding: 8px 16px;
+  }
+}
+
+.dropdown {
+  transition: all 0.2s ease-in-out;
+  overflow: hidden;
+  background: rgb(248, 248, 248);
+  border: solid 1px rgb(222, 222, 222);
+  width: 320px;
+  cursor: pointer;
+  height: max-content;
+}
+
+.selected-value {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 25px 0 10px;
+  height: 24px;
+  font-size: 14px;
+
+}
+
+.menu li {
+  font-size: 14px;
+  padding: 4px 16px;
+  border-top: solid 1px rgb(202, 202, 202);
+  height: 24px;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    background-color: rgb(52, 107, 98);
+
+    & a {
+      color: white;
+    }
   }
 }

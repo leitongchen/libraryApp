@@ -8,8 +8,9 @@
   </head>
   <body>
     <div class="page-wrapper">
-      <button id="test-button">Click me</button>
       <h1>Book Catalogue</h1>
+
+      <!-- AUTHOR SECTION -->
       <form id="add-author-form" class="form-wrapper">
         <div class="form-container">
           <h3>Add a new author</h3>
@@ -47,17 +48,56 @@
         <h3>Registered authors</h3>
         <ul id="authors-list"></ul>
       </section>
+
+      <!-- BOOK SECTION -->
       <form id="add-book-form" class="form-wrapper">
         <div class="form-container">
           <h3>Add a new book</h3>
           <div class="field-group">
-            <label for="title-field">Book title</label>
-            <input id="title-field" placeholder="Enter the title" />
+            <label for="title">Book title</label>
+            <input name="title" id="title" placeholder="Enter the title" />
+            <label for="author">Author</label>
+            <div class="dropdown closed">
+              <div class="selected-value">Choose an author</div>
+              <ul class="menu">
+                <li><a href="#">Option 1</a></li>
+                <li><a href="#">Option 2</a></li>
+                <li><a href="#">Option 3</a></li>
+              </ul>
+            </div>
           </div>
           <div class="field-group">
-            <label for="author-field">Author</label>
-            <input id="author-field" placeholder="Enter the author" />
+            <label for="publisher">Publisher</label>
+            <input
+              id="publisher"
+              name="publisher"
+              placeholder="Enter the publisher"
+            />
+            <label for="publicationYear">Publication Year</label>
+            <input
+              id="publicationYear"
+              type="datetime"
+              name="publicationYear"
+              placeholder="Enter the publication year"
+            />
           </div>
+          <div class="field-group">
+            <label for="isbn">ISBN</label>
+            <input
+              id="isbn"
+              type="number"
+              name="isbn"
+              placeholder="Enter the ISBN"
+            />
+            <label for="price">Price</label>
+            <input
+              id="price"
+              name="price"
+              type="number"
+              placeholder="Enter the price"
+            />
+          </div>
+
           <button id="save-button" class="filled-button">Save</button>
         </div>
         <img
