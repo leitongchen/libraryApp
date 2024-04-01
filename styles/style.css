@@ -139,22 +139,12 @@ button {
   overflow: hidden;
   background: rgb(248, 248, 248);
   border: solid 1px rgb(222, 222, 222);
-  width: 320px;
   cursor: pointer;
-  height: max-content;
+  height: 36px;
+  border-radius: 4px;
 }
 
-.selected-value {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 25px 0 10px;
-  height: 24px;
-  font-size: 14px;
-
-}
-
-.menu li {
+.dropdown option {
   font-size: 14px;
   padding: 4px 16px;
   border-top: solid 1px rgb(202, 202, 202);
