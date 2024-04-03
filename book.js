@@ -1,7 +1,7 @@
 class Book {
   constructor(
     _title,
-    _authors,
+    _authorsId,
     _publicationYear,
     _publisher,
     _isbn,
@@ -9,7 +9,7 @@ class Book {
     _languages
   ) {
     this.title = _title;
-    this.authors = _authors;
+    this.authorsId = _authorsId;
     this.publicationYear = _publicationYear;
     this.publisher = _publisher;
     this.isbn = _isbn;
