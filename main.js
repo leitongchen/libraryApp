@@ -20,6 +20,7 @@ function onAuthorFormSubmit(e) {
   const authorObject = Object.fromEntries(data.entries());
 
   addAuthor(authorObject);
+  console.log(authorObject);
   resetForm(e);
 }
 
@@ -28,7 +29,10 @@ function resetForm(e) {
 }
 
 function addAuthor(author) {
+  const newId = authorsArray.length + 1;
+  author.id = newId;
   const currentAuthor = new Author(
+    author.id,
     author.name,
     author.surname,
     author.alias,
@@ -55,22 +59,25 @@ function getDataFromLocalStorage(key) {
 
 function renderEntities(entityList) {
   entityList.forEach((entity, i) => {
-    entity.id = i + 1;
     renderElement(entity);
     console.log(entity);
   });
 }
 
 function renderElement(entity) {
-  const listElement = document.getElementById('authors-list');
-  const listItem = document.createElement('ol');
+  const newListItem = document.createElement('ol');
+  const newParagraph = document.createElement('p');
 
-  listItem.innerHTML = createListItem(entity);
-  listElement.append(listItem);
+  const list = document.getElementById('authors-list');
+
+  newListItem.appendChild(newParagraph);
+  newParagraph.innerText = getAuthorData(entity);
+
+  list.append(newListItem);
 }
 
-function createListItem(entity) {
+function getAuthorData(entity) {
   return `
-    <p>${entity.id}:   <b>${entity.surname}</b>, ${entity.name}</p>
+    ${entity.id}:   ${entity.surname}, ${entity.name}
   `;
 }
