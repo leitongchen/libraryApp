@@ -1,0 +1,1 @@
+class EBook extends Book {}
