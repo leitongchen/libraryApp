@@ -25,21 +25,8 @@
             />
           </div>
           <div class="field-group">
-            <label for="alias">Alias</label>
-            <input id="alias" name="alias" placeholder="Enter alias" />
             <label for="birthdate">Birth Date</label>
             <input type="date" name="birthDate" id="birthdate" />
-          </div>
-          <div class="field-group">
-            <label for="email">E-mail</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="Enter e-mail"
-            />
-            <label for="address">Address</label>
-            <input id="address" name="address" placeholder="Enter address" />
           </div>
           <button id="save-button" class="filled-button">Save</button>
         </div>
@@ -57,11 +44,7 @@
             <label for="title">Book title</label>
             <input name="title" id="title" placeholder="Enter the title" />
             <label for="author">Author</label>
-            <select class="dropdown closed">
-                <option>Option 1</option>
-                <option>Option 2</option>
-                <option>Option 3</option>
-            </select>
+            <select id="author-dropdown" class="dropdown"></select>
           </div>
           <div class="field-group">
             <label for="publisher">Publisher</label>
@@ -109,6 +92,7 @@
       </section>
     </div>
 
+    <script type="text/javascript" src="utilities.js"></script>
     <script type="text/javascript" src="main.js"></script>
     <script type="text/javascript" src="author.js"></script>
   </body>
