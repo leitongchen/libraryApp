@@ -8,8 +8,10 @@ let lastBoodId;
 let lastAuthorId;
 
 const addAuthorForm = document.getElementById('add-author-form');
+const addBookForm = document.getElementById('add-book-form');
 
 addAuthorForm.addEventListener('submit', onAuthorFormSubmit);
+addBookForm.addEventListener('submit', onBookBormSubmit);
 
 window.addEventListener('DOMContentLoaded', () => {
   const savedAuthors = getDataFromLocalStorage(AUTHORSKEY);
@@ -77,6 +79,14 @@ function onAuthorFormSubmit(e) {
 
   addAuthor(authorObject);
   resetForm(e);
+}
+
+function onBookBormSubmit(e) {
+  e.preventDefault(); 
+  const data = new FormData(e.target);
+  const book = Object.fromEntries(data.entries());
+
+  console.log(book);
 }
 
 function addAuthor(author) {
