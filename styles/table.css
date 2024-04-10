@@ -1,0 +1,28 @@
+table {
+  margin: 0 auto;
+  max-width: 80%;
+  width: 100%;
+  
+  border-collapse: collapse;
+  border: 1px solid var(--grey-5);
+
+  td, th {
+    padding: 8px 16px;
+    border-right: 1px solid var(--grey-5);
+    border-bottom: 1px solid var(--grey-5);
+  }
+
+  .title-col,
+  .author-col {
+    min-width: 30%;
+  }
+
+  .id-col {
+    width: 20px;
+  }
+
+  .publication-col,
+  .price-col {
+    width: 30px;
+  }
+}
