@@ -52,8 +52,29 @@ function renderSavedBooks() {
         'books-list',
         `${book.id}: ${book.title}, written by ${authorDataToPrint.join(', ')}`
       );
+      addBookRow(book);
     });
   }
+}
+
+function addBookRow(book) {
+  const tBody = document.getElementById('books-table');
+  const tRow = document.createElement('tr');
+
+  console.log(book);
+  Object.keys(book).forEach((key) => {
+    const tData = document.createElement('td');
+    let value = book[key];
+
+    if (key == 'authorId') {
+      value = formatAuthorsData(value);
+    }
+
+    tData.innerText = value;
+    tRow.append(tData);
+  });
+
+  tBody.append(tRow);
 }
 
 function formatAuthorsData(authorId) {
