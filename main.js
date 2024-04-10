@@ -2,7 +2,7 @@ const AUTHORSKEY = 'authors';
 const BOOKSKEY = 'books';
 
 let authorsArr = [];
-const booksArr = [];
+let booksArr = [];
 
 let lastBookId;
 let lastAuthorId;
@@ -14,11 +14,8 @@ addAuthorForm.addEventListener('submit', onAuthorFormSubmit);
 addBookForm.addEventListener('submit', onBookBormSubmit);
 
 window.addEventListener('DOMContentLoaded', () => {
-  const savedAuthors = getDataFromLocalStorage(AUTHORSKEY);
-  if (savedAuthors) {
-    authorsArr = savedAuthors;
-    renderEntities(authorsArr);
-  }
+  renderSavedAuthors();
+  renderSavedBooks();
 
   lastAuthorId = getIdFromLastItem(authorsArr);
   lastBookId = getIdFromLastItem(booksArr);
@@ -26,9 +23,52 @@ window.addEventListener('DOMContentLoaded', () => {
   // render dropdown with list of authors
   // multiple selection should be possible
   // save authors selection as array
-
-  renderAuthorsDropdown();
 });
+
+function renderSavedAuthors() {
+  const savedAuthors = getDataFromLocalStorage(AUTHORSKEY);
+  if (savedAuthors) {
+    authorsArr = savedAuthors;
+    authorsArr.forEach((author) => {
+      renderListElement(
+        'authors-list',
+        `
+        ${author.id}:   ${author.surname}, ${author.name}
+        `
+      );
+    });
+  }
+  renderAuthorsDropdown();
+}
+
+function renderSavedBooks() {
+  const savedBooks = getDataFromLocalStorage(BOOKSKEY);
+  if (savedBooks) {
+    booksArr = savedBooks;
+    savedBooks.forEach((book) => {
+      const authorDataToPrint = formatAuthorsData(book.authorId);
+
+      renderListElement(
+        'books-list',
+        `${book.id}: ${book.title}, written by ${authorDataToPrint.join(', ')}`
+      );
+    });
+  }
+}
+
+function formatAuthorsData(authorId) {
+  const authors = getAuthorData(authorId);
+  let authorDataToPrint = [];
+  authors.forEach((author) => {
+    const authorData = `${author.name} ${author.surname}`;
+    authorDataToPrint.push(authorData);
+  });
+  return authorDataToPrint;
+}
+
+function getAuthorData(authorId) {
+  return authorsArr.filter((author) => author.id == authorId);
+}
 
 function renderAuthorsDropdown() {
   authorsArr.forEach((author) => {
@@ -38,7 +78,6 @@ function renderAuthorsDropdown() {
 
 function addAnAuthorToDropdown(author) {
   const select = document.getElementById('author-dropdown');
-
   const currentOption = document.createElement('option');
 
   currentOption.value = author.id;
@@ -48,28 +87,16 @@ function addAnAuthorToDropdown(author) {
   select.append(currentOption);
 }
 
-function renderEntities(entityList) {
-  entityList.forEach((entity, i) => {
-    renderElement(entity);
-  });
-}
-
-function renderElement(entity) {
+function renderListElement(listId, textToPrint) {
   const newListItem = document.createElement('ol');
   const newParagraph = document.createElement('p');
 
-  const list = document.getElementById('authors-list');
+  const list = document.getElementById(listId);
 
   newListItem.appendChild(newParagraph);
-  newParagraph.innerText = getAuthorData(entity);
+  newParagraph.innerText = textToPrint;
 
   list.append(newListItem);
-}
-
-function getAuthorData(entity) {
-  return `
-    ${entity.id}:   ${entity.surname}, ${entity.name}
-  `;
 }
 
 function onAuthorFormSubmit(e) {
@@ -82,12 +109,13 @@ function onAuthorFormSubmit(e) {
 }
 
 function onBookBormSubmit(e) {
-  e.preventDefault(); 
+  e.preventDefault();
   const data = new FormData(e.target);
   const book = Object.fromEntries(data.entries());
 
   console.log(book);
   addBook(book);
+  resetForm(e);
 }
 
 function addAuthor(author) {
@@ -100,7 +128,12 @@ function addAuthor(author) {
   lastAuthorId++;
   authorsArr.push(currentAuthor);
 
-  renderElement(currentAuthor);
+  renderListElement(
+    'authors-list',
+    `
+  ${currentAuthor.id}:   ${currentAuthor.surname}, ${currentAuthor.name}
+`
+  );
   saveDataToLocalStorage(AUTHORSKEY, authorsArr);
   addAnAuthorToDropdown(currentAuthor);
 }
@@ -112,10 +145,10 @@ function addBook(book) {
     book.author,
     book.publicationYear,
     book.publisher,
-    book.price, 
-  )
+    book.price
+  );
   lastBookId++;
   booksArr.push(currentBook);
-
-  console.log( 'books array: ',booksArr)
+  saveDataToLocalStorage(BOOKSKEY, booksArr);
+  console.log('books array: ', booksArr);
 }
