@@ -1,18 +1,17 @@
 class Book {
   constructor(
+    _id,
     _title,
-    _authorsId,
+    _authorId,
     _publicationYear,
     _publisher,
-    _isbn,
     _price,
-    _languages
   ) {
+    this.id = _id;
     this.title = _title;
-    this.authorsId = _authorsId;
+    this.authorId = _authorId;
     this.publicationYear = _publicationYear;
     this.publisher = _publisher;
-    this.isbn = _isbn;
     this.price = _price;
   }
 }

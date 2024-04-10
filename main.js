@@ -4,7 +4,7 @@ const BOOKSKEY = 'books';
 let authorsArr = [];
 const booksArr = [];
 
-let lastBoodId;
+let lastBookId;
 let lastAuthorId;
 
 const addAuthorForm = document.getElementById('add-author-form');
@@ -21,7 +21,7 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   lastAuthorId = getIdFromLastItem(authorsArr);
-  lastBoodId = getIdFromLastItem(booksArr);
+  lastBookId = getIdFromLastItem(booksArr);
 
   // render dropdown with list of authors
   // multiple selection should be possible
@@ -75,9 +75,9 @@ function getAuthorData(entity) {
 function onAuthorFormSubmit(e) {
   e.preventDefault();
   const data = new FormData(e.target);
-  const authorObject = Object.fromEntries(data.entries());
+  const author = Object.fromEntries(data.entries());
 
-  addAuthor(authorObject);
+  addAuthor(author);
   resetForm(e);
 }
 
@@ -87,6 +87,7 @@ function onBookBormSubmit(e) {
   const book = Object.fromEntries(data.entries());
 
   console.log(book);
+  addBook(book);
 }
 
 function addAuthor(author) {
@@ -102,4 +103,19 @@ function addAuthor(author) {
   renderElement(currentAuthor);
   saveDataToLocalStorage(AUTHORSKEY, authorsArr);
   addAnAuthorToDropdown(currentAuthor);
+}
+
+function addBook(book) {
+  const currentBook = new Book(
+    getNewId(lastBookId),
+    book.title,
+    book.author,
+    book.publicationYear,
+    book.publisher,
+    book.price, 
+  )
+  lastBookId++;
+  booksArr.push(currentBook);
+
+  console.log( 'books array: ',booksArr)
 }
