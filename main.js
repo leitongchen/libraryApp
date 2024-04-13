@@ -19,10 +19,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
   lastAuthorId = getIdFromLastItem(authorsArr);
   lastBookId = getIdFromLastItem(booksArr);
-
-  // render dropdown with list of authors
-  // multiple selection should be possible
-  // save authors selection as array
 });
 
 function renderSavedAuthors() {
@@ -43,25 +39,25 @@ function renderSavedAuthors() {
 
 function renderSavedBooks() {
   const savedBooks = getDataFromLocalStorage(BOOKSKEY);
-  if (savedBooks) {
-    booksArr = savedBooks;
-    savedBooks.forEach((book) => {
-      const authorDataToPrint = formatAuthorsData(book.authorId);
 
-      renderListElement(
-        'books-list',
-        `${book.id}: ${book.title}, written by ${authorDataToPrint.join(', ')}`
-      );
-      addBookRow(book);
-    });
-  }
+  savedBooks?.forEach((book, i) => {
+    const currentBook = new Book(book.id, book.title, book.authorId, book.publicationYear, book.publisher, book.price);
+    booksArr.push(currentBook);
+
+    renderListElement(
+      'books-list',
+      currentBook.getFormattedBookData()
+    );
+    addBookRow(currentBook);
+
+  });
 }
 
 function addBookRow(book) {
   const tBody = document.getElementById('books-table');
   const tRow = document.createElement('tr');
 
-  console.log(book);
+  // console.log(book);
   Object.keys(book).forEach((key) => {
     const tData = document.createElement('td');
     let value = book[key];
@@ -171,5 +167,5 @@ function addBook(book) {
   lastBookId++;
   booksArr.push(currentBook);
   saveDataToLocalStorage(BOOKSKEY, booksArr);
-  console.log('books array: ', booksArr);
+  //console.log(currentBook.getBookTitle());
 }

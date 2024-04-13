@@ -14,4 +14,12 @@ class Book {
     this.publisher = _publisher;
     this.price = _price;
   }
+
+  getBookTitle() {
+    return this.title; 
+  }
+
+  getFormattedBookData() {
+    return `ID: ${this.id} - Title: ${this.title}`;
+  }
 }
