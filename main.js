@@ -40,7 +40,8 @@ function renderSavedBooks() {
   const savedBooks = getDataFromLocalStorage(BOOKSKEY);
 
   savedBooks?.forEach((book, i) => {
-    const currentBook = new Book(book.id, book.title, book.authorId, book.publicationYear, book.publisher, book.price);
+    const currentBook = new Book(book.id, book.title, book.authorId, book.price);
+
     booksArr.push(currentBook);
 
     addBookRow(currentBook);
@@ -56,7 +57,8 @@ function addBookRow(book) {
 
   Object.keys(book).forEach((key) => {
     const tData = document.createElement('td');
-    let value = book[key];
+    let value = book[key] ?? '-';
+    console.log(value);
 
     if (key == 'authorId') {
       value = author.getAuthorName();
@@ -144,8 +146,8 @@ function addBook(book) {
     getNewId(lastBookId),
     book.title,
     book.author,
-    book.publicationYear,
-    book.publisher,
+    // book.publicationYear,
+    // book.publisher,
     book.price
   );
   lastBookId++;
