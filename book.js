@@ -22,4 +22,8 @@ class Book {
   getFormattedBookData() {
     return `ID: ${this.id} - Title: ${this.title}`;
   }
+
+  getAuthorId() {
+    return this.authorId;
+  }
 }

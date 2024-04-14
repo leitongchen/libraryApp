@@ -4,8 +4,8 @@ const BOOKSKEY = 'books';
 let authorsArr = [];
 let booksArr = [];
 
-let lastBookId;
-let lastAuthorId;
+let lastBookId = 0;
+let lastAuthorId = 0;
 
 const addAuthorForm = document.getElementById('add-author-form');
 const addBookForm = document.getElementById('add-book-form');
@@ -23,17 +23,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
 function renderSavedAuthors() {
   const savedAuthors = getDataFromLocalStorage(AUTHORSKEY);
-  if (savedAuthors) {
-    authorsArr = savedAuthors;
-    authorsArr.forEach((author) => {
-      renderListElement(
-        'authors-list',
-        `
-        ${author.id}:   ${author.surname}, ${author.name}
-        `
-      );
-    });
-  }
+
+  savedAuthors?.forEach(author => {
+    const currentAuthor = new Author(author.id, author.name, author.surname, author.birthDate);
+    authorsArr.push(currentAuthor);
+    renderListElement(
+      'authors-list',
+      currentAuthor.getAuthorData()
+    );
+  })
+
   renderAuthorsDropdown();
 }
 
@@ -44,26 +43,23 @@ function renderSavedBooks() {
     const currentBook = new Book(book.id, book.title, book.authorId, book.publicationYear, book.publisher, book.price);
     booksArr.push(currentBook);
 
-    renderListElement(
-      'books-list',
-      currentBook.getFormattedBookData()
-    );
     addBookRow(currentBook);
 
   });
 }
 
 function addBookRow(book) {
+  const author = getAuthorData(book.getAuthorId());
+
   const tBody = document.getElementById('books-table');
   const tRow = document.createElement('tr');
 
-  // console.log(book);
   Object.keys(book).forEach((key) => {
     const tData = document.createElement('td');
     let value = book[key];
 
     if (key == 'authorId') {
-      value = formatAuthorsData(value);
+      value = author.getAuthorName();
     }
 
     tData.innerText = value;
@@ -84,37 +80,26 @@ function formatAuthorsData(authorId) {
 }
 
 function getAuthorData(authorId) {
-  return authorsArr.filter((author) => author.id == authorId);
+  return authorsArr.find((author) => author.getId() == authorId);
 }
 
 function renderAuthorsDropdown() {
   authorsArr.forEach((author) => {
-    addAnAuthorToDropdown(author);
+    addOptionToDropdown('author-dropdown', author.getId(), author.getAuthorName());
   });
 }
 
-function addAnAuthorToDropdown(author) {
-  const select = document.getElementById('author-dropdown');
+function addOptionToDropdown(dropdownId, elementId, elementValue) {
+  const select = document.getElementById(dropdownId);
   const currentOption = document.createElement('option');
 
-  currentOption.value = author.id;
-  currentOption.innerText = `${author.name}, ${author.surname}`;
+  currentOption.value = elementId;
+  currentOption.innerText = elementValue;
 
-  console.log(currentOption);
   select.append(currentOption);
 }
 
-function renderListElement(listId, textToPrint) {
-  const newListItem = document.createElement('ol');
-  const newParagraph = document.createElement('p');
 
-  const list = document.getElementById(listId);
-
-  newListItem.appendChild(newParagraph);
-  newParagraph.innerText = textToPrint;
-
-  list.append(newListItem);
-}
 
 function onAuthorFormSubmit(e) {
   e.preventDefault();
@@ -130,7 +115,6 @@ function onBookBormSubmit(e) {
   const data = new FormData(e.target);
   const book = Object.fromEntries(data.entries());
 
-  console.log(book);
   addBook(book);
   resetForm(e);
 }
@@ -152,7 +136,7 @@ function addAuthor(author) {
 `
   );
   saveDataToLocalStorage(AUTHORSKEY, authorsArr);
-  addAnAuthorToDropdown(currentAuthor);
+  addOptionToDropdown('author-dropdown', currentAuthor.getId(), currentAuthor.getAuthorName());
 }
 
 function addBook(book) {
@@ -167,5 +151,18 @@ function addBook(book) {
   lastBookId++;
   booksArr.push(currentBook);
   saveDataToLocalStorage(BOOKSKEY, booksArr);
-  //console.log(currentBook.getBookTitle());
+
+  addBookRow(currentBook);
+}
+
+function renderListElement(listId, textToPrint) {
+  const newListItem = document.createElement('ol');
+  const newParagraph = document.createElement('p');
+
+  const list = document.getElementById(listId);
+
+  newListItem.appendChild(newParagraph);
+  newParagraph.innerText = textToPrint;
+
+  list.append(newListItem);
 }
