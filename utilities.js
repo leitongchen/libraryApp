@@ -2,7 +2,7 @@ function saveDataToLocalStorage(key, array) {
   localStorage.setItem(key, JSON.stringify(array));
 }
 
-function getDataFromLocalStorage(key) {
+function fetchDataFromLocalStorage(key) {
   if (localStorage.getItem(key) === null) return;
   const storedElementsArr = JSON.parse(localStorage.getItem(key));
   return storedElementsArr;
@@ -22,4 +22,14 @@ function getNewId(lastItemId) {
 
 function resetForm(e) {
   e.target.reset();
+}
+
+function addOptionToDropdown(dropdownId, elementId, elementValue) {
+  const select = document.getElementById(dropdownId);
+  const currentOption = document.createElement('option');
+
+  currentOption.value = elementId;
+  currentOption.innerText = elementValue;
+
+  select.append(currentOption);
 }
