@@ -17,6 +17,15 @@ addBookForm.addEventListener('submit', function (e) {
   onFormSubmit(e, addBook);
 });
 
+function onFormSubmit(e, callback) {
+  e.preventDefault();
+  const data = new FormData(e.target);
+  const newEntry = Object.fromEntries(data.entries());
+
+  callback(newEntry);
+  resetForm(e);
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   const savedAuthors = fetchDataFromLocalStorage(AUTHORSKEY);
   const savedBooks = fetchDataFromLocalStorage(BOOKSKEY);
@@ -27,15 +36,6 @@ window.addEventListener('DOMContentLoaded', () => {
   lastAuthorId = getIdFromLastItem(authorsArr);
   lastBookId = getIdFromLastItem(booksArr);
 });
-
-function onFormSubmit(e, callback) {
-  e.preventDefault();
-  const data = new FormData(e.target);
-  const newEntry = Object.fromEntries(data.entries());
-
-  callback(newEntry);
-  resetForm(e);
-}
 
 function renderSavedAuthors(savedAuthors) {
   savedAuthors?.forEach((author) => {
@@ -68,8 +68,7 @@ function renderSavedBooks(savedBooks) {
 }
 
 function addBookRow(book) {
-  const authorId = book.getAuthorId();
-  const author = getAuthorData(authorId);
+  const author = getAuthorObj(book.authorId);
 
   const tBody = document.getElementById('books-table');
   const tRow = document.createElement('tr');
@@ -78,7 +77,7 @@ function addBookRow(book) {
     const tData = document.createElement('td');
     let value = book[key] ?? '-';
 
-    if (key == 'authorId') {
+    if (key == '_authorId') {
       value = author.getAuthorName();
     }
 
@@ -89,27 +88,13 @@ function addBookRow(book) {
   tBody.append(tRow);
 }
 
-function formatAuthorsData(authorId) {
-  const authors = getAuthorData(authorId);
-  let authorDataToPrint = [];
-  authors.forEach((author) => {
-    const authorData = `${author.name} ${author.surname}`;
-    authorDataToPrint.push(authorData);
-  });
-  return authorDataToPrint;
-}
-
-function getAuthorData(authorId) {
-  return authorsArr.find((author) => author.getId() == authorId);
+function getAuthorObj(authorId) {
+  return authorsArr.find((author) => author.id == authorId);
 }
 
 function renderAuthorsDropdown() {
   authorsArr.forEach((author) => {
-    addOptionToDropdown(
-      'author-dropdown',
-      author.getId(),
-      author.getAuthorName()
-    );
+    addOptionToDropdown('author-dropdown', author.id, author.getAuthorName());
   });
 }
 
@@ -132,7 +117,7 @@ function addAuthor(author) {
   saveDataToLocalStorage(AUTHORSKEY, authorsArr);
   addOptionToDropdown(
     'author-dropdown',
-    currentAuthor.getId(),
+    currentAuthor.id,
     currentAuthor.getAuthorName()
   );
 }
