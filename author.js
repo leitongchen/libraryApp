@@ -1,6 +1,8 @@
 class Author {
-  constructor(id, name, surname, birthDate) {
-    this.id = id;
+  static #lastId = 0;
+
+  constructor(name, surname, birthDate) {
+    this._id = ++Author.#lastId;
     this.name = name;
     this.surname = surname;
     this.birthDate = birthDate;
