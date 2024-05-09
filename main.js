@@ -5,7 +5,6 @@ let authorsArr = [];
 let booksArr = [];
 
 let lastBookId = 0;
-let lastAuthorId = 0;
 
 const addAuthorForm = document.getElementById('add-author-form');
 const addBookForm = document.getElementById('add-book-form');
@@ -33,14 +32,13 @@ window.addEventListener('DOMContentLoaded', () => {
   renderSavedAuthors(savedAuthors);
   renderSavedBooks(savedBooks);
 
-  lastAuthorId = getIdFromLastItem(authorsArr);
   lastBookId = getIdFromLastItem(booksArr);
 });
 
 function renderSavedAuthors(savedAuthors) {
   savedAuthors?.forEach((author) => {
+    console.log('author', author)
     const currentAuthor = new Author(
-      author.id,
       author.name,
       author.surname,
       author.birthDate
@@ -48,6 +46,7 @@ function renderSavedAuthors(savedAuthors) {
     authorsArr.push(currentAuthor);
     renderListElement('authors-list', currentAuthor.getAuthorData());
   });
+  console.log(authorsArr);
 
   renderAuthorsDropdown();
 }
@@ -100,13 +99,13 @@ function renderAuthorsDropdown() {
 
 function addAuthor(author) {
   const currentAuthor = new Author(
-    getNewId(lastAuthorId),
     author.name,
     author.surname,
     author.birthDate
   );
-  lastAuthorId++;
   authorsArr.push(currentAuthor);
+
+  console.log(authorsArr);
 
   renderListElement(
     'authors-list',

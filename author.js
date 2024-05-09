@@ -1,40 +1,46 @@
 class Author {
   static #lastId = 0;
 
-  constructor(name, surname, birthDate) {
-    this._id = ++Author.#lastId;
-    this.name = name;
-    this.surname = surname;
-    this.birthDate = birthDate;
+  #id;
+  #name;
+  #surname;
+  #birthDate;
+
+  constructor(_name, _surname, _birthDate) {
+    this.#id = ++Author.#lastId;
+    this.#name = _name;
+    this.#surname = _surname;
+    this.#birthDate = _birthDate;
+    console.log(this.id);
   }
 
-  get id() {
-    return this._id;
-  }
-  set id(id) {
-    this._id = id;
-  }
+  // get id() {
+  //   return this.#id;
+  // }
+  // set id(id) {
+  //   this.#id = id;
+  // }
 
-  get name() {
-    return this._name;
-  }
-  set name(name) {
-    this._name = name;
-  }
+  // get name() {
+  //   return this.#name;
+  // }
+  // set name(name) {
+  //   this.#name = name;
+  // }
 
-  get surname() {
-    return this._surname;
-  }
-  set surname(surname) {
-    this._surname = surname;
-  }
+  // get surname() {
+  //   return this.#surname;
+  // }
+  // set surname(surname) {
+  //   this.#surname = surname;
+  // }
 
-  get birthDate() {
-    return this._birthDate;
-  }
-  set birthDate(birthDate) {
-    this._birthDate = birthDate;
-  }
+  // get birthDate() {
+  //   return this.#birthDate;
+  // }
+  // set birthDate(birthDate) {
+  //   this.#birthDate = birthDate;
+  // }
 
   getAuthorName() {
     return `${this.surname}, ${this.name}`;
