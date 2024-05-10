@@ -4,8 +4,6 @@ const BOOKSKEY = 'books';
 let authorsArr = [];
 let booksArr = [];
 
-let lastBookId = 0;
-
 const addAuthorForm = document.getElementById('add-author-form');
 const addBookForm = document.getElementById('add-book-form');
 
@@ -32,7 +30,7 @@ window.addEventListener('DOMContentLoaded', () => {
   renderSavedAuthors(savedAuthors);
   renderSavedBooks(savedBooks);
 
-  lastBookId = getIdFromLastItem(booksArr);
+  // console.log(savedAuthors, savedBooks);
 });
 
 function renderSavedAuthors(savedAuthors) {
@@ -56,15 +54,15 @@ function renderSavedAuthors(savedAuthors) {
 function renderSavedBooks(savedBooks) {
   savedBooks?.forEach((book, i) => {
     const currentBook = new Book(
-      book._id,
-      book._title,
-      book._authorId,
-      book._price
+      book.id,
+      book.title,
+      book.authorId,
+      book.price
     );
 
     booksArr.push(currentBook);
 
-    addBookRow(currentBook);
+    addBookRow(book);
   });
 }
 
@@ -78,7 +76,7 @@ function addBookRow(book) {
     const tData = document.createElement('td');
     let value = book[key] ?? '-';
 
-    if (key == '_authorId') {
+    if (key == 'authorId') {
       value = author.getAuthorName();
     }
 
@@ -128,15 +126,9 @@ function addAuthor(author) {
 }
 
 function addBook(book) {
-  const currentBook = new Book(
-    getNewId(lastBookId),
-    book.title,
-    book.author,
-    book.price
-  );
-  lastBookId++;
+  const currentBook = new Book(null, book.title, book.author, book.price);
   booksArr.push(currentBook);
-  saveDataToLocalStorage(BOOKSKEY, booksArr);
+  saveDataToLocalStorage(BOOKSKEY, processDataToBeSaved(booksArr));
 
   addBookRow(currentBook);
 }

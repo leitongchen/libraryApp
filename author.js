@@ -29,7 +29,7 @@ class Author {
     return `${this.#id}: ${this.getAuthorName()}`;
   }
 
-  getAuthorObj() {
+  getObj() {
     return {
       id: this.#id,
       name: this.#name,
