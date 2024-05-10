@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles/style.css" />
     <link rel="stylesheet" href="./styles/table.css" />
+    <script defer type="text/javascript" src="domUtilities.js"></script>
     <script defer type="text/javascript" src="utilities.js"></script>
     <script defer type="text/javascript" src="main.js"></script>
     <script defer type="text/javascript" src="author.js"></script>
@@ -53,21 +54,6 @@
               <option value="">--</option>
             </select>
           </div>
-          <!-- <div class="field-group">
-            <label for="publisher">Publisher</label>
-            <input
-              id="publisher"
-              name="publisher"
-              placeholder="Enter the publisher"
-            />
-            <label for="publicationYear">Publication Year</label>
-            <input
-              id="publicationYear"
-              type="datetime"
-              name="publicationYear"
-              placeholder="Enter the publication year"
-            />
-          </div> -->
           <div class="field-group">
             <label for="price">Price</label>
             <input
@@ -98,15 +84,10 @@
           <th scope="col" class="id-col">Id</th>
           <th scope="col" class="title-col">Title</th>
           <th scope="col" class="author-col">Author</th>
-          <!-- <th scope="col" class="publication-col">Publication Year</th>
-          <th scope="col" class="publisher-col">Publisher</th> -->
           <th scope="col" class="price-col">Price</th>
         </tr>
       </thead>
-      <tbody id="books-table">
-      </tbody>
+      <tbody id="books-table"></tbody>
     </table>
-
-
   </body>
 </html>

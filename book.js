@@ -1,9 +1,9 @@
 class Book {
   constructor(id, title, authorId, price) {
-    this.id = id;
-    this.title = title;
-    this.authorId = authorId;
-    this.price = price;
+    this._id = id;
+    this._title = title;
+    this._authorId = authorId;
+    this._price = price;
   }
 
   get id() {
@@ -35,6 +35,6 @@ class Book {
   }
 
   getFormattedBookData() {
-    return `ID: ${this.id} - Title: ${this.title}`;
+    return `ID: ${this._id} - Title: ${this._title}`;
   }
 }

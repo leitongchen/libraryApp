@@ -6,12 +6,36 @@ class Author {
   #surname;
   #birthDate;
 
-  constructor(_name, _surname, _birthDate) {
-    this.#id = ++Author.#lastId;
-    this.#name = _name;
-    this.#surname = _surname;
-    this.#birthDate = _birthDate;
-    console.log(this.id);
+  constructor(id, name, surname, birthDate) {
+    if (id) {
+      Author.#lastId = id;
+    }
+
+    this.#id = id ? id : ++Author.#lastId;
+    this.#name = name;
+    this.#surname = surname;
+    this.#birthDate = birthDate;
+  }
+
+  getId() {
+    return this.#id;
+  }
+
+  getAuthorName() {
+    return `${this.#surname}, ${this.#name}`;
+  }
+
+  getAuthorData() {
+    return `${this.#id}: ${this.getAuthorName()}`;
+  }
+
+  getAuthorObj() {
+    return {
+      id: this.#id,
+      name: this.#name,
+      surname: this.#surname,
+      birthDate: this.#birthDate,
+    };
   }
 
   // get id() {
@@ -41,12 +65,4 @@ class Author {
   // set birthDate(birthDate) {
   //   this.#birthDate = birthDate;
   // }
-
-  getAuthorName() {
-    return `${this.surname}, ${this.name}`;
-  }
-
-  getAuthorData() {
-    return `${this.id}: ${this.getAuthorName()}`;
-  }
 }

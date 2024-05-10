@@ -22,7 +22,7 @@ function onFormSubmit(e, callback) {
   const newEntry = Object.fromEntries(data.entries());
 
   callback(newEntry);
-  resetForm(e);
+  DOMUtilities.resetForm(e);
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -37,16 +37,18 @@ window.addEventListener('DOMContentLoaded', () => {
 
 function renderSavedAuthors(savedAuthors) {
   savedAuthors?.forEach((author) => {
-    console.log('author', author)
     const currentAuthor = new Author(
+      author.id,
       author.name,
       author.surname,
       author.birthDate
     );
     authorsArr.push(currentAuthor);
-    renderListElement('authors-list', currentAuthor.getAuthorData());
+    DOMUtilities.renderListElement(
+      'authors-list',
+      currentAuthor.getAuthorData()
+    );
   });
-  console.log(authorsArr);
 
   renderAuthorsDropdown();
 }
@@ -54,10 +56,10 @@ function renderSavedAuthors(savedAuthors) {
 function renderSavedBooks(savedBooks) {
   savedBooks?.forEach((book, i) => {
     const currentBook = new Book(
-      book.id,
-      book.title,
-      book.authorId,
-      book.price
+      book._id,
+      book._title,
+      book._authorId,
+      book._price
     );
 
     booksArr.push(currentBook);
@@ -88,35 +90,39 @@ function addBookRow(book) {
 }
 
 function getAuthorObj(authorId) {
-  return authorsArr.find((author) => author.id == authorId);
+  return authorsArr.find((author) => author.getId() == authorId);
 }
 
 function renderAuthorsDropdown() {
   authorsArr.forEach((author) => {
-    addOptionToDropdown('author-dropdown', author.id, author.getAuthorName());
+    DOMUtilities.addOptionToDropdown(
+      'author-dropdown',
+      author.getId(),
+      author.getAuthorName()
+    );
   });
 }
 
 function addAuthor(author) {
   const currentAuthor = new Author(
+    null,
     author.name,
     author.surname,
     author.birthDate
   );
   authorsArr.push(currentAuthor);
 
-  console.log(authorsArr);
-
-  renderListElement(
+  DOMUtilities.renderListElement(
     'authors-list',
     `
-  ${currentAuthor.id}:   ${currentAuthor.surname}, ${currentAuthor.name}
-`
+    ${currentAuthor.getAuthorName()}
+    `
   );
-  saveDataToLocalStorage(AUTHORSKEY, authorsArr);
-  addOptionToDropdown(
+
+  saveDataToLocalStorage(AUTHORSKEY, processDataToBeSaved(authorsArr));
+  DOMUtilities.addOptionToDropdown(
     'author-dropdown',
-    currentAuthor.id,
+    currentAuthor.getId(),
     currentAuthor.getAuthorName()
   );
 }
@@ -126,8 +132,6 @@ function addBook(book) {
     getNewId(lastBookId),
     book.title,
     book.author,
-    // book.publicationYear,
-    // book.publisher,
     book.price
   );
   lastBookId++;
@@ -135,16 +139,4 @@ function addBook(book) {
   saveDataToLocalStorage(BOOKSKEY, booksArr);
 
   addBookRow(currentBook);
-}
-
-function renderListElement(listId, textToPrint) {
-  const newListItem = document.createElement('ol');
-  const newParagraph = document.createElement('p');
-
-  const list = document.getElementById(listId);
-
-  newListItem.appendChild(newParagraph);
-  newParagraph.innerText = textToPrint;
-
-  list.append(newListItem);
 }
