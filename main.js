@@ -29,8 +29,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
   renderSavedAuthors(savedAuthors);
   renderSavedBooks(savedBooks);
-
-  // console.log(savedAuthors, savedBooks);
 });
 
 function renderSavedAuthors(savedAuthors) {
@@ -52,7 +50,7 @@ function renderSavedAuthors(savedAuthors) {
 }
 
 function renderSavedBooks(savedBooks) {
-  savedBooks?.forEach((book, i) => {
+  savedBooks?.forEach((book) => {
     const currentBook = new Book(
       book.id,
       book.title,

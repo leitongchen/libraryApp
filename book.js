@@ -37,32 +37,4 @@ class Book {
       price: this.#price,
     };
   }
-
-  // get id() {
-  //   return this._id;
-  // }
-  // set id(id) {
-  //   this._id = id;
-  // }
-
-  // get title() {
-  //   return this._title;
-  // }
-  // set title(titleValue) {
-  //   this._title = titleValue;
-  // }
-
-  // get authorId() {
-  //   return this._authorId;
-  // }
-  // set authorId(authorId) {
-  //   this._authorId = authorId;
-  // }
-
-  // get price() {
-  //   return this._price;
-  // }
-  // set price(price) {
-  //   this._price = price;
-  // }
 }
