@@ -111,7 +111,7 @@ function addAuthor(author) {
   DOMUtilities.renderListElement(
     'authors-list',
     `
-    ${currentAuthor.getAuthorName()}
+    ${currentAuthor.getAuthorData()}
     `
   );
 

@@ -16,7 +16,7 @@ class DOMUtilities {
     const currentOption = document.createElement('option');
 
     currentOption.value = elementId;
-    currentOption.innerText = elementValue;
+    currentOption.innerText = elementId + ': ' + elementValue;
 
     select.append(currentOption);
   }
