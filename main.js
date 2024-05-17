@@ -33,12 +33,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
 function renderSavedAuthors(savedAuthors) {
   savedAuthors?.forEach((author) => {
-    const currentAuthor = new Author(
-      author.id,
-      author.name,
-      author.surname,
-      author.birthDate
-    );
+    const currentAuthor = new Author({
+      id: author.id,
+      name: author.name,
+      surname: author.surname,
+      birthDate: author.birthDate
+  });
     authorsArr.push(currentAuthor);
     DOMUtilities.renderListElement(
       'authors-list',
@@ -51,12 +51,12 @@ function renderSavedAuthors(savedAuthors) {
 
 function renderSavedBooks(savedBooks) {
   savedBooks?.forEach((book) => {
-    const currentBook = new Book(
-      book.id,
-      book.title,
-      book.authorId,
-      book.price
-    );
+    const currentBook = new Book({
+      id: book.id,
+      title: book.title,
+      authorId: book.authorId,
+      price: book.price
+  });
 
     booksArr.push(currentBook);
 
@@ -65,6 +65,7 @@ function renderSavedBooks(savedBooks) {
 }
 
 function addBookRow(book) {
+  console.log(book)
   const author = getAuthorObj(book.authorId);
 
   const tBody = document.getElementById('books-table');
@@ -100,12 +101,11 @@ function renderAuthorsDropdown() {
 }
 
 function addAuthor(author) {
-  const currentAuthor = new Author(
-    null,
-    author.name,
-    author.surname,
-    author.birthDate
-  );
+  const currentAuthor = new Author({
+    name: author.name,
+    surname: author.surname,
+    birthDate: author.birthDate
+  });
   authorsArr.push(currentAuthor);
 
   DOMUtilities.renderListElement(
@@ -122,7 +122,7 @@ function addAuthor(author) {
 }
 
 function addBook(book) {
-  const currentBook = new Book(null, book.title, book.author, book.price);
+  const currentBook = new Book({title: book.title, authorId: book.author, price: book.price});
   booksArr.push(currentBook);
   saveDataToLocalStorage(BOOKSKEY, processDataToBeSaved(booksArr));
 

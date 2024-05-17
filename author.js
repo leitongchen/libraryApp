@@ -6,15 +6,13 @@ class Author {
   #surname;
   #birthDate;
 
-  constructor(id, name, surname, birthDate) {
-    if (id) {
-      Author.#lastId = id;
-    }
+  constructor(author) {
+    if (author.id) Author.#lastId = author.id;
 
-    this.#id = id ?? ++Author.#lastId;
-    this.#name = name;
-    this.#surname = surname;
-    this.#birthDate = birthDate;
+    this.#id = author.id ?? ++Author.#lastId;
+    this.#name = author.name;
+    this.#surname = author.surname;
+    this.#birthDate = author.birthDate;
   }
 
   get id() {
