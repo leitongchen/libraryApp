@@ -6,7 +6,7 @@ class DOMUtilities {
     const list = document.getElementById(listId);
 
     newListItem.appendChild(newParagraph);
-    newParagraph.innerText = textToPrint;
+    newParagraph.innerText = textToPrint.trim();
 
     list.append(newListItem);
   }

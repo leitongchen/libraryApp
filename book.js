@@ -11,7 +11,7 @@ class Book {
       Book.#lastId = id;
     }
 
-    this.#id = id ? id : ++Book.#lastId;
+    this.#id = id ?? ++Book.#lastId;
     this.#title = title;
     this.#authorId = authorId;
     this.#price = price;

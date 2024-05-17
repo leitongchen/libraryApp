@@ -11,7 +11,7 @@ class Author {
       Author.#lastId = id;
     }
 
-    this.#id = id ? id : ++Author.#lastId;
+    this.#id = id ?? ++Author.#lastId;
     this.#name = name;
     this.#surname = surname;
     this.#birthDate = birthDate;
