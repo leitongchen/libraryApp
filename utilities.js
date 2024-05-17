@@ -1,7 +1,7 @@
 function processDataToBeSaved(array) {
   const processedArr = [];
   array.forEach((el) => {
-    processedArr.push(el.getObj());
+    processedArr.push(el.getSavingsData());
   });
   return processedArr;
 }

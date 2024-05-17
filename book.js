@@ -17,19 +17,27 @@ class Book {
     this.#price = price;
   }
 
-  getId() {
+  get id() {
     return this.#id;
+  }
+
+  get title() {
+    return this.#title;
+  }
+
+  get authorId() {
+    return this.#authorId;
+  }
+
+  get price() {
+    return this.#price;
   }
 
   getAuthorId() {
     return this.#authorId;
   }
 
-  getFormattedBookData() {
-    return `ID: ${this.#id} - Title: ${this.#title}`;
-  }
-
-  getObj() {
+  getSavingsData() {
     return {
       id: this.#id,
       title: this.#title,

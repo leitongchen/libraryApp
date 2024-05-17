@@ -17,19 +17,19 @@ class Author {
     this.#birthDate = birthDate;
   }
 
-  getId() {
+  get id() {
     return this.#id;
   }
 
-  getAuthorName() {
+  get fullName() {
     return `${this.#surname}, ${this.#name}`;
   }
 
-  getAuthorData() {
-    return `${this.#id}: ${this.getAuthorName()}`;
+  get birthDate() {
+    return this.#birthDate;
   }
 
-  getObj() {
+  getSavingsData() {
     return {
       id: this.#id,
       name: this.#name,

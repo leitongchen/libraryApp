@@ -42,7 +42,7 @@ function renderSavedAuthors(savedAuthors) {
     authorsArr.push(currentAuthor);
     DOMUtilities.renderListElement(
       'authors-list',
-      currentAuthor.getAuthorData()
+      PrintData.formatDataWithId(currentAuthor.id, currentAuthor.fullName)
     );
   });
 
@@ -75,7 +75,7 @@ function addBookRow(book) {
     let value = book[key] ?? '-';
 
     if (key == 'authorId') {
-      value = author.getAuthorName();
+      value = author.fullName;
     }
 
     tData.innerText = value;
@@ -86,15 +86,15 @@ function addBookRow(book) {
 }
 
 function getAuthorObj(authorId) {
-  return authorsArr.find((author) => author.getId() == authorId);
+  return authorsArr.find((author) => author.id == authorId);
 }
 
 function renderAuthorsDropdown() {
   authorsArr.forEach((author) => {
     DOMUtilities.addOptionToDropdown(
       'author-dropdown',
-      author.getId(),
-      author.getAuthorName()
+      author.id,
+      author.fullName
     );
   });
 }
@@ -110,16 +110,14 @@ function addAuthor(author) {
 
   DOMUtilities.renderListElement(
     'authors-list',
-    `
-    ${currentAuthor.getAuthorData()}
-    `
+    PrintData.formatDataWithId(currentAuthor.id, currentAuthor.fullName)
   );
 
   saveDataToLocalStorage(AUTHORSKEY, processDataToBeSaved(authorsArr));
   DOMUtilities.addOptionToDropdown(
     'author-dropdown',
-    currentAuthor.getId(),
-    currentAuthor.getAuthorName()
+    currentAuthor.id,
+    currentAuthor.fullName
   );
 }
 
