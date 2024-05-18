@@ -65,25 +65,16 @@ function renderSavedBooks(savedBooks) {
 }
 
 function addBookRow(book) {
-  console.log(book)
   const author = getAuthorObj(book.authorId);
+  const bookCopy = Object.assign({}, book);
 
-  const tBody = document.getElementById('books-table');
-  const tRow = document.createElement('tr');
+  bookCopy.authorId = author.fullName ?? '-';
+  // delete bookCopy.authorId;
 
-  Object.keys(book).forEach((key) => {
-    const tData = document.createElement('td');
-    let value = book[key] ?? '-';
+  // const tHeadValues = DOMUtilities.getTableHeaderValues('books-table-header');
+  // console.log(tHeadValues, bookCopy);
 
-    if (key == 'authorId') {
-      value = author.fullName;
-    }
-
-    tData.innerText = value;
-    tRow.append(tData);
-  });
-
-  tBody.append(tRow);
+  DOMUtilities.addTableRow(bookCopy, 'books-table')
 }
 
 function getAuthorObj(authorId) {
