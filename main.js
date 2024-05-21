@@ -4,8 +4,8 @@ const BOOKSKEY = 'books';
 let authorsArr = [];
 let booksArr = [];
 
-const addAuthorForm = document.getElementById('add-author-form');
-const addBookForm = document.getElementById('add-book-form');
+const addAuthorForm = document.forms['author-form'];
+const addBookForm = document.forms['book-form'];
 
 addAuthorForm.addEventListener('submit', function (e) {
   onFormSubmit(e, addAuthor);
@@ -37,8 +37,8 @@ function renderSavedAuthors(savedAuthors) {
       id: author.id,
       name: author.name,
       surname: author.surname,
-      birthDate: author.birthDate
-  });
+      birthDate: author.birthDate,
+    });
     authorsArr.push(currentAuthor);
     DOMUtilities.renderListElement(
       'authors-list',
@@ -55,8 +55,8 @@ function renderSavedBooks(savedBooks) {
       id: book.id,
       title: book.title,
       authorId: book.authorId,
-      price: book.price
-  });
+      price: book.price,
+    });
 
     booksArr.push(currentBook);
 
@@ -68,13 +68,13 @@ function addBookRow(book) {
   const author = getAuthorObj(book.authorId);
   const bookCopy = Object.assign({}, book);
 
-  bookCopy.authorId = author.fullName ?? '-';
+  bookCopy.authorId = author?.fullName ?? '-';
   // delete bookCopy.authorId;
 
   // const tHeadValues = DOMUtilities.getTableHeaderValues('books-table-header');
   // console.log(tHeadValues, bookCopy);
 
-  DOMUtilities.addTableRow(bookCopy, 'books-table')
+  DOMUtilities.addTableRow(bookCopy, 'books-table');
 }
 
 function getAuthorObj(authorId) {
@@ -95,7 +95,7 @@ function addAuthor(author) {
   const currentAuthor = new Author({
     name: author.name,
     surname: author.surname,
-    birthDate: author.birthDate
+    birthDate: author.birthDate,
   });
   authorsArr.push(currentAuthor);
 
@@ -113,7 +113,11 @@ function addAuthor(author) {
 }
 
 function addBook(book) {
-  const currentBook = new Book({title: book.title, authorId: book.author, price: book.price});
+  const currentBook = new Book({
+    title: book.title,
+    authorId: book.author,
+    price: book.price,
+  });
   booksArr.push(currentBook);
   saveDataToLocalStorage(BOOKSKEY, processDataToBeSaved(booksArr));
 
