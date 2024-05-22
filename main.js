@@ -1,6 +1,9 @@
 const AUTHORSKEY = 'authors';
 const BOOKSKEY = 'books';
 
+const AUTHORSTABLEBODYID = 'authors-table';
+const BOOKSTABLEBODYID = 'books-table';
+
 let authorsArr = [];
 let booksArr = [];
 
@@ -40,10 +43,8 @@ function renderSavedAuthors(savedAuthors) {
       birthDate: author.birthDate,
     });
     authorsArr.push(currentAuthor);
-    DOMUtilities.renderListElement(
-      'authors-list',
-      PrintData.formatDataWithId(currentAuthor.id, currentAuthor.fullName)
-    );
+
+    DOMUtilities.addTableRow(author, AUTHORSTABLEBODYID);
   });
 
   renderAuthorsDropdown();
@@ -69,12 +70,8 @@ function addBookRow(book) {
   const bookCopy = Object.assign({}, book);
 
   bookCopy.authorId = author?.fullName ?? '-';
-  // delete bookCopy.authorId;
 
-  // const tHeadValues = DOMUtilities.getTableHeaderValues('books-table-header');
-  // console.log(tHeadValues, bookCopy);
-
-  DOMUtilities.addTableRow(bookCopy, 'books-table');
+  DOMUtilities.addTableRow(bookCopy, BOOKSTABLEBODYID);
 }
 
 function getAuthorObj(authorId) {
@@ -99,10 +96,7 @@ function addAuthor(author) {
   });
   authorsArr.push(currentAuthor);
 
-  DOMUtilities.renderListElement(
-    'authors-list',
-    PrintData.formatDataWithId(currentAuthor.id, currentAuthor.fullName)
-  );
+  DOMUtilities.addTableRow(author, AUTHORSTABLEBODYID);
 
   saveDataToLocalStorage(AUTHORSKEY, processDataToBeSaved(authorsArr));
   DOMUtilities.addOptionToDropdown(

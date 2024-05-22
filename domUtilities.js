@@ -1,15 +1,15 @@
 class DOMUtilities {
-  static renderListElement(listId, textToPrint) {
-    const newListItem = document.createElement('ol');
-    const newParagraph = document.createElement('p');
+  // static renderListElement(listId, textToPrint) {
+  //   const newListItem = document.createElement('ol');
+  //   const newParagraph = document.createElement('p');
 
-    const list = document.getElementById(listId);
+  //   const list = document.getElementById(listId);
 
-    newListItem.appendChild(newParagraph);
-    newParagraph.innerText = textToPrint.trim();
+  //   newListItem.appendChild(newParagraph);
+  //   newParagraph.innerText = textToPrint.trim();
 
-    list.append(newListItem);
-  }
+  //   list.append(newListItem);
+  // }
 
   static addOptionToDropdown(dropdownId, elementId, elementValue) {
     const select = document.getElementById(dropdownId);
@@ -45,7 +45,7 @@ class DOMUtilities {
       tData.innerText = value;
       tRow.append(tData);
     });
-  
+
     tBody.append(tRow);
   }
 }
