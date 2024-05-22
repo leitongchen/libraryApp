@@ -11,6 +11,7 @@
     <script defer type="text/javascript" src="main.js"></script>
     <script defer type="text/javascript" src="author.js"></script>
     <script defer type="text/javascript" src="book.js"></script>
+    <script defer type="text/javascript" src="ebook.js"></script>
     <title>Simple Library App</title>
   </head>
   <body>
@@ -66,6 +67,23 @@
             </select>
           </div>
           <div class="field-group">
+            <label for="bookType">Book type</label>
+            <select id="book-type-dropdown" name="bookType" class="dropdown">
+              <option value="hardcover">Hardcover</option>
+              <option value="ebook">E-Book</option>
+            </select>
+            <div id="filetype-section" class="hide">
+              <label for="fileType">File type</label>
+              <select id="file-type-dropdown" name="fileType" class="dropdown">
+                <option value="">--</option>
+                <option value="epub">epub</option>
+                <option value="mobi">mobi</option>
+                <option value="pdf">pdf</option>
+                <option value="azw3">azw3</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-group">
             <label for="price">Price</label>
             <input
               id="price"
@@ -95,6 +113,8 @@
           <th scope="col" id="id" class="id-col">Id</th>
           <th scope="col" id="title" class="title-col">Title</th>
           <th scope="col" id="author" class="author-col">Author</th>
+          <th scope="col" id="bookType" class="book-type-col">Book type</th>
+          <th scope="col" id="fileType" class="file-type-col">File type</th>
           <th scope="col" id="price" class="price-col">Price</th>
         </tr>
       </thead>

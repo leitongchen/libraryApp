@@ -106,12 +106,13 @@ function addAuthor(author) {
 }
 
 function addBook(book) {
-  const currentBook = new Book({
+  const currentBook = new Ebook({
     title: book.title,
     authorId: book.author,
     price: book.price,
   });
   booksArr.push(currentBook);
+  console.log(currentBook);
   saveDataToLocalStorage(BOOKSKEY, processDataToBeSaved(booksArr));
 
   addBookRow(currentBook.getSavingsData());
