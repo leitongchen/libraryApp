@@ -19,6 +19,14 @@ class Author {
     return this.#id;
   }
 
+  get name() {
+    return this.#name;
+  }
+
+  get surname() {
+    return this.#surname;
+  }
+
   get fullName() {
     return `${this.#surname}, ${this.#name}`;
   }

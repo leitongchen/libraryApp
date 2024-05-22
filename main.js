@@ -27,15 +27,15 @@ function onFormSubmit(e, callback) {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  const savedAuthors = fetchDataFromLocalStorage(AUTHORSKEY);
-  const savedBooks = fetchDataFromLocalStorage(BOOKSKEY);
+  const savedAuthors = fetchDataFromLocalStorage(AUTHORSKEY) ?? [];
+  const savedBooks = fetchDataFromLocalStorage(BOOKSKEY) ?? [];
 
   renderSavedAuthors(savedAuthors);
   renderSavedBooks(savedBooks);
 });
 
 function renderSavedAuthors(savedAuthors) {
-  savedAuthors?.forEach((author) => {
+  savedAuthors.forEach((author) => {
     const currentAuthor = new Author({
       id: author.id,
       name: author.name,
@@ -51,7 +51,7 @@ function renderSavedAuthors(savedAuthors) {
 }
 
 function renderSavedBooks(savedBooks) {
-  savedBooks?.forEach((book) => {
+  savedBooks.forEach((book) => {
     const currentBook = new Book({
       id: book.id,
       title: book.title,
@@ -96,14 +96,13 @@ function addAuthor(author) {
   });
   authorsArr.push(currentAuthor);
 
-  DOMUtilities.addTableRow(author, AUTHORSTABLEBODYID);
-
   saveDataToLocalStorage(AUTHORSKEY, processDataToBeSaved(authorsArr));
   DOMUtilities.addOptionToDropdown(
     'author-dropdown',
     currentAuthor.id,
     currentAuthor.fullName
   );
+  DOMUtilities.addTableRow(currentAuthor.getSavingsData(), AUTHORSTABLEBODYID);
 }
 
 function addBook(book) {
@@ -115,5 +114,5 @@ function addBook(book) {
   booksArr.push(currentBook);
   saveDataToLocalStorage(BOOKSKEY, processDataToBeSaved(booksArr));
 
-  addBookRow(currentBook);
+  addBookRow(currentBook.getSavingsData());
 }
