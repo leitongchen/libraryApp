@@ -110,16 +110,16 @@ function addBook(book) {
 }
 
 function addFileTypeField() {
-  document.getElementById(BOOKTYPEGROUP).innerHTML = '';
-  DOMUtilities.addLabel(BOOKTYPEGROUP, 'File type', 'fileType');
-  DOMUtilities.addSelect(BOOKTYPEGROUP, FILETYPEFIELDID, 'fileType');
+  document.getElementById(BOOKTYPECONTAINER).innerHTML = '';
+  DOMUtilities.addLabel(BOOKTYPECONTAINER, 'File type', 'fileType');
+  DOMUtilities.addSelect(BOOKTYPECONTAINER, FILETYPEDROPDOWNID, 'fileType');
   Object.keys(FileTypes).forEach((key) => {
-    DOMUtilities.addOptionToDropdown(FILETYPEFIELDID, key, FileTypes[key]);
+    DOMUtilities.addOptionToDropdown(FILETYPEDROPDOWNID, key, FileTypes[key]);
   });
 }
 
 function addPagesNumberField() {
-  document.getElementById(BOOKTYPEGROUP).innerHTML = '';
-  DOMUtilities.addLabel(BOOKTYPEGROUP, 'Number of pages', 'numberOfPages');
-  DOMUtilities.addTextInput(BOOKTYPEGROUP, 'numberOfPages');
+  document.getElementById(BOOKTYPECONTAINER).innerHTML = '';
+  DOMUtilities.addLabel(BOOKTYPECONTAINER, 'Number of pages', 'numberOfPages');
+  DOMUtilities.addTextInput(BOOKTYPECONTAINER, 'numberOfPages');
 }
