@@ -5,6 +5,7 @@ class Book {
   #title;
   #authorId;
   #price;
+  #bookType;
 
   constructor(book) {
     if (book.id) Book.#lastId = book.id;
@@ -13,6 +14,7 @@ class Book {
     this.#title = book.title;
     this.#authorId = book.authorId;
     this.#price = book.price;
+    this.#bookType = book.bookType;
   }
 
   get id() {
@@ -31,6 +33,10 @@ class Book {
     return this.#price;
   }
 
+  get bookType() {
+    return this.#bookType;
+  }
+
   getAuthorId() {
     return this.#authorId;
   }
@@ -41,6 +47,7 @@ class Book {
       title: this.#title,
       authorId: this.#authorId,
       price: this.#price,
+      bookType: this.#bookType,
     };
   }
 }
