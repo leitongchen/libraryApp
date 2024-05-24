@@ -11,12 +11,12 @@ class DOMUtilities {
   //   list.append(newListItem);
   // }
 
-  static addOptionToDropdown(dropdownId, elementId, elementValue) {
+  static addOptionToDropdown(dropdownId, optionValue, textToPrint) {
     const select = document.getElementById(dropdownId);
     const currentOption = document.createElement('option');
 
-    currentOption.value = elementId;
-    currentOption.innerText = elementId + ': ' + elementValue;
+    currentOption.value = optionValue;
+    currentOption.innerText = textToPrint;
 
     select.append(currentOption);
   }
@@ -47,5 +47,36 @@ class DOMUtilities {
     });
 
     tBody.append(tRow);
+  }
+
+  static addLabel(parentId, labelText, htmlFor) {
+    const parentElement = document.getElementById(parentId);
+
+    const label = document.createElement('label');
+    label.htmlFor = htmlFor;
+    label.innerText = labelText;
+
+    parentElement.append(label);
+  }
+
+  static addSelect(parentId, selectId, fieldName) {
+    const parentElement = document.getElementById(parentId);
+
+    const select = document.createElement('select');
+    select.id = selectId;
+    select.name = fieldName;
+    select.classList.add('dropdown');
+
+    parentElement.append(select);
+  }
+
+  static addTextInput(parentId, fieldName) {
+    const parentElement = document.getElementById(parentId);
+
+    const textInput = document.createElement('input');
+    textInput.name = fieldName;
+    textInput.placeholder = 'Enter number of the pages';
+
+    parentElement.append(textInput);
   }
 }

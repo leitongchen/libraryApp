@@ -1,21 +1,5 @@
-const AUTHORSKEY = 'authors';
-const BOOKSKEY = 'books';
-
-const AUTHORSTABLEBODYID = 'authors-table';
-const BOOKSTABLEBODYID = 'books-table';
-
 let authorsArr = [];
 let booksArr = [];
-
-const addAuthorForm = document.forms['author-form'];
-const addBookForm = document.forms['book-form'];
-
-addAuthorForm.addEventListener('submit', function (e) {
-  onFormSubmit(e, addAuthor);
-});
-addBookForm.addEventListener('submit', function (e) {
-  onFormSubmit(e, addBook);
-});
 
 function onFormSubmit(e, callback) {
   e.preventDefault();
@@ -25,14 +9,6 @@ function onFormSubmit(e, callback) {
   callback(newEntry);
   DOMUtilities.resetForm(e);
 }
-
-window.addEventListener('DOMContentLoaded', () => {
-  const savedAuthors = fetchDataFromLocalStorage(AUTHORSKEY) ?? [];
-  const savedBooks = fetchDataFromLocalStorage(BOOKSKEY) ?? [];
-
-  renderSavedAuthors(savedAuthors);
-  renderSavedBooks(savedBooks);
-});
 
 function renderSavedAuthors(savedAuthors) {
   savedAuthors.forEach((author) => {
@@ -100,20 +76,36 @@ function addAuthor(author) {
   DOMUtilities.addOptionToDropdown(
     'author-dropdown',
     currentAuthor.id,
-    currentAuthor.fullName
+    currentAuthor.id + ': ' + currentAuthor.fullName
   );
   DOMUtilities.addTableRow(currentAuthor.getSavingsData(), AUTHORSTABLEBODYID);
 }
 
 function addBook(book) {
-  const currentBook = new Ebook({
+  console.log(book);
+  const currentBook = new Book({
     title: book.title,
     authorId: book.author,
     price: book.price,
   });
   booksArr.push(currentBook);
-  console.log(currentBook);
+  // console.log(currentBook);
   saveDataToLocalStorage(BOOKSKEY, processDataToBeSaved(booksArr));
 
   addBookRow(currentBook.getSavingsData());
+}
+
+function addFileTypeField() {
+  document.getElementById(BOOKTYPEGROUP).innerHTML = '';
+  DOMUtilities.addLabel(BOOKTYPEGROUP, 'File type', 'fileType');
+  DOMUtilities.addSelect(BOOKTYPEGROUP, FILETYPEFIELDID, 'fileType');
+  Object.keys(FileTypes).forEach((key) => {
+    DOMUtilities.addOptionToDropdown(FILETYPEFIELDID, key, FileTypes[key]);
+  });
+}
+
+function addPagesNumberField() {
+  document.getElementById(BOOKTYPEGROUP).innerHTML = '';
+  DOMUtilities.addLabel(BOOKTYPEGROUP, 'Number of pages', 'pagesNumber');
+  DOMUtilities.addTextInput(BOOKTYPEGROUP, 'pagesNumber');
 }

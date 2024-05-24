@@ -5,13 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles/style.css" />
     <link rel="stylesheet" href="./styles/table.css" />
-    <script defer type="text/javascript" src="printData.js"></script>
-    <script defer type="text/javascript" src="domUtilities.js"></script>
+    <script defer type="text/javascript" src="classes/printData.js"></script>
+    <script defer type="text/javascript" src="classes/domUtilities.js"></script>
     <script defer type="text/javascript" src="utilities.js"></script>
+    <script defer type="text/javascript" src="models.js"></script>
+    <script defer type="text/javascript" src="classes/author.js"></script>
+    <script defer type="text/javascript" src="classes/book.js"></script>
+    <script defer type="text/javascript" src="classes/ebook.js"></script>
+    <script defer type="text/javascript" src="classes/hardcover.js"></script>
     <script defer type="text/javascript" src="main.js"></script>
-    <script defer type="text/javascript" src="author.js"></script>
-    <script defer type="text/javascript" src="book.js"></script>
-    <script defer type="text/javascript" src="ebook.js"></script>
+    <script defer type="text/javascript" src="eventListeners.js"></script>
     <title>Simple Library App</title>
   </head>
   <body>
@@ -66,22 +69,15 @@
               <option value="">--</option>
             </select>
           </div>
-          <div class="field-group">
+          <div id="book-type-group" class="field-group">
             <label for="bookType">Book type</label>
             <select id="book-type-dropdown" name="bookType" class="dropdown">
+              <option value="">--</option>
               <option value="hardcover">Hardcover</option>
               <option value="ebook">E-Book</option>
             </select>
-            <div id="filetype-section" class="hide">
-              <label for="fileType">File type</label>
-              <select id="file-type-dropdown" name="fileType" class="dropdown">
-                <option value="">--</option>
-                <option value="epub">epub</option>
-                <option value="mobi">mobi</option>
-                <option value="pdf">pdf</option>
-                <option value="azw3">azw3</option>
-              </select>
-            </div>
+
+            <div id="book-type-sub-fields"></div>
           </div>
           <div class="field-group">
             <label for="price">Price</label>

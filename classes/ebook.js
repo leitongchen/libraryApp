@@ -1,4 +1,5 @@
 class Ebook extends Book {
+  static PROPERTYNAME = 'ebook';
   #fileType;
 
   get fileType() {
@@ -6,6 +7,6 @@ class Ebook extends Book {
   }
 
   writeSomething() {
-    return 'This is the filetype: ' + this.#fileType;
+    console.log('This is your ebook file type', this.#fileType);
   }
 }

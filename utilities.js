@@ -15,3 +15,11 @@ function fetchDataFromLocalStorage(key) {
   const storedElementsArr = JSON.parse(localStorage.getItem(key));
   return storedElementsArr;
 }
+
+function getEnumFromValues(arr) {
+  const newEnum = {};
+  arr.forEach((property) => {
+    newEnum[property.toUpperCase()] = property;
+  });
+  return Object.freeze(newEnum);
+}
