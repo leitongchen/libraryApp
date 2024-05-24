@@ -33,6 +33,7 @@ function renderSavedBooks(savedBooks) {
       title: book.title,
       authorId: book.authorId,
       price: book.price,
+      bookType: book.bookType,
     });
 
     booksArr.push(currentBook);
@@ -59,7 +60,7 @@ function renderAuthorsDropdown() {
     DOMUtilities.addOptionToDropdown(
       'author-dropdown',
       author.id,
-      author.fullName
+      PrintData.formatDataWithId(author.id, author.fullName)
     );
   });
 }
@@ -76,20 +77,33 @@ function addAuthor(author) {
   DOMUtilities.addOptionToDropdown(
     'author-dropdown',
     currentAuthor.id,
-    currentAuthor.id + ': ' + currentAuthor.fullName
+    PrintData.formatDataWithId(currentAuthor.id, currentAuthor.fullName)
   );
   DOMUtilities.addTableRow(currentAuthor.getSavingsData(), AUTHORSTABLEBODYID);
 }
 
 function addBook(book) {
-  console.log(book);
-  const currentBook = new Book({
+  let currentBook;
+  const bookObj = {
     title: book.title,
     authorId: book.author,
     price: book.price,
-  });
+    bookType: book.bookType,
+  };
+
+  if (book.bookType === BookTypes.EBOOK) {
+    currentBook = new Ebook({
+      ...bookObj,
+      fileType: book.fileType,
+    });
+  } else if (book.bookType === BookTypes.HARDCOVER) {
+    currentBook = new Hardcover({
+      ...bookObj,
+      numberOfPages: book.numberOfPages,
+    });
+  }
   booksArr.push(currentBook);
-  // console.log(currentBook);
+
   saveDataToLocalStorage(BOOKSKEY, processDataToBeSaved(booksArr));
 
   addBookRow(currentBook.getSavingsData());
@@ -106,6 +120,6 @@ function addFileTypeField() {
 
 function addPagesNumberField() {
   document.getElementById(BOOKTYPEGROUP).innerHTML = '';
-  DOMUtilities.addLabel(BOOKTYPEGROUP, 'Number of pages', 'pagesNumber');
-  DOMUtilities.addTextInput(BOOKTYPEGROUP, 'pagesNumber');
+  DOMUtilities.addLabel(BOOKTYPEGROUP, 'Number of pages', 'numberOfPages');
+  DOMUtilities.addTextInput(BOOKTYPEGROUP, 'numberOfPages');
 }
