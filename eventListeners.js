@@ -9,6 +9,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   renderSavedAuthors(savedAuthors);
   renderSavedBooks(savedBooks);
+  DOMUtilities.addTableRow(BOOKSTABLEHEADERID, 'th', BookTableKeys)
 });
 
 addAuthorForm.addEventListener('submit', function (e) {

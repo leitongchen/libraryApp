@@ -19,7 +19,8 @@ function fetchDataFromLocalStorage(key) {
 function getEnumFromValues(arr) {
   const newEnum = {};
   arr.forEach((property) => {
-    newEnum[property.toUpperCase()] = property;
+    const cleanProp = property.trim();
+    newEnum[cleanProp.toUpperCase()] = cleanProp;
   });
   return Object.freeze(newEnum);
 }

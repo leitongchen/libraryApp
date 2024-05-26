@@ -34,18 +34,32 @@ class DOMUtilities {
     return headerElements;
   }
 
-  static addTableRow(objectToPrint, tableId) {
+  // static addTableRow(tableId, objectToPrint, tableHeaders) {
+  //   const tBody = document.getElementById(tableId);
+  //   const tRow = document.createElement('tr');
+
+  //   Object.keys(objectToPrint).forEach((key) => {
+  //     const tData = document.createElement('td');
+  //     let value = objectToPrint[key] ?? '-';
+
+  //     tData.innerText = value;
+  //     tRow.append(tData);
+  //   });
+
+  //   tBody.append(tRow);
+  // }
+
+  static addTableRow(tableId, cellType, objectToPrint) {
     const tBody = document.getElementById(tableId);
     const tRow = document.createElement('tr');
 
     Object.keys(objectToPrint).forEach((key) => {
-      const tData = document.createElement('td');
+      const tData = document.createElement(cellType);
       let value = objectToPrint[key] ?? '-';
 
       tData.innerText = value;
       tRow.append(tData);
     });
-
     tBody.append(tRow);
   }
 
@@ -78,5 +92,9 @@ class DOMUtilities {
     textInput.placeholder = 'Enter number of the pages';
 
     parentElement.append(textInput);
+  }
+
+  static removeAllChildElements(elementId) {
+    document.getElementById(elementId).innerHTML = '';
   }
 }

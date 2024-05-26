@@ -20,9 +20,10 @@ class Ebook extends Book {
       id: this.id,
       title: this.title,
       authorId: this.authorId,
-      price: this.price,
       bookType: this.bookType,
+      numberOfPages: '-',
       fileType: this.#fileType,
+      price: this.price,
     };
   }
 }

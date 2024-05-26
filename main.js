@@ -1,6 +1,8 @@
 let authorsArr = [];
 let booksArr = [];
 
+const booksTableHeaders = DOMUtilities.getTableHeaderValues(BOOKSTABLEHEADERID);
+
 function onFormSubmit(e, callback) {
   e.preventDefault();
   const data = new FormData(e.target);
@@ -20,9 +22,8 @@ function renderSavedAuthors(savedAuthors) {
     });
     authorsArr.push(currentAuthor);
 
-    DOMUtilities.addTableRow(author, AUTHORSTABLEBODYID);
+    DOMUtilities.addTableRow(AUTHORSTABLEBODYID, 'td', author);
   });
-
   renderAuthorsDropdown();
 }
 
@@ -48,7 +49,7 @@ function addBookRow(book) {
 
   bookCopy.authorId = author?.fullName ?? '-';
 
-  DOMUtilities.addTableRow(bookCopy, BOOKSTABLEBODYID);
+  DOMUtilities.addTableRow(BOOKSTABLEBODYID, 'td', bookCopy);
 }
 
 function getAuthorObj(authorId) {
@@ -79,7 +80,7 @@ function addAuthor(author) {
     currentAuthor.id,
     PrintData.formatDataWithId(currentAuthor.id, currentAuthor.fullName)
   );
-  DOMUtilities.addTableRow(currentAuthor.getSavingsData(), AUTHORSTABLEBODYID);
+  DOMUtilities.addTableRow(AUTHORSTABLEBODYID, 'td', currentAuthor.getSavingsData());
 }
 
 function addBook(book) {
@@ -110,7 +111,7 @@ function addBook(book) {
 }
 
 function addFileTypeField() {
-  document.getElementById(BOOKTYPECONTAINER).innerHTML = '';
+  DOMUtilities.removeAllChildElements(BOOKTYPECONTAINER);
   DOMUtilities.addLabel(BOOKTYPECONTAINER, 'File type', 'fileType');
   DOMUtilities.addSelect(BOOKTYPECONTAINER, FILETYPEDROPDOWNID, 'fileType');
   Object.keys(FileTypes).forEach((key) => {
@@ -119,7 +120,7 @@ function addFileTypeField() {
 }
 
 function addPagesNumberField() {
-  document.getElementById(BOOKTYPECONTAINER).innerHTML = '';
+  DOMUtilities.removeAllChildElements(BOOKTYPECONTAINER);
   DOMUtilities.addLabel(BOOKTYPECONTAINER, 'Number of pages', 'numberOfPages');
   DOMUtilities.addTextInput(BOOKTYPECONTAINER, 'numberOfPages');
 }

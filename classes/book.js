@@ -46,8 +46,8 @@ class Book {
       id: this.#id,
       title: this.#title,
       authorId: this.#authorId,
-      price: this.#price,
       bookType: this.#bookType,
+      price: this.#price,
     };
   }
 }

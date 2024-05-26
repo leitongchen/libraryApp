@@ -20,9 +20,10 @@ class Hardcover extends Book {
       id: this.id,
       title: this.title,
       authorId: this.authorId,
-      price: this.price,
       bookType: this.bookType,
       numberOfPages: this.#numberOfPages,
+      fileType: '-',
+      price: this.price,
     };
   }
 }
