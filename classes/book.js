@@ -30,7 +30,7 @@ class Book {
   }
 
   get price() {
-    return this.#price;
+    return `€ ${this.#price}`;
   }
 
   get bookType() {
