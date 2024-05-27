@@ -12,6 +12,11 @@ function onFormSubmit(e, callback) {
   DOMUtilities.resetForm(e);
 }
 
+function renderSavedBooks(savedBooks) {
+  saveBooksInstancesIntoArray(savedBooks);
+  renderSortedBooksTable(booksArr);
+}
+
 function renderSavedAuthors(savedAuthors) {
   savedAuthors.forEach((author) => {
     const currentAuthor = new Author({
@@ -27,15 +32,10 @@ function renderSavedAuthors(savedAuthors) {
   renderAuthorsDropdown();
 }
 
-function renderSavedBooks(savedBooks) {
+function saveBooksInstancesIntoArray(savedBooks) {
   savedBooks.forEach((book) => {
     const newBookInstance = addNewBookInstance(book);
     booksArr.push(newBookInstance);
-    DOMUtilities.addTableRow(
-      BOOKSTABLEBODYID,
-      'td',
-      newBookInstance.getSavingsData()
-    );
   });
 }
 
@@ -97,18 +97,22 @@ function addNewBookInstance(book) {
   return newBook;
 }
 
+function renderSortedBooksTable(books) {
+  DOMUtilities.removeAllChildElements(BOOKSTABLEBODYID);
+
+  books
+    .sort((a, b) => sortByName(a.title, b.title))
+    .forEach((book) => {
+      DOMUtilities.addTableRow(BOOKSTABLEBODYID, 'td', book.getSavingsData());
+    });
+}
+
 function addBook(book) {
   const newBookInstance = addNewBookInstance(book);
   booksArr.push(newBookInstance);
 
   saveDataToLocalStorage(BOOKSKEY, processDataToBeSaved(booksArr));
-  DOMUtilities.removeAllChildElements(BOOKSTABLEBODYID);
-
-  booksArr
-    .sort((a, b) => sortByName(a.title, b.title))
-    .forEach((book) => {
-      DOMUtilities.addTableRow(BOOKSTABLEBODYID, 'td', book.getSavingsData());
-    });
+  renderSortedBooksTable(booksArr);
 }
 
 function addFileTypeField() {

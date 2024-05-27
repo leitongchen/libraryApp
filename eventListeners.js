@@ -7,11 +7,9 @@ window.addEventListener('DOMContentLoaded', () => {
   const savedAuthors = fetchDataFromLocalStorage(AUTHORSKEY) ?? [];
   const savedBooks = fetchDataFromLocalStorage(BOOKSKEY) ?? [];
 
-  const sortedBooks = savedBooks.sort((a, b) => sortByName(a.title, b.title));
-
   DOMUtilities.addTableRow(BOOKSTABLEHEADERID, 'th', BookTableKeys);
   renderSavedAuthors(savedAuthors);
-  renderSavedBooks(sortedBooks);
+  renderSavedBooks(savedBooks);
 });
 
 addAuthorForm.addEventListener('submit', function (e) {
