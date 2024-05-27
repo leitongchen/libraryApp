@@ -1,6 +1,8 @@
 const addAuthorForm = document.forms['author-form'];
 const addBookForm = document.forms['book-form'];
 
+const searchInput = document.getElementById('book-search');
+
 const bookTypeField = document.getElementById('book-type-dropdown');
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -28,4 +30,8 @@ bookTypeField.addEventListener('change', (change) => {
   } else if (bookType === BookTypes.HARDCOVER) {
     addPagesNumberField();
   }
+});
+
+searchInput.addEventListener('keyup', (e) => {
+  console.log(e.target.value);
 });
