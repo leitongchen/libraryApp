@@ -34,3 +34,7 @@ function sortByName(a, b) {
   }
   return 0;
 }
+
+function searchString(a, b) {
+  return a.toLowerCase().includes(b.toLowerCase())
+}

@@ -137,10 +137,6 @@ function filterBooks(e) {
   renderSortedBooksTable(filteredBooks);
 }
 
-function searchString(a, b) {
-  return a.toLowerCase().includes(b.toLowerCase())
-}
-
 function resetBooksSearch() {
   searchBookInput.value = '';
   renderSortedBooksTable(booksArr);
