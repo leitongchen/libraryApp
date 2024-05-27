@@ -29,27 +29,14 @@ function renderSavedAuthors(savedAuthors) {
 
 function renderSavedBooks(savedBooks) {
   savedBooks.forEach((book) => {
-    const currentBook = new Book({
-      id: book.id,
-      title: book.title,
-      authorId: book.authorId,
-      price: book.price,
-      bookType: book.bookType,
-    });
-
-    booksArr.push(currentBook);
-
-    addBookRow(book);
+    const newBookInstance = addNewBookInstance(book);
+    booksArr.push(newBookInstance);
+    DOMUtilities.addTableRow(
+      BOOKSTABLEBODYID,
+      'td',
+      newBookInstance.getSavingsData()
+    );
   });
-}
-
-function addBookRow(book) {
-  const author = getAuthorObj(book.authorId);
-  const bookCopy = Object.assign({}, book);
-
-  bookCopy.authorId = author?.fullName ?? '-';
-
-  DOMUtilities.addTableRow(BOOKSTABLEBODYID, 'td', bookCopy);
 }
 
 function getAuthorObj(authorId) {
@@ -80,34 +67,48 @@ function addAuthor(author) {
     currentAuthor.id,
     PrintData.formatDataWithId(currentAuthor.id, currentAuthor.fullName)
   );
-  DOMUtilities.addTableRow(AUTHORSTABLEBODYID, 'td', currentAuthor.getSavingsData());
+  DOMUtilities.addTableRow(
+    AUTHORSTABLEBODYID,
+    'td',
+    currentAuthor.getSavingsData()
+  );
 }
 
-function addBook(book) {
-  let currentBook;
+function addNewBookInstance(book) {
+  let newBook;
   const bookObj = {
     title: book.title,
-    authorId: book.author,
+    authorId: book.authorId,
     price: book.price,
     bookType: book.bookType,
   };
 
   if (book.bookType === BookTypes.EBOOK) {
-    currentBook = new Ebook({
+    newBook = new Ebook({
       ...bookObj,
       fileType: book.fileType,
     });
   } else if (book.bookType === BookTypes.HARDCOVER) {
-    currentBook = new Hardcover({
+    newBook = new Hardcover({
       ...bookObj,
       numberOfPages: book.numberOfPages,
     });
   }
-  booksArr.push(currentBook);
+  return newBook;
+}
+
+function addBook(book) {
+  const newBookInstance = addNewBookInstance(book);
+  booksArr.push(newBookInstance);
 
   saveDataToLocalStorage(BOOKSKEY, processDataToBeSaved(booksArr));
+  DOMUtilities.removeAllChildElements(BOOKSTABLEBODYID);
 
-  addBookRow(currentBook.getSavingsData());
+  booksArr
+    .sort((a, b) => sortByName(a.title, b.title))
+    .forEach((book) => {
+      DOMUtilities.addTableRow(BOOKSTABLEBODYID, 'td', book.getSavingsData());
+    });
 }
 
 function addFileTypeField() {
