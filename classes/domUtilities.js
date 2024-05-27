@@ -1,16 +1,4 @@
 class DOMUtilities {
-  // static renderListElement(listId, textToPrint) {
-  //   const newListItem = document.createElement('ol');
-  //   const newParagraph = document.createElement('p');
-
-  //   const list = document.getElementById(listId);
-
-  //   newListItem.appendChild(newParagraph);
-  //   newParagraph.innerText = textToPrint.trim();
-
-  //   list.append(newListItem);
-  // }
-
   static addOptionToDropdown(dropdownId, optionValue, textToPrint) {
     const select = document.getElementById(dropdownId);
     const currentOption = document.createElement('option');
@@ -33,21 +21,6 @@ class DOMUtilities {
     tHeadCellsArr.forEach((cellValue) => headerElements.push(cellValue.id));
     return headerElements;
   }
-
-  // static addTableRow(tableId, objectToPrint, tableHeaders) {
-  //   const tBody = document.getElementById(tableId);
-  //   const tRow = document.createElement('tr');
-
-  //   Object.keys(objectToPrint).forEach((key) => {
-  //     const tData = document.createElement('td');
-  //     let value = objectToPrint[key] ?? '-';
-
-  //     tData.innerText = value;
-  //     tRow.append(tData);
-  //   });
-
-  //   tBody.append(tRow);
-  // }
 
   static addTableRow(tableId, cellType, objectToPrint) {
     const tBody = document.getElementById(tableId);

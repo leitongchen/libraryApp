@@ -12,8 +12,12 @@ function onFormSubmit(e, callback) {
   DOMUtilities.resetForm(e);
 }
 
-function renderSavedBooks(savedBooks) {
-  saveBooksInstancesIntoArray(savedBooks);
+function initiateSavedBooks(savedBooks) {
+  savedBooks.forEach((book) => {
+    const newBookInstance = addNewBookInstance(book);
+    booksArr.push(newBookInstance);
+  });
+
   renderSortedBooksTable(booksArr);
 }
 
@@ -30,13 +34,6 @@ function renderSavedAuthors(savedAuthors) {
     DOMUtilities.addTableRow(AUTHORSTABLEBODYID, 'td', author);
   });
   renderAuthorsDropdown();
-}
-
-function saveBooksInstancesIntoArray(savedBooks) {
-  savedBooks.forEach((book) => {
-    const newBookInstance = addNewBookInstance(book);
-    booksArr.push(newBookInstance);
-  });
 }
 
 function getAuthorObj(authorId) {
@@ -62,11 +59,13 @@ function addAuthor(author) {
   authorsArr.push(currentAuthor);
 
   saveDataToLocalStorage(AUTHORSKEY, processDataToBeSaved(authorsArr));
+
   DOMUtilities.addOptionToDropdown(
     'author-dropdown',
     currentAuthor.id,
     PrintData.formatDataWithId(currentAuthor.id, currentAuthor.fullName)
   );
+
   DOMUtilities.addTableRow(
     AUTHORSTABLEBODYID,
     'td',
@@ -103,7 +102,10 @@ function renderSortedBooksTable(books) {
   books
     .sort((a, b) => sortByName(a.title, b.title))
     .forEach((book) => {
-      DOMUtilities.addTableRow(BOOKSTABLEBODYID, 'td', book.getSavingsData());
+      const author = getAuthorObj(book.authorId)
+      const bookCopy = book.getSavingsData(); 
+      bookCopy.authorId = author.fullName;
+      DOMUtilities.addTableRow(BOOKSTABLEBODYID, 'td', bookCopy);
     });
 }
 
@@ -128,4 +130,18 @@ function addPagesNumberField() {
   DOMUtilities.removeAllChildElements(BOOKTYPECONTAINER);
   DOMUtilities.addLabel(BOOKTYPECONTAINER, 'Number of pages', 'numberOfPages');
   DOMUtilities.addTextInput(BOOKTYPECONTAINER, 'numberOfPages');
+}
+
+function filterBooks(e) {
+  const filteredBooks = booksArr.filter(book => searchString(book.title, e.target.value));
+  renderSortedBooksTable(filteredBooks);
+}
+
+function searchString(a, b) {
+  return a.toLowerCase().includes(b.toLowerCase())
+}
+
+function resetBooksSearch() {
+  searchBookInput.value = '';
+  renderSortedBooksTable(booksArr);
 }

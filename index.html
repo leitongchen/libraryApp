@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles/style.css" />
     <link rel="stylesheet" href="./styles/table.css" />
+    <link rel="stylesheet" href="./assets/font-awesome/css/font-awesome.min.css">
     <script defer type="text/javascript" src="classes/printData.js"></script>
     <script defer type="text/javascript" src="classes/domUtilities.js"></script>
     <script defer type="text/javascript" src="utilities.js"></script>
@@ -99,12 +100,17 @@
       </form>
       <div class="book-search-wrapper">
         <h2>Search a book</h2>
-        <input
-          id="book-search"
-          class="search-input"
-          type="text"
-          placeholder="Search a title"
-        />
+        <div class="search-input-wrapper">
+          <input
+            id="book-search"
+            class="search-input"
+            type="text"
+            placeholder="Search a title"
+          />
+          <button id="search-book-cancel" class="cancel-button">
+            <i class="fa fa-times-circle"></i>
+          </button>
+        </div>
       </div>
       <table>
         <thead id="books-table-header"></thead>

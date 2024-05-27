@@ -1,7 +1,8 @@
 const addAuthorForm = document.forms['author-form'];
 const addBookForm = document.forms['book-form'];
 
-const searchInput = document.getElementById('book-search');
+const searchBookInput = document.getElementById('book-search');
+const searchBookCancel = document.getElementById('search-book-cancel');
 
 const bookTypeField = document.getElementById('book-type-dropdown');
 
@@ -11,7 +12,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   DOMUtilities.addTableRow(BOOKSTABLEHEADERID, 'th', BookTableKeys);
   renderSavedAuthors(savedAuthors);
-  renderSavedBooks(savedBooks);
+  initiateSavedBooks(savedBooks);
 });
 
 addAuthorForm.addEventListener('submit', function (e) {
@@ -32,6 +33,5 @@ bookTypeField.addEventListener('change', (change) => {
   }
 });
 
-searchInput.addEventListener('keyup', (e) => {
-  console.log(e.target.value);
-});
+searchBookInput.addEventListener('keyup', (e) => filterBooks(e));
+searchBookCancel.addEventListener('click', (e) => resetBooksSearch())
