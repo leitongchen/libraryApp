@@ -26,6 +26,21 @@ class DOMUtilities {
     const tBody = document.getElementById(tableId);
     const tRow = document.createElement('tr');
 
+    let actionCell = document.createElement(cellType);
+    if (cellType === 'td') {
+      const button = document.createElement('button');
+      const icon = document.createElement('i');
+
+      button.id = 'edit-book'
+      button.value = objectToPrint.id;
+      icon.classList.add('fa', 'fa-pencil');
+
+      button.append(icon);
+      actionCell.append(button);
+    } 
+    tRow.append(actionCell);
+
+
     Object.keys(objectToPrint).forEach((key) => {
       const tData = document.createElement(cellType);
       let value = objectToPrint[key] ?? '-';
