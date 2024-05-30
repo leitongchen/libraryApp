@@ -79,6 +79,7 @@ a {
       border-radius: 4px;
       border-style: none;
       padding: 0 8px;
+      border: 1px solid var(--grey-5);
     }
 
     select {
@@ -229,4 +230,12 @@ button {
       outline: 4px solid var(--accent-3)
     }
   }
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.hidden {
+  display: none;
 }
