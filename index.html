@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles/style.css" />
     <link rel="stylesheet" href="./styles/table.css" />
+    <link rel="stylesheet" href="./styles/edit-modal.css" />
     <link rel="stylesheet" href="./assets/font-awesome/css/font-awesome.min.css">
     <script defer type="text/javascript" src="classes/printData.js"></script>
     <script defer type="text/javascript" src="classes/domUtilities.js"></script>
@@ -117,6 +118,43 @@
         <thead id="books-table-header"></thead>
         <tbody id="books-table"></tbody>
       </table>
+    </div>
+    <div id="edit-book-modal-layover" class="layover hidden">
+      <div class="edit-book-modal form-container">
+        <div class="modal-header">
+          <h2>Edit book</h2>
+          <button id="close-modal-button">Close</button>
+        </div>
+        <hr>
+        <div class="field-group">
+          <label for="title">Book title</label>
+          <input name="title" id="title" placeholder="Enter the title" />
+          <label for="author-dropdown">Author</label>
+          <select id="author-dropdown" name="authorId" class="dropdown">
+            <option value="">--</option>
+          </select>
+        </div>
+        <div id="book-type-group" class="field-group">
+          <label for="bookType">Book type</label>
+          <select id="book-type-dropdown" name="bookType" class="dropdown">
+            <option value="">--</option>
+            <option value="hardcover">Hardcover</option>
+            <option value="ebook">E-Book</option>
+          </select>
+
+          <div id="book-type-sub-fields"></div>
+        </div>
+        <div class="field-group">
+          <label for="price">Price</label>
+          <input
+            id="price"
+            name="price"
+            type="number"
+            placeholder="Enter the price"
+          />
+        </div>
+        <button id="save-button" class="filled-button">Save</button>
+      </div>
     </div>
   </body>
 </html>
