@@ -39,5 +39,15 @@ searchBookInput.addEventListener('keyup', (e) => filterBooks(e));
 searchBookCancel.addEventListener('click', (e) => resetBooksSearch());
 
 editBookFromTable.addEventListener('click', (e) => {
-  console.log(e);
+  const triggeredTag = e.target.tagName; 
+  if (triggeredTag === 'BUTTON') {
+    const bookId = e.target.value; 
+    DOMUtilities.removeClassFromElement('edit-book-modal-layover', 'hidden');
+    const selectedBook = findInstance(booksArr, bookId);
+    console.log(bookId, selectedBook);
+  }
+})
+
+document.getElementById('close-modal-button').addEventListener('click', (e) => {
+  DOMUtilities.addClassToElement('edit-book-modal-layover', 'hidden');
 })

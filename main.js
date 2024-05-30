@@ -36,10 +36,6 @@ function renderSavedAuthors(savedAuthors) {
   renderAuthorsDropdown();
 }
 
-function getAuthorObj(authorId) {
-  return authorsArr.find((author) => author.id == authorId);
-}
-
 function renderAuthorsDropdown() {
   authorsArr.forEach((author) => {
     DOMUtilities.addOptionToDropdown(
@@ -102,7 +98,7 @@ function renderSortedBooksTable(books) {
   books
     .sort((a, b) => sortByName(a.title, b.title))
     .forEach((book) => {
-      const author = getAuthorObj(book.authorId)
+      const author = findInstance(authorsArr, book.authorId)
       const bookCopy = book.getSavingsData(); 
       bookCopy.authorId = author.fullName;
       DOMUtilities.addTableRow(BOOKSTABLEBODYID, 'td', bookCopy);

@@ -29,13 +29,11 @@ class DOMUtilities {
     let actionCell = document.createElement(cellType);
     if (cellType === 'td') {
       const button = document.createElement('button');
-      const icon = document.createElement('i');
 
       button.id = 'edit-book'
       button.value = objectToPrint.id;
-      icon.classList.add('fa', 'fa-pencil');
+      button.innerText = 'Edit'
 
-      button.append(icon);
       actionCell.append(button);
     } 
     tRow.append(actionCell);
@@ -84,5 +82,15 @@ class DOMUtilities {
 
   static removeAllChildElements(elementId) {
     document.getElementById(elementId).innerHTML = '';
+  }
+
+  static removeClassFromElement(elementId, className) {
+    const element = document.getElementById(elementId);
+    element.classList.remove(className);
+  }
+
+  static addClassToElement(elementId, className) {
+    const element = document.getElementById(elementId);
+    element.classList.add(className);
   }
 }
