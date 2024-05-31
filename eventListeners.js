@@ -7,10 +7,10 @@ const searchBookCancel = document.getElementById('search-book-cancel');
 const bookTypeField = document.getElementById('book-type-dropdown');
 
 window.addEventListener('DOMContentLoaded', () => {
-  const savedAuthors = fetchDataFromLocalStorage(AUTHORSKEY) ?? [];
-  const savedBooks = fetchDataFromLocalStorage(BOOKSKEY) ?? [];
+  const savedAuthors = fetchDataFromLocalStorage(AUTHORS_KEY) ?? [];
+  const savedBooks = fetchDataFromLocalStorage(BOOKS_KEY) ?? [];
 
-  DOMUtilities.addTableRow(BOOKSTABLEHEADERID, 'th', BookTableKeys);
+  DOMUtilities.addTableRow(BOOKS_TABLE_HEADER_ID, 'th', BookTableKeys);
   renderSavedAuthors(savedAuthors);
   initiateSavedBooks(savedBooks);
 });
@@ -34,4 +34,4 @@ bookTypeField.addEventListener('change', (change) => {
 });
 
 searchBookInput.addEventListener('keyup', (e) => filterBooks(e));
-searchBookCancel.addEventListener('click', (e) => resetBooksSearch())
+searchBookCancel.addEventListener('click', (e) => resetBooksSearch());

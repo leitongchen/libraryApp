@@ -1,7 +1,9 @@
 let authorsArr = [];
 let booksArr = [];
 
-const booksTableHeaders = DOMUtilities.getTableHeaderValues(BOOKSTABLEHEADERID);
+const booksTableHeaders = DOMUtilities.getTableHeaderValues(
+  BOOKS_TABLE_HEADER_ID
+);
 
 function onFormSubmit(e, callback) {
   e.preventDefault();
@@ -31,7 +33,7 @@ function renderSavedAuthors(savedAuthors) {
     });
     authorsArr.push(currentAuthor);
 
-    DOMUtilities.addTableRow(AUTHORSTABLEBODYID, 'td', author);
+    DOMUtilities.addTableRow(AUTHORS_TABLE_BODY_ID, 'td', author);
   });
   renderAuthorsDropdown();
 }
@@ -58,7 +60,7 @@ function addAuthor(author) {
   });
   authorsArr.push(currentAuthor);
 
-  saveDataToLocalStorage(AUTHORSKEY, processDataToBeSaved(authorsArr));
+  saveDataToLocalStorage(AUTHORS_KEY, processDataToBeSaved(authorsArr));
 
   DOMUtilities.addOptionToDropdown(
     'author-dropdown',
@@ -67,7 +69,7 @@ function addAuthor(author) {
   );
 
   DOMUtilities.addTableRow(
-    AUTHORSTABLEBODYID,
+    AUTHORS_TABLE_BODY_ID,
     'td',
     currentAuthor.getSavingsData()
   );
@@ -97,15 +99,15 @@ function addNewBookInstance(book) {
 }
 
 function renderSortedBooksTable(books) {
-  DOMUtilities.removeAllChildElements(BOOKSTABLEBODYID);
+  DOMUtilities.removeAllChildElements(BOOKS_TABLE_BODY_ID);
 
   books
     .sort((a, b) => sortByName(a.title, b.title))
     .forEach((book) => {
-      const author = getAuthorObj(book.authorId)
-      const bookCopy = book.getSavingsData(); 
+      const author = getAuthorObj(book.authorId);
+      const bookCopy = book.getSavingsData();
       bookCopy.authorId = author.fullName;
-      DOMUtilities.addTableRow(BOOKSTABLEBODYID, 'td', bookCopy);
+      DOMUtilities.addTableRow(BOOKS_TABLE_BODY_ID, 'td', bookCopy);
     });
 }
 
@@ -113,27 +115,41 @@ function addBook(book) {
   const newBookInstance = addNewBookInstance(book);
   booksArr.push(newBookInstance);
 
-  saveDataToLocalStorage(BOOKSKEY, processDataToBeSaved(booksArr));
+  saveDataToLocalStorage(BOOKS_KEY, processDataToBeSaved(booksArr));
   renderSortedBooksTable(booksArr);
 }
 
 function addFileTypeField() {
-  DOMUtilities.removeAllChildElements(BOOKTYPECONTAINER);
-  DOMUtilities.addLabel(BOOKTYPECONTAINER, 'File type', 'fileType');
-  DOMUtilities.addSelect(BOOKTYPECONTAINER, FILETYPEDROPDOWNID, 'fileType');
+  DOMUtilities.removeAllChildElements(BOOK_TYPE_CONTAINER_ID);
+  DOMUtilities.addLabel(BOOK_TYPE_CONTAINER_ID, 'File type', 'fileType');
+  DOMUtilities.addSelect(
+    BOOK_TYPE_CONTAINER_ID,
+    FILE_TYPE_DROPDOWN_ID,
+    'fileType'
+  );
   Object.keys(FileTypes).forEach((key) => {
-    DOMUtilities.addOptionToDropdown(FILETYPEDROPDOWNID, key, FileTypes[key]);
+    DOMUtilities.addOptionToDropdown(
+      FILE_TYPE_DROPDOWN_ID,
+      key,
+      FileTypes[key]
+    );
   });
 }
 
 function addPagesNumberField() {
-  DOMUtilities.removeAllChildElements(BOOKTYPECONTAINER);
-  DOMUtilities.addLabel(BOOKTYPECONTAINER, 'Number of pages', 'numberOfPages');
-  DOMUtilities.addTextInput(BOOKTYPECONTAINER, 'numberOfPages');
+  DOMUtilities.removeAllChildElements(BOOK_TYPE_CONTAINER_ID);
+  DOMUtilities.addLabel(
+    BOOK_TYPE_CONTAINER_ID,
+    'Number of pages',
+    'numberOfPages'
+  );
+  DOMUtilities.addTextInput(BOOK_TYPE_CONTAINER_ID, 'numberOfPages');
 }
 
 function filterBooks(e) {
-  const filteredBooks = booksArr.filter(book => searchString(book.title, e.target.value));
+  const filteredBooks = booksArr.filter((book) =>
+    searchString(book.title, e.target.value)
+  );
   renderSortedBooksTable(filteredBooks);
 }
 
