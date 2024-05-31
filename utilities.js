@@ -38,3 +38,7 @@ function sortByName(a, b) {
 function searchString(a, b) {
   return a.toLowerCase().includes(b.toLowerCase())
 }
+
+function findInstance(array, instanceId) {
+  return array.find((el) => el.id == instanceId);
+}
