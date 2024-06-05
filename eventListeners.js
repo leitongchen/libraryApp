@@ -33,7 +33,7 @@ bookTypeField.addEventListener('change', (change) => {
 searchBookInput.addEventListener('keyup', (e) => filterBooks(e));
 
 document.addEventListener('click', function (e) {
-  const formBookTypeChangeTarget = e.target.closest('#book-type-dropdown');
+  const formBookTypeChangeTarget = e.target.closest('#edit-book-form #book-type-dropdown');
 
   const editBookButtonTarget = e.target.closest('#books-table button');
   
@@ -43,6 +43,7 @@ document.addEventListener('click', function (e) {
 
   if (formBookTypeChangeTarget) {
     const bookType = formBookTypeChangeTarget.value;
+    console.log('bookType', bookType);
     renderBookTypeSubfield(
       bookType,
       BOOK_TYPE_SUBFIELD_ID,
@@ -69,8 +70,6 @@ document.addEventListener('click', function (e) {
 
 document.addEventListener('submit', function(e) {
   const saveBookModal = e.target.closest('#edit-book-form');
-
-  console.log(e);
 
   if (saveBookModal) {
     onFormSubmit(e, updateBook); 
