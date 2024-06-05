@@ -59,22 +59,24 @@ class DOMUtilities {
     return button;
   }
 
-  static addLabel(parentId, labelText, htmlFor, specificContainerId) {
+  static addLabel(parentId, specificContainerId, options) {
     const parentElement = getParentElement(parentId, specificContainerId);
 
     const label = document.createElement('label');
-    label.htmlFor = htmlFor;
-    label.innerText = labelText;
+    label.htmlFor = options.htmlFor;
+    label.innerText = options.labelText;
 
     parentElement.append(label);
   }
 
-  static addSelect(parentId, selectId, fieldName, specificContainerId) {
+  static addSelect(parentId, specificContainerId, options) {
     const parentElement = getParentElement(parentId, specificContainerId);
 
     const select = document.createElement('select');
-    select.id = selectId;
-    select.name = fieldName;
+
+    select.id = options.selectId;
+    select.name = options.fieldName;
+
     select.classList.add('dropdown');
 
     parentElement.append(select);

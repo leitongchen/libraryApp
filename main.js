@@ -130,15 +130,18 @@ function addFileTypeField(
   DOMUtilities.removeAllChildElements(bookTypeContainerId, containerId);
   DOMUtilities.addLabel(
     bookTypeContainerId,
-    'File type',
-    'fileType',
-    containerId
+    containerId,
+    {
+      labelText: 'File type',
+      htmlFor: 'fileType',
+    }
   );
   DOMUtilities.addSelect(
     bookTypeContainerId,
-    fileTypeDropdownId,
-    'fileType',
-    containerId
+    containerId, {
+      selectId: fileTypeDropdownId,
+      fieldName: 'fileType'
+    }
   );
   Object.keys(FileTypes).forEach((key) => {
     DOMUtilities.addOptionToDropdown(
@@ -154,9 +157,11 @@ function addPagesNumberField(bookTypeContainerId, containerId) {
   DOMUtilities.removeAllChildElements(bookTypeContainerId, containerId);
   DOMUtilities.addLabel(
     bookTypeContainerId,
-    'Number of pages',
-    'numberOfPages',
-    containerId
+    containerId,
+    {
+      labelText: 'Number of pages',
+      htmlFor: 'numberOfPages',
+    }
   );
   DOMUtilities.addTextInput(bookTypeContainerId, 'numberOfPages', containerId);
 }
@@ -185,7 +190,10 @@ function renderEditBookModal(bookId) {
     EDIT_BOOK_MODAL_FORM_ID
   );
 
-  DOMUtilities.addLabel(EDIT_BOOK_MODAL_FORM_ID, 'ID', 'id', 'edit-form-modal');
+  DOMUtilities.addLabel(EDIT_BOOK_MODAL_FORM_ID, 'edit-form-modal', {
+    labelText: 'ID', 
+    htmlFor: 'id',
+  });
   DOMUtilities.addTextInput(EDIT_BOOK_MODAL_FORM_ID, 'id', 'edit-form-modal');
 
   renderBookTypeSubfield(
