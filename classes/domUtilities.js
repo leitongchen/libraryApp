@@ -54,7 +54,6 @@ class DOMUtilities {
 
     icon.classList.add('fa', 'fa-edit');
     button.value = buttonValue;
-    button.id = 'edit-book-button';
 
     button.append(icon);
     return button;
@@ -86,7 +85,6 @@ class DOMUtilities {
 
     const textInput = document.createElement('input');
     textInput.name = fieldName;
-    textInput.placeholder = 'Enter number of the pages';
 
     parentElement.append(textInput);
   }

@@ -24,17 +24,29 @@ class Book {
   get title() {
     return this.#title;
   }
+  set title(value) {
+    this.#title = value;
+  }
 
   get authorId() {
     return this.#authorId;
+  }
+  set authorId(value) {
+    this.#authorId = value;
   }
 
   get price() {
     return this.#price;
   }
+  set price(value) {
+    this.#price = value;
+  }
 
   get bookType() {
     return this.#bookType;
+  }
+  set bookType(value) {
+    this.#bookType = value;
   }
 
   getAuthorId() {

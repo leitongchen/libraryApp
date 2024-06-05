@@ -14,6 +14,10 @@ function onFormSubmit(e, callback) {
   DOMUtilities.resetForm(e);
 }
 
+function updateBook(updatedBook) {
+  console.log('UPDATED BOOK', updatedBook);
+}
+
 function initiateSavedBooks(savedBooks) {
   savedBooks.forEach((book) => {
     const newBookInstance = addNewBookInstance(book);
@@ -91,6 +95,8 @@ function addNewBookInstance(book) {
       numberOfPages: book.numberOfPages,
     });
   }
+
+  console.log('Add book instance', book, newBook)
   return newBook;
 }
 
@@ -110,6 +116,7 @@ function renderSortedBooksTable(books) {
 function addBook(book) {
   const newBookInstance = addNewBookInstance(book);
   booksArr.push(newBookInstance);
+  console.log('books ARR', booksArr)
 
   saveDataToLocalStorage(BOOKS_KEY, processDataToBeSaved(booksArr));
   renderSortedBooksTable(booksArr);
@@ -178,6 +185,9 @@ function renderEditBookModal(bookId) {
     EDIT_BOOK_MODAL_FORM_ID
   );
 
+  DOMUtilities.addLabel(EDIT_BOOK_MODAL_FORM_ID, 'ID', 'id', 'edit-form-modal');
+  DOMUtilities.addTextInput(EDIT_BOOK_MODAL_FORM_ID, 'id', 'edit-form-modal');
+
   renderBookTypeSubfield(
     selectedBook.bookType,
     BOOK_TYPE_SUBFIELD_ID,
@@ -188,6 +198,7 @@ function renderEditBookModal(bookId) {
     .getElementById(EDIT_BOOK_MODAL_FORM_ID)
     .querySelectorAll('input, select');
 
+    console.log('renderEditModal',  selectedBook);
   editFormInputs.forEach((item) => {
     item.value = selectedBook[item.name];
   });
@@ -199,3 +210,4 @@ function renderBookTypeSubfield(bookType, parentId, containerId) {
   else if (bookType === BookTypes.HARDCOVER)
     addPagesNumberField(parentId, containerId);
 }
+

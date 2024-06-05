@@ -10,9 +10,8 @@ class Ebook extends Book {
   get fileType() {
     return this.#fileType;
   }
-
-  writeSomething() {
-    console.log('This is your ebook file type', this.#fileType);
+  set fileType(value) {
+    this.#fileType = value; 
   }
 
   getSavingsData() {
