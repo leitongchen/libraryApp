@@ -24,4 +24,27 @@ table {
   .price-col {
     width: 30px;
   }
+
+  td {
+    button {
+      background-color: transparent;
+      width: 36px;
+      height: 36px;
+      border: 1px solid transparent; 
+      border-radius: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    
+      &:hover {
+        background-color: var(--accent-6);
+        border-color: var(--grey-5)
+      }
+  
+      i.fa {
+        font-size: 20px;
+        color: var(--accent-1);
+      }
+    }
+  }
 }

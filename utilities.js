@@ -50,10 +50,3 @@ function getParentElement(parentId, containerId) {
   }
   return document.getElementById(parentId);
 }
-
-function renderBookTypeSubfield(bookType, parentId, containerId) {
-  if (bookType === BookTypes.EBOOK)
-    addFileTypeField(parentId, FILE_TYPE_DROPDOWN_ID, containerId);
-  else if (bookType === BookTypes.HARDCOVER)
-    addPagesNumberField(parentId, containerId);
-}

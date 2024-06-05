@@ -34,11 +34,26 @@ bookTypeField.addEventListener('change', (change) => {
 searchBookInput.addEventListener('keyup', (e) => filterBooks(e));
 searchBookCancel.addEventListener('click', (e) => resetBooksSearch());
 
-editBookFromTable.addEventListener('click', (e) => {
-  const triggeredTag = e.target.tagName;
-  if (triggeredTag === 'BUTTON') renderEditBookModal(e.target.value);
-});
-
 document.getElementById('close-modal-button').addEventListener('click', (e) => {
   DOMUtilities.addClassToElement('edit-book-modal-layover', 'hidden');
+});
+
+document.addEventListener('click', function (e) {
+  const bookTypeTarget = e.target.closest('#book-type-dropdown');
+  const editBookTarget = e.target.closest('button');
+
+  if (bookTypeTarget) {
+    const bookType = bookTypeTarget.value;
+    renderBookTypeSubfield(
+      bookType,
+      BOOK_TYPE_SUBFIELD_ID,
+      EDIT_BOOK_MODAL_FORM_ID
+    );
+    return;
+  }
+
+  if (editBookTarget) {
+    renderEditBookModal(editBookTarget.value);
+    return;
+  }
 });

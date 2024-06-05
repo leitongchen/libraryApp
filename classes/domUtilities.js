@@ -33,12 +33,7 @@ class DOMUtilities {
 
     let actionCell = document.createElement(cellType);
     if (cellType === 'td') {
-      const button = document.createElement('button');
-
-      button.id = 'edit-book';
-      button.value = objectToPrint.id;
-      button.innerText = 'Edit';
-
+      const button = this.createEditIconButton(objectToPrint.id);
       actionCell.append(button);
     }
     tRow.append(actionCell);
@@ -51,6 +46,17 @@ class DOMUtilities {
       tRow.append(tData);
     });
     tBody.append(tRow);
+  }
+
+  static createEditIconButton(buttonValue) {
+    const button = document.createElement('button');
+    const icon = document.createElement('i');
+
+    icon.classList.add('fa', 'fa-edit');
+    button.value = buttonValue;
+
+    button.append(icon);
+    return button;
   }
 
   static addLabel(parentId, labelText, htmlFor, specificContainerId) {

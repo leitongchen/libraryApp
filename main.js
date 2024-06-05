@@ -191,3 +191,10 @@ function renderEditBookModal(bookId) {
     item.value = selectedBook[item.name];
   });
 }
+
+function renderBookTypeSubfield(bookType, parentId, containerId) {
+  if (bookType === BookTypes.EBOOK)
+    addFileTypeField(parentId, FILE_TYPE_DROPDOWN_ID, containerId);
+  else if (bookType === BookTypes.HARDCOVER)
+    addPagesNumberField(parentId, containerId);
+}
