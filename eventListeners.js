@@ -28,11 +28,7 @@ addBookForm.addEventListener('submit', function (e) {
 bookTypeField.addEventListener('change', (change) => {
   const bookType = change.target.value;
 
-  if (bookType === BookTypes.EBOOK) {
-    addFileTypeField();
-  } else if (bookType === BookTypes.HARDCOVER) {
-    addPagesNumberField();
-  }
+  renderBookTypeSubfield(bookType, BOOK_TYPE_SUBFIELD_ID);
 });
 
 searchBookInput.addEventListener('keyup', (e) => filterBooks(e));
@@ -40,22 +36,7 @@ searchBookCancel.addEventListener('click', (e) => resetBooksSearch());
 
 editBookFromTable.addEventListener('click', (e) => {
   const triggeredTag = e.target.tagName;
-  if (triggeredTag === 'BUTTON') {
-    const bookId = e.target.value;
-    DOMUtilities.removeClassFromElement('edit-book-modal-layover', 'hidden');
-    const selectedBook = findInstance(booksArr, bookId);
-    console.log(bookId, selectedBook);
-
-    const createBookForm = document.getElementById('create-book-form');
-
-    DOMUtilities.removeAllChildElements('edit-form-modal');
-
-    DOMUtilities.duplicateChildNodes(
-      'create-book-form',
-      'edit-form-modal',
-      'edit-book-form'
-    );
-  }
+  if (triggeredTag === 'BUTTON') renderEditBookModal(e.target.value);
 });
 
 document.getElementById('close-modal-button').addEventListener('click', (e) => {

@@ -1,6 +1,11 @@
 class DOMUtilities {
-  static addOptionToDropdown(dropdownId, optionValue, textToPrint) {
-    const select = document.getElementById(dropdownId);
+  static addOptionToDropdown(
+    dropdownId,
+    optionValue,
+    textToPrint,
+    specificContainerId
+  ) {
+    const select = getParentElement(dropdownId, specificContainerId);
     const currentOption = document.createElement('option');
 
     currentOption.value = optionValue;
@@ -48,8 +53,8 @@ class DOMUtilities {
     tBody.append(tRow);
   }
 
-  static addLabel(parentId, labelText, htmlFor) {
-    const parentElement = document.getElementById(parentId);
+  static addLabel(parentId, labelText, htmlFor, specificContainerId) {
+    const parentElement = getParentElement(parentId, specificContainerId);
 
     const label = document.createElement('label');
     label.htmlFor = htmlFor;
@@ -58,8 +63,8 @@ class DOMUtilities {
     parentElement.append(label);
   }
 
-  static addSelect(parentId, selectId, fieldName) {
-    const parentElement = document.getElementById(parentId);
+  static addSelect(parentId, selectId, fieldName, specificContainerId) {
+    const parentElement = getParentElement(parentId, specificContainerId);
 
     const select = document.createElement('select');
     select.id = selectId;
@@ -69,8 +74,8 @@ class DOMUtilities {
     parentElement.append(select);
   }
 
-  static addTextInput(parentId, fieldName) {
-    const parentElement = document.getElementById(parentId);
+  static addTextInput(parentId, fieldName, specificContainerId) {
+    const parentElement = getParentElement(parentId, specificContainerId);
 
     const textInput = document.createElement('input');
     textInput.name = fieldName;
@@ -79,17 +84,18 @@ class DOMUtilities {
     parentElement.append(textInput);
   }
 
-  static removeAllChildElements(elementId) {
-    document.getElementById(elementId).innerHTML = '';
+  static removeAllChildElements(elementId, specificContainerId) {
+    const element = getParentElement(elementId, specificContainerId);
+    element.innerHTML = '';
   }
 
-  static removeClassFromElement(elementId, className) {
-    const element = document.getElementById(elementId);
+  static removeClassFromElement(elementId, className, specificContainerId) {
+    const element = getParentElement(elementId, specificContainerId);
     element.classList.remove(className);
   }
 
-  static addClassToElement(elementId, className) {
-    const element = document.getElementById(elementId);
+  static addClassToElement(elementId, className, specificContainerId) {
+    const element = getParentElement(elementId, specificContainerId);
     element.classList.add(className);
   }
 

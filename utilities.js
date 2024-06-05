@@ -36,9 +36,24 @@ function sortByName(a, b) {
 }
 
 function searchString(a, b) {
-  return a.toLowerCase().includes(b.toLowerCase())
+  return a.toLowerCase().includes(b.toLowerCase());
 }
 
 function findInstance(array, instanceId) {
   return array.find((el) => el.id == instanceId);
+}
+
+function getParentElement(parentId, containerId) {
+  if (containerId) {
+    const container = document.getElementById(containerId);
+    return container.querySelector(`#${parentId}`);
+  }
+  return document.getElementById(parentId);
+}
+
+function renderBookTypeSubfield(bookType, parentId, containerId) {
+  if (bookType === BookTypes.EBOOK)
+    addFileTypeField(parentId, FILE_TYPE_DROPDOWN_ID, containerId);
+  else if (bookType === BookTypes.HARDCOVER)
+    addPagesNumberField(parentId, containerId);
 }

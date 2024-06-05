@@ -115,31 +115,43 @@ function addBook(book) {
   renderSortedBooksTable(booksArr);
 }
 
-function addFileTypeField() {
-  DOMUtilities.removeAllChildElements(BOOK_TYPE_CONTAINER_ID);
-  DOMUtilities.addLabel(BOOK_TYPE_CONTAINER_ID, 'File type', 'fileType');
+function addFileTypeField(
+  bookTypeContainerId,
+  fileTypeDropdownId,
+  containerId
+) {
+  DOMUtilities.removeAllChildElements(bookTypeContainerId, containerId);
+  DOMUtilities.addLabel(
+    bookTypeContainerId,
+    'File type',
+    'fileType',
+    containerId
+  );
   DOMUtilities.addSelect(
-    BOOK_TYPE_CONTAINER_ID,
-    FILE_TYPE_DROPDOWN_ID,
-    'fileType'
+    bookTypeContainerId,
+    fileTypeDropdownId,
+    'fileType',
+    containerId
   );
   Object.keys(FileTypes).forEach((key) => {
     DOMUtilities.addOptionToDropdown(
-      FILE_TYPE_DROPDOWN_ID,
+      fileTypeDropdownId,
       key,
-      FileTypes[key]
+      FileTypes[key],
+      containerId
     );
   });
 }
 
-function addPagesNumberField() {
-  DOMUtilities.removeAllChildElements(BOOK_TYPE_CONTAINER_ID);
+function addPagesNumberField(bookTypeContainerId, containerId) {
+  DOMUtilities.removeAllChildElements(bookTypeContainerId, containerId);
   DOMUtilities.addLabel(
-    BOOK_TYPE_CONTAINER_ID,
+    bookTypeContainerId,
     'Number of pages',
-    'numberOfPages'
+    'numberOfPages',
+    containerId
   );
-  DOMUtilities.addTextInput(BOOK_TYPE_CONTAINER_ID, 'numberOfPages');
+  DOMUtilities.addTextInput(bookTypeContainerId, 'numberOfPages', containerId);
 }
 
 function filterBooks(e) {
@@ -152,4 +164,30 @@ function filterBooks(e) {
 function resetBooksSearch() {
   searchBookInput.value = '';
   renderSortedBooksTable(booksArr);
+}
+
+function renderEditBookModal(bookId) {
+  DOMUtilities.removeClassFromElement('edit-book-modal-layover', 'hidden');
+  const selectedBook = findInstance(booksArr, bookId);
+
+  DOMUtilities.removeAllChildElements('edit-form-modal');
+
+  DOMUtilities.duplicateChildNodes(
+    'create-book-form',
+    'edit-form-modal',
+    EDIT_BOOK_MODAL_FORM_ID
+  );
+
+  renderBookTypeSubfield(
+    selectedBook.bookType,
+    BOOK_TYPE_SUBFIELD_ID,
+    EDIT_BOOK_MODAL_FORM_ID
+  );
+
+  const editBookForm = document.getElementById(EDIT_BOOK_MODAL_FORM_ID);
+  const editFormInputs = editBookForm.querySelectorAll('input, select');
+
+  editFormInputs.forEach((item) => {
+    item.value = selectedBook[item.name];
+  });
 }
