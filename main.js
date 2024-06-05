@@ -184,8 +184,9 @@ function renderEditBookModal(bookId) {
     EDIT_BOOK_MODAL_FORM_ID
   );
 
-  const editBookForm = document.getElementById(EDIT_BOOK_MODAL_FORM_ID);
-  const editFormInputs = editBookForm.querySelectorAll('input, select');
+  const editFormInputs = document
+    .getElementById(EDIT_BOOK_MODAL_FORM_ID)
+    .querySelectorAll('input, select');
 
   editFormInputs.forEach((item) => {
     item.value = selectedBook[item.name];
