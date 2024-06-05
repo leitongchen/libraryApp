@@ -40,7 +40,7 @@ document.getElementById('close-modal-button').addEventListener('click', (e) => {
 
 document.addEventListener('click', function (e) {
   const bookTypeTarget = e.target.closest('#book-type-dropdown');
-  const editBookTarget = e.target.closest('button');
+  const editBookTarget = e.target.closest('#edit-book-button');
 
   if (bookTypeTarget) {
     const bookType = bookTypeTarget.value;

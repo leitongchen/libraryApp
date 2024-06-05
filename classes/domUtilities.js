@@ -54,6 +54,7 @@ class DOMUtilities {
 
     icon.classList.add('fa', 'fa-edit');
     button.value = buttonValue;
+    button.id = 'edit-book-button';
 
     button.append(icon);
     return button;
@@ -103,6 +104,7 @@ class DOMUtilities {
   static addClassToElement(elementId, className, specificContainerId) {
     const element = getParentElement(elementId, specificContainerId);
     element.classList.add(className);
+    console.log(element);
   }
 
   static duplicateChildNodes(currentParentId, newParentId, newNodeId) {
