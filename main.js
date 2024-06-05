@@ -15,7 +15,17 @@ function onFormSubmit(e, callback) {
 }
 
 function updateBook(updatedBook) {
-  console.log('UPDATED BOOK', updatedBook);
+  const bookToUpdate = findInstance(booksArr, updatedBook.id);
+  
+  Object.keys(updatedBook).forEach(prop => {
+    bookToUpdate[prop] = updatedBook[prop]; 
+  })
+
+  console.log('book to update', updatedBook, bookToUpdate);
+  saveDataToLocalStorage(BOOKS_KEY, processDataToBeSaved(booksArr));
+  renderSortedBooksTable(booksArr);
+
+  DOMUtilities.addClassToElement('edit-book-modal-layover', 'hidden')
 }
 
 function initiateSavedBooks(savedBooks) {
