@@ -1,0 +1,82 @@
+@import './colors.css';
+
+.form-container.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: max-content 36px max-content max-content 36px 48px; 
+  row-gap: 8px;
+
+  .title-label {
+    grid-row: 2;
+    grid-column: 1;
+  }
+
+  .title-input {
+    grid-row: 3;
+    grid-column: 1;
+  }
+
+  .author-label {
+    grid-row: 2;
+    grid-column: 2;
+  }
+
+  .author-dropdown {
+    grid-row: 3;
+    grid-column: 2;
+  }
+
+  .book-type-group {
+    grid-row: 4;
+    grid-column: 1 / -1;
+  }
+
+  .price-label {
+    grid-row: 5;
+    grid-column: 1;
+  }
+
+  .price-input {
+    grid-row: 6;
+    grid-column: 1;
+  }
+
+  .save-book-button {
+    grid-row: 7;
+    grid-column: 1 / -1;
+  }
+}
+
+.book-type-group {
+  display: flex;
+  max-width: 200px;
+  column-gap: 24px;
+}
+
+.form-container {
+  h3 {
+    margin: 0;
+    color: var(--accent-1);
+
+  }
+
+  select, input {
+    min-width: 150px;
+  }
+
+  label {
+    color: var(--grey-1);
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+  }
+
+  input, select {
+    height: 36px;
+    border-radius: 4px;
+    border-style: none;
+    padding: 0 8px;
+    border: 1px solid var(--grey-5);
+    background-color: white;
+  }
+}

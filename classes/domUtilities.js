@@ -30,14 +30,13 @@ class DOMUtilities {
     if (cellType === 'td') {
       const button = document.createElement('button');
 
-      button.id = 'edit-book'
+      button.id = 'edit-book';
       button.value = objectToPrint.id;
-      button.innerText = 'Edit'
+      button.innerText = 'Edit';
 
       actionCell.append(button);
-    } 
+    }
     tRow.append(actionCell);
-
 
     Object.keys(objectToPrint).forEach((key) => {
       const tData = document.createElement(cellType);
@@ -92,5 +91,19 @@ class DOMUtilities {
   static addClassToElement(elementId, className) {
     const element = document.getElementById(elementId);
     element.classList.add(className);
+  }
+
+  static duplicateChildNodes(currentParentId, newParentId, newNodeId) {
+    const currentParendNode = document.getElementById(currentParentId);
+    const newParendNode = document.getElementById(newParentId);
+
+    const clonedCurrent = currentParendNode.cloneNode(true);
+    clonedCurrent.id = newNodeId;
+
+    const formElements = Array.from(
+      clonedCurrent.querySelectorAll('label, input, select')
+    );
+
+    newParendNode.append(clonedCurrent);
   }
 }

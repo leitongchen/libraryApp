@@ -52,42 +52,6 @@ a {
   max-width: 300px;
 }
 
-.form-container {
-  h3 {
-    margin: 0;
-    color: var(--accent-1);
-
-  }
-
-  .field-group {
-    display: grid;
-    grid-template-columns: repeat(2, max-content 1fr);
-    gap: 16px;
-
-    select, input {
-      min-width: 150px;
-    }
-
-    label {
-      color: var(--grey-1);
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-    }
-
-    input {
-      height: 36px;
-      border-radius: 4px;
-      border-style: none;
-      padding: 0 8px;
-      border: 1px solid var(--grey-5);
-    }
-
-    select {
-      width: 100%;
-    }
-  }
-}
 
 
 .filled-button {

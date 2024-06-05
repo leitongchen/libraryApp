@@ -45,6 +45,16 @@ editBookFromTable.addEventListener('click', (e) => {
     DOMUtilities.removeClassFromElement('edit-book-modal-layover', 'hidden');
     const selectedBook = findInstance(booksArr, bookId);
     console.log(bookId, selectedBook);
+
+    const createBookForm = document.getElementById('create-book-form');
+
+    DOMUtilities.removeAllChildElements('edit-form-modal');
+
+    DOMUtilities.duplicateChildNodes(
+      'create-book-form',
+      'edit-form-modal',
+      'edit-book-form'
+    );
   }
 });
 
