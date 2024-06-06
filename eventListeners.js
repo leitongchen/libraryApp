@@ -33,10 +33,12 @@ bookTypeField.addEventListener('change', (change) => {
 searchBookInput.addEventListener('keyup', (e) => filterBooks(e));
 
 document.addEventListener('click', function (e) {
-  const formBookTypeChangeTarget = e.target.closest('#edit-book-form #book-type-dropdown');
+  const formBookTypeChangeTarget = e.target.closest(
+    '#edit-book-form #book-type-dropdown'
+  );
 
   const editBookButtonTarget = e.target.closest('#books-table button');
-  
+
   const closeBookModalTarget = e.target.closest('#close-modal-button');
 
   const resetSearchButtonTarget = e.target.closest('#search-book-cancel');
@@ -68,10 +70,10 @@ document.addEventListener('click', function (e) {
   }
 });
 
-document.addEventListener('submit', function(e) {
+document.addEventListener('submit', function (e) {
   const saveBookModal = e.target.closest('#edit-book-form');
 
   if (saveBookModal) {
-    onFormSubmit(e, updateBook); 
+    onFormSubmit(e, updateBook);
   }
-})
+});

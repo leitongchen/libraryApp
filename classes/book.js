@@ -8,9 +8,7 @@ class Book {
   #bookType;
 
   constructor(book) {
-    if (book.id) Book.#lastId = book.id;
-
-    this.#id = book.id ?? ++Book.#lastId;
+    this.#id = book.id ? +book.id : ++Book.#lastId;
     this.#title = book.title;
     this.#authorId = book.authorId;
     this.#price = book.price;
@@ -47,6 +45,11 @@ class Book {
   }
   set bookType(value) {
     this.#bookType = value;
+  }
+
+  static updateLastId(lastId) {
+    Book.#lastId = lastId;
+    console.log('UPDATE LAST ID, NOW IS ', Book.#lastId);
   }
 
   getAuthorId() {

@@ -1,6 +1,8 @@
 let authorsArr = [];
 let booksArr = [];
 
+let copyOfBooksToSort = [];
+
 const booksTableHeaders = DOMUtilities.getTableHeaderValues(
   BOOKS_TABLE_HEADER_ID
 );
@@ -16,25 +18,45 @@ function onFormSubmit(e, callback) {
 
 function updateBook(updatedBook) {
   const bookToUpdate = findInstance(booksArr, updatedBook.id);
-  
-  Object.keys(updatedBook).forEach(prop => {
-    bookToUpdate[prop] = updatedBook[prop]; 
-  })
 
-  console.log('book to update', updatedBook, bookToUpdate);
+  if (updatedBook.bookType == bookToUpdate.bookType) {
+    Object.keys(updatedBook).forEach((prop) => {
+      bookToUpdate[prop] = updatedBook[prop];
+    });
+  } else {
+    const bookIndex = booksArr.findIndex((book) => updatedBook.id == book.id);
+    const newBookInstance = addNewBookInstance(updatedBook, updatedBook.id);
+
+    booksArr.splice(bookIndex, 1, newBookInstance);
+  }
+
+  copyOfBooksToSort = booksArr.map((book) => book.getSavingsData());
+
   saveDataToLocalStorage(BOOKS_KEY, processDataToBeSaved(booksArr));
-  renderSortedBooksTable(booksArr);
+  renderSortedBooksTable(copyOfBooksToSort);
 
-  DOMUtilities.addClassToElement('edit-book-modal-layover', 'hidden')
+  DOMUtilities.addClassToElement('edit-book-modal-layover', 'hidden');
 }
 
 function initiateSavedBooks(savedBooks) {
   savedBooks.forEach((book) => {
-    const newBookInstance = addNewBookInstance(book);
+    const newBookInstance = addNewBookInstance(book, book.id);
     booksArr.push(newBookInstance);
   });
 
-  renderSortedBooksTable(booksArr);
+  copyOfBooksToSort = booksArr.map((book) => book.getSavingsData());
+
+  renderSortedBooksTable(copyOfBooksToSort);
+  Book.updateLastId(booksArr.at(-1)?.id ?? 0);
+}
+
+function getArrayOfObjectsFromInstance(array) {
+  let newArray = [];
+  array.forEach((item) => {
+    const newItem = item.getSavingsData();
+    newArray.push(newItem);
+  });
+  return newArray;
 }
 
 function renderSavedAuthors(savedAuthors) {
@@ -85,7 +107,7 @@ function addAuthor(author) {
   );
 }
 
-function addNewBookInstance(book) {
+function addNewBookInstance(book, id) {
   let newBook;
   const bookObj = {
     title: book.title,
@@ -93,6 +115,10 @@ function addNewBookInstance(book) {
     price: book.price,
     bookType: book.bookType,
   };
+
+  if (id) {
+    bookObj.id = id;
+  }
 
   if (book.bookType === BookTypes.EBOOK) {
     newBook = new Ebook({
@@ -106,7 +132,6 @@ function addNewBookInstance(book) {
     });
   }
 
-  console.log('Add book instance', book, newBook)
   return newBook;
 }
 
@@ -117,19 +142,18 @@ function renderSortedBooksTable(books) {
     .sort((a, b) => sortByName(a.title, b.title))
     .forEach((book) => {
       const author = findInstance(authorsArr, book.authorId);
-      const bookCopy = book.getSavingsData();
-      bookCopy.authorId = author.fullName;
-      DOMUtilities.addTableRow(BOOKS_TABLE_BODY_ID, 'td', bookCopy);
+      book.authorId = PrintData.formatFullName(author.name, author.surname);
+      DOMUtilities.addTableRow(BOOKS_TABLE_BODY_ID, 'td', book);
     });
 }
 
 function addBook(book) {
   const newBookInstance = addNewBookInstance(book);
   booksArr.push(newBookInstance);
-  console.log('books ARR', booksArr)
+  copyOfBooksToSort.push(newBookInstance.getSavingsData());
 
   saveDataToLocalStorage(BOOKS_KEY, processDataToBeSaved(booksArr));
-  renderSortedBooksTable(booksArr);
+  renderSortedBooksTable(copyOfBooksToSort);
 }
 
 function addFileTypeField(
@@ -138,21 +162,14 @@ function addFileTypeField(
   containerId
 ) {
   DOMUtilities.removeAllChildElements(bookTypeContainerId, containerId);
-  DOMUtilities.addLabel(
-    bookTypeContainerId,
-    containerId,
-    {
-      labelText: 'File type',
-      htmlFor: 'fileType',
-    }
-  );
-  DOMUtilities.addSelect(
-    bookTypeContainerId,
-    containerId, {
-      selectId: fileTypeDropdownId,
-      fieldName: 'fileType'
-    }
-  );
+  DOMUtilities.addLabel(bookTypeContainerId, containerId, {
+    labelText: 'File type',
+    htmlFor: 'fileType',
+  });
+  DOMUtilities.addSelect(bookTypeContainerId, containerId, {
+    selectId: fileTypeDropdownId,
+    fieldName: 'fileType',
+  });
   Object.keys(FileTypes).forEach((key) => {
     DOMUtilities.addOptionToDropdown(
       fileTypeDropdownId,
@@ -165,19 +182,17 @@ function addFileTypeField(
 
 function addPagesNumberField(bookTypeContainerId, containerId) {
   DOMUtilities.removeAllChildElements(bookTypeContainerId, containerId);
-  DOMUtilities.addLabel(
-    bookTypeContainerId,
-    containerId,
-    {
-      labelText: 'Number of pages',
-      htmlFor: 'numberOfPages',
-    }
-  );
-  DOMUtilities.addTextInput(bookTypeContainerId, 'numberOfPages', containerId);
+  DOMUtilities.addLabel(bookTypeContainerId, containerId, {
+    labelText: 'Number of pages',
+    htmlFor: 'numberOfPages',
+  });
+  DOMUtilities.addTextInput(bookTypeContainerId, containerId, {
+    fieldName: 'numberOfPages',
+  });
 }
 
 function filterBooks(e) {
-  const filteredBooks = booksArr.filter((book) =>
+  const filteredBooks = copyOfBooksToSort.filter((book) =>
     searchString(book.title, e.target.value)
   );
   renderSortedBooksTable(filteredBooks);
@@ -185,7 +200,7 @@ function filterBooks(e) {
 
 function resetBooksSearch() {
   searchBookInput.value = '';
-  renderSortedBooksTable(booksArr);
+  renderSortedBooksTable(copyOfBooksToSort);
 }
 
 function renderEditBookModal(bookId) {
@@ -201,10 +216,13 @@ function renderEditBookModal(bookId) {
   );
 
   DOMUtilities.addLabel(EDIT_BOOK_MODAL_FORM_ID, 'edit-form-modal', {
-    labelText: 'ID', 
+    labelText: 'ID',
     htmlFor: 'id',
   });
-  DOMUtilities.addTextInput(EDIT_BOOK_MODAL_FORM_ID, 'id', 'edit-form-modal');
+  DOMUtilities.addTextInput(EDIT_BOOK_MODAL_FORM_ID, 'edit-form-modal', {
+    fieldName: 'id',
+    disabled: false,
+  });
 
   renderBookTypeSubfield(
     selectedBook.bookType,
@@ -216,7 +234,6 @@ function renderEditBookModal(bookId) {
     .getElementById(EDIT_BOOK_MODAL_FORM_ID)
     .querySelectorAll('input, select');
 
-    console.log('renderEditModal',  selectedBook);
   editFormInputs.forEach((item) => {
     item.value = selectedBook[item.name];
   });
@@ -228,4 +245,3 @@ function renderBookTypeSubfield(bookType, parentId, containerId) {
   else if (bookType === BookTypes.HARDCOVER)
     addPagesNumberField(parentId, containerId);
 }
-

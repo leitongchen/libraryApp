@@ -82,11 +82,12 @@ class DOMUtilities {
     parentElement.append(select);
   }
 
-  static addTextInput(parentId, fieldName, specificContainerId) {
+  static addTextInput(parentId, specificContainerId, attributes) {
     const parentElement = getParentElement(parentId, specificContainerId);
 
     const textInput = document.createElement('input');
-    textInput.name = fieldName;
+    textInput.name = attributes.fieldName;
+    textInput.disabled = attributes.disabled ?? null;
 
     parentElement.append(textInput);
   }
