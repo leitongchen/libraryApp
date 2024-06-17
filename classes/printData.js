@@ -1,9 +1,9 @@
 class PrintData {
-  static formatDataWithId(id, textToPrint) {
-    return `ID: ${id} - ${textToPrint}`;
-  }
+	static formatDataWithId(id, textToPrint) {
+		return `ID: ${id} - ${textToPrint}`;
+	}
 
-  static formatFullName(name, surname) {
-    return `${surname}, ${name}`;
-  }
+	static formatFullName(author) {
+		return `${author.surname}, ${author.name}`;
+	}
 }
