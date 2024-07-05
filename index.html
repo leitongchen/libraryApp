@@ -1,155 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./styles/style.css" />
-    <link rel="stylesheet" href="./styles/form.css" />
-    <link rel="stylesheet" href="./styles/table.css" />
-    <link rel="stylesheet" href="./styles/edit-modal.css" />
-    <link
-      rel="stylesheet"
-      href="./assets/font-awesome/css/font-awesome.min.css"
-    />
-    <script defer type="text/javascript" src="classes/printData.js"></script>
-    <script defer type="text/javascript" src="classes/domUtilities.js"></script>
-    <script defer type="text/javascript" src="utilities.js"></script>
-    <script defer type="text/javascript" src="models.js"></script>
-    <script defer type="text/javascript" src="classes/author.js"></script>
-    <script defer type="text/javascript" src="classes/book.js"></script>
-    <script defer type="text/javascript" src="classes/ebook.js"></script>
-    <script defer type="text/javascript" src="classes/hardcover.js"></script>
-    <script defer type="text/javascript" src="main.js"></script>
-    <script defer type="text/javascript" src="eventListeners.js"></script>
-    <title>Simple Library App</title>
-  </head>
-  <body>
-    <div class="page-wrapper">
-      <h1>Book Catalogue</h1>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./styles/style.css" />
+		<link rel="stylesheet" href="./styles/form.css" />
+		<link rel="stylesheet" href="./styles/table.css" />
+		<link rel="stylesheet" href="./styles/edit-modal.css" />
+		<link
+			rel="stylesheet"
+			href="./assets/font-awesome/css/font-awesome.min.css"
+		/>
+		<script defer type="text/javascript" src="classes/printData.js"></script>
+		<script defer type="text/javascript" src="classes/domUtilities.js"></script>
+		<script defer type="text/javascript" src="utilities.js"></script>
+		<script defer type="text/javascript" src="models.js"></script>
+		<script defer type="text/javascript" src="classes/author.js"></script>
+		<script defer type="text/javascript" src="classes/book.js"></script>
+		<script defer type="text/javascript" src="classes/ebook.js"></script>
+		<script defer type="text/javascript" src="classes/hardcover.js"></script>
+		<script defer type="text/javascript" src="main.js"></script>
+		<script defer type="text/javascript" src="eventListeners.js"></script>
+		<title>Simple Library App</title>
+	</head>
+	<body>
+		<div class="page-wrapper">
+			<h1>Book Catalogue</h1>
 
-      <!-- AUTHOR SECTION -->
-      <form class="form-wrapper" name="author-form">
-        <div class="form-container">
-          <h3>Add a new author</h3>
-          <div class="field-group">
-            <label for="name">Name</label>
-            <input id="name" name="name" placeholder="Enter the name" />
-            <label for="surname">Surname</label>
-            <input
-              id="surname"
-              name="surname"
-              placeholder="Enter the surname"
-            />
-          </div>
-          <div class="field-group">
-            <label for="birthdate">Birth Date</label>
-            <input type="date" name="birthDate" id="birthdate" />
-          </div>
-          <button id="save-button" class="filled-button">Save</button>
-        </div>
-      </form>
-      <section class="authors-section">
-        <h3>Registered authors</h3>
-        <table>
-          <thead>
-            <tr id="authors-table-header">
-              <th scope="col"></th>
-              <th scope="col" id="id" class="id-col">Id</th>
-              <th scope="col" id="name" class="name">Name</th>
-              <th scope="col" id="surname" class="surname">Surname</th>
-              <th scope="col" id="birthDate" class="birthDate">Birth Date</th>
-            </tr>
-          </thead>
-          <tbody id="authors-table"></tbody>
-        </table>
-      </section>
+			<!-- AUTHOR SECTION -->
+			<form class="form-wrapper" name="author-form">
+				<div class="form-container">
+					<h3>Add a new author</h3>
+					<div class="field-group">
+						<label for="name">Name</label>
+						<input id="name" name="name" placeholder="Enter the name" />
+						<label for="surname">Surname</label>
+						<input
+							id="surname"
+							name="surname"
+							placeholder="Enter the surname"
+						/>
+					</div>
+					<div class="field-group">
+						<label for="birthdate">Birth Date</label>
+						<input type="date" name="birthDate" id="birthdate" />
+					</div>
+					<button id="save-button" class="filled-button">Save</button>
+				</div>
+			</form>
+			<section class="authors-section">
+				<h3>Registered authors</h3>
+				<table>
+					<thead>
+						<tr id="authors-table-header">
+							<th scope="col"></th>
+							<th scope="col" id="id" class="id-col">Id</th>
+							<th scope="col" id="name" class="name">Name</th>
+							<th scope="col" id="surname" class="surname">Surname</th>
+							<th scope="col" id="birthDate" class="birthDate">Birth Date</th>
+						</tr>
+					</thead>
+					<tbody id="authors-table"></tbody>
+				</table>
+			</section>
 
-      <!-- BOOK SECTION -->
-      <form class="form-wrapper" name="book-form">
-        <div class="left-side" id="create-form-wrapper">
-          <h3 class="form-title">Add a new book</h3>
-          <div id="create-book-form" class="form-container form-grid">
-            <label class="title-label" for="title">Book title</label>
-            <input
-              class="title-input"
-              name="title"
-              id="title"
-              placeholder="Enter the title"
-            />
-            <label class="author-label" for="author-dropdown">Author</label>
-            <select
-              class="author-dropdown"
-              id="author-dropdown"
-              name="authorId"
-              class="dropdown"
-            >
-              <option value="">--</option>
-            </select>
+			<!-- BOOK SECTION -->
+			<form class="form-wrapper" name="book-form">
+				<div class="left-side" id="create-form-wrapper">
+					<h3 class="form-title">Add a new book</h3>
+					<div id="create-book-form" class="form-container form-grid">
+						<label class="title-label" for="title">Book title</label>
+						<input
+							class="title-input"
+							name="title"
+							id="title"
+							placeholder="Enter the title"
+						/>
+						<label class="author-label" for="create-author-dropdown"
+							>Author</label
+						>
+						<select
+							class="author-dropdown"
+							id="create-author-dropdown"
+							name="authorId"
+							class="dropdown"
+						>
+							<option value="">--</option>
+						</select>
 
-            <div id="book-type-group" class="book-type-group">
-              <div class="book-type-field">
-                <label class="book-type-label" for="bookType">Book type</label>
-                <select
-                  class="book-type-dropdown"
-                  id="book-type-dropdown"
-                  name="bookType"
-                  class="dropdown"
-                >
-                  <option value="">--</option>
-                  <option value="hardcover">Hardcover</option>
-                  <option value="ebook">E-Book</option>
-                </select>
-              </div>
-              <div id="book-type-sub-fields"></div>
-            </div>
+						<div id="book-type-group" class="book-type-group">
+							<div class="book-type-field">
+								<label class="book-type-label" for="bookType">Book type</label>
+								<select
+									class="book-type-dropdown"
+									id="book-type-dropdown"
+									name="bookType"
+									class="dropdown"
+								>
+									<option value="">--</option>
+									<option value="hardcover">Hardcover</option>
+									<option value="ebook">E-Book</option>
+								</select>
+							</div>
+							<div id="book-type-sub-fields"></div>
+						</div>
 
-            <label class="price-label" for="price">Price</label>
-            <input
-              class="price-input"
-              id="price"
-              name="price"
-              type="number"
-              placeholder="Enter the price"
-            />
+						<label class="price-label" for="price">Price</label>
+						<input
+							class="price-input"
+							id="price"
+							name="price"
+							type="number"
+							placeholder="Enter the price"
+						/>
 
-            <button id="save-button" class="filled-button save-book-button">
-              Save
-            </button>
-          </div>
-        </div>
-        <img
-          class="book-illustration"
-          src="assets/img/book-lover.svg"
-          alt="illustration of a girl reading a book"
-        />
-      </form>
-      <div class="book-search-wrapper">
-        <h2>Search a book</h2>
-        <div class="search-input-wrapper">
-          <input
-            id="book-search"
-            class="search-input"
-            type="text"
-            placeholder="Search a title"
-          />
-          <button id="search-book-cancel" class="cancel-button">
-            <i class="fa fa-times-circle"></i>
-          </button>
-        </div>
-      </div>
-      <table>
-        <thead id="books-table-header"></thead>
-        <tbody id="books-table"></tbody>
-      </table>
-    </div>
-    <div id="edit-book-modal-layover" class="layover hidden">
-      <form id="edit-book-form" class="edit-book-modal">
-        <div class="modal-header">
-          <h2>Edit book</h2>
-          <button id="close-modal-button">Close</button>
-        </div>
-        <div id="edit-form-modal" class="modal-body"></div>
-      </form>
-    </div>
-  </body>
+						<button id="save-button" class="filled-button save-book-button">
+							Save
+						</button>
+					</div>
+				</div>
+				<img
+					class="book-illustration"
+					src="assets/img/book-lover.svg"
+					alt="illustration of a girl reading a book"
+				/>
+			</form>
+			<div class="book-search-wrapper">
+				<h2>Search a book</h2>
+				<div class="search-input-wrapper">
+					<input
+						id="book-search"
+						class="search-input"
+						type="text"
+						placeholder="Search a title"
+					/>
+					<button id="search-book-cancel" class="cancel-button">
+						<i class="fa fa-times-circle"></i>
+					</button>
+				</div>
+			</div>
+			<table>
+				<thead id="books-table-header"></thead>
+				<tbody id="books-table"></tbody>
+			</table>
+		</div>
+
+		<div id="edit-book-modal-layover" class="layover hidden">
+			<form id="edit-book-form" class="edit-book-modal">
+				<div class="modal-header">
+					<h2>Edit book</h2>
+					<button id="close-modal-button">Close</button>
+				</div>
+
+				<div id="edit-form-modal" class="modal-body form-container form-grid">
+					<label>Book ID: </label><input id="book-id" name="id" /> <br /><br />
+					<label class="title-label" for="title">Book title</label>
+					<input
+						class="title-input"
+						name="title"
+						id="title"
+						placeholder="Enter the title"
+					/>
+
+					<label class="author-label" for="edit-author-dropdown">Author</label>
+					<select
+						class="author-dropdown"
+						id="edit-author-dropdown"
+						name="authorId"
+						class="dropdown"
+					>
+						<option value="">--</option>
+					</select>
+
+					<div id="book-type-group" class="book-type-group">
+						<div class="book-type-field">
+							<label class="book-type-label" for="bookType">Book type</label>
+							<select
+								class="book-type-dropdown"
+								id="book-type-dropdown"
+								name="bookType"
+								class="dropdown"
+							>
+								<option value="">--</option>
+								<option value="hardcover">Hardcover</option>
+								<option value="ebook">E-Book</option>
+							</select>
+						</div>
+						<div id="book-type-sub-fields"></div>
+					</div>
+
+					<label class="price-label" for="price">Price</label>
+					<input
+						class="price-input"
+						id="price"
+						name="price"
+						type="number"
+						placeholder="Enter the price"
+					/>
+					<br />
+					<br />
+
+					<button id="save-button" class="filled-button save-book-button">
+						Save
+					</button>
+				</div>
+			</form>
+		</div>
+	</body>
 </html>

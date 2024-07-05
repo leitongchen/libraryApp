@@ -120,4 +120,9 @@ class DOMUtilities {
 
 		newParendNode.append(clonedCurrent);
 	}
+
+	static addTextToElement(elementId, textToAdd) {
+		const element = document.getElementById(elementId);
+		element.textContent = textToAdd;
+	}
 }

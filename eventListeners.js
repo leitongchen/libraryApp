@@ -54,7 +54,7 @@ document.addEventListener('click', function (e) {
 	}
 
 	if (editBookButtonTarget) {
-		renderEditBookModal(editBookButtonTarget.value);
+		showEditBookModal(editBookButtonTarget.value);
 		return;
 	}
 

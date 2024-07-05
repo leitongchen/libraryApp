@@ -17,20 +17,12 @@ function onFormSubmit(e, callback) {
 }
 
 function updateBook(updatedBook) {
-	const bookToUpdate = findInstance(booksArr, updatedBook.id);
+	const bookIndex = booksArr.findIndex((book) => updatedBook.id == book.id);
+	const newBookInstance = getNewBookInstance(updatedBook, updatedBook.id);
 
-	if (updatedBook.bookType == bookToUpdate.bookType) {
-		Object.keys(updatedBook).forEach((prop) => {
-			bookToUpdate[prop] = updatedBook[prop];
-		});
-	} else {
-		const bookIndex = booksArr.findIndex((book) => updatedBook.id == book.id);
-		const newBookInstance = addNewBookInstance(updatedBook, updatedBook.id);
+	booksArr.splice(bookIndex, 1, newBookInstance);
 
-		booksArr.splice(bookIndex, 1, newBookInstance);
-	}
-
-	copyOfBooksToSort = booksArr.map((book) => book.getSavingsData());
+	copyOfBooksToSort = booksArr.map((book) => book.getDataToRender(authorsArr));
 
 	saveDataToLocalStorage(BOOKS_KEY, processDataToBeSaved(booksArr));
 	renderSortedBooksTable(copyOfBooksToSort);
@@ -40,7 +32,7 @@ function updateBook(updatedBook) {
 
 function initiateSavedBooks(savedBooks) {
 	savedBooks.forEach((book) => {
-		const newBookInstance = addNewBookInstance(book, book.id);
+		const newBookInstance = getNewBookInstance(book, book.id);
 		booksArr.push(newBookInstance);
 	});
 
@@ -71,13 +63,14 @@ function renderSavedAuthors(savedAuthors) {
 
 		DOMUtilities.addTableRow(AUTHORS_TABLE_BODY_ID, 'td', author);
 	});
-	renderAuthorsDropdown();
+	renderAuthorsDropdown('create-author-dropdown');
 }
 
-function renderAuthorsDropdown() {
+function renderAuthorsDropdown(dropdownId) {
+	DOMUtilities.removeAllChildElements(dropdownId);
 	authorsArr.forEach((author) => {
 		DOMUtilities.addOptionToDropdown(
-			'author-dropdown',
+			dropdownId,
 			author.id,
 			PrintData.formatDataWithId(author.id, author.fullName)
 		);
@@ -95,7 +88,7 @@ function addAuthor(author) {
 	saveDataToLocalStorage(AUTHORS_KEY, processDataToBeSaved(authorsArr));
 
 	DOMUtilities.addOptionToDropdown(
-		'author-dropdown',
+		'create-author-dropdown',
 		currentAuthor.id,
 		PrintData.formatDataWithId(currentAuthor.id, currentAuthor.fullName)
 	);
@@ -107,7 +100,7 @@ function addAuthor(author) {
 	);
 }
 
-function addNewBookInstance(book, id) {
+function getNewBookInstance(book, id) {
 	let newBook;
 	const bookObj = {
 		title: book.title,
@@ -146,7 +139,7 @@ function renderSortedBooksTable(books) {
 }
 
 function addBook(book) {
-	const newBookInstance = addNewBookInstance(book);
+	const newBookInstance = getNewBookInstance(book);
 	booksArr.push(newBookInstance);
 	copyOfBooksToSort.push(newBookInstance.getDataToRender(authorsArr));
 
@@ -201,33 +194,19 @@ function resetBooksSearch() {
 	renderSortedBooksTable(copyOfBooksToSort);
 }
 
-function renderEditBookModal(bookId) {
+function showEditBookModal(bookId) {
 	DOMUtilities.removeClassFromElement('edit-book-modal-layover', 'hidden');
 	const selectedBook = findInstance(booksArr, bookId);
 
-	DOMUtilities.removeAllChildElements('edit-form-modal');
-
-	DOMUtilities.duplicateChildNodes(
-		'create-book-form',
-		'edit-form-modal',
-		EDIT_BOOK_MODAL_FORM_ID
-	);
-
-	DOMUtilities.addLabel(EDIT_BOOK_MODAL_FORM_ID, 'edit-form-modal', {
-		labelText: 'ID',
-		htmlFor: 'id',
-	});
-	DOMUtilities.addTextInput(EDIT_BOOK_MODAL_FORM_ID, 'edit-form-modal', {
-		fieldName: 'id',
-		disabled: false,
-	});
-
+	// prepare the fields
+	renderAuthorsDropdown('edit-author-dropdown');
 	renderBookTypeSubfield(
 		selectedBook.bookType,
 		BOOK_TYPE_SUBFIELD_ID,
 		EDIT_BOOK_MODAL_FORM_ID
 	);
 
+	// compile the fields
 	const editFormInputs = document
 		.getElementById(EDIT_BOOK_MODAL_FORM_ID)
 		.querySelectorAll('input, select');
