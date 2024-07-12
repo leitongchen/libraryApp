@@ -100,29 +100,13 @@ function addAuthor(author) {
 	);
 }
 
-function getNewBookInstance(book, id) {
+function getNewBookInstance(book) {
 	let newBook;
-	const bookObj = {
-		title: book.title,
-		authorId: book.authorId,
-		price: book.price,
-		bookType: book.bookType,
-	};
-
-	if (id) {
-		bookObj.id = id;
-	}
 
 	if (book.bookType === BookTypes.EBOOK) {
-		newBook = new Ebook({
-			...bookObj,
-			fileType: book.fileType,
-		});
+		newBook = new Ebook(book);
 	} else if (book.bookType === BookTypes.HARDCOVER) {
-		newBook = new Hardcover({
-			...bookObj,
-			numberOfPages: book.numberOfPages,
-		});
+		newBook = new Hardcover(book);
 	}
 
 	return newBook;
