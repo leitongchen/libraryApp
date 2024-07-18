@@ -5,7 +5,7 @@ class DOMUtilities {
 		textToPrint,
 		specificContainerId
 	) {
-		const select = getParentElement(dropdownId, specificContainerId);
+		const select = getElement(dropdownId, specificContainerId);
 		const currentOption = document.createElement('option');
 
 		currentOption.value = optionValue;
@@ -60,7 +60,7 @@ class DOMUtilities {
 	}
 
 	static addLabel(parentId, specificContainerId, options) {
-		const parentElement = getParentElement(parentId, specificContainerId);
+		const parentElement = getElement(parentId, specificContainerId);
 
 		const label = document.createElement('label');
 		label.htmlFor = options.htmlFor;
@@ -70,7 +70,7 @@ class DOMUtilities {
 	}
 
 	static addSelect(parentId, specificContainerId, options) {
-		const parentElement = getParentElement(parentId, specificContainerId);
+		const parentElement = getElement(parentId, specificContainerId);
 
 		const select = document.createElement('select');
 
@@ -83,7 +83,7 @@ class DOMUtilities {
 	}
 
 	static addTextInput(parentId, specificContainerId, attributes) {
-		const parentElement = getParentElement(parentId, specificContainerId);
+		const parentElement = getElement(parentId, specificContainerId);
 
 		const textInput = document.createElement('input');
 		textInput.name = attributes.fieldName;
@@ -93,17 +93,17 @@ class DOMUtilities {
 	}
 
 	static removeAllChildElements(elementId, specificContainerId) {
-		const element = getParentElement(elementId, specificContainerId);
+		const element = getElement(elementId, specificContainerId);
 		element.innerHTML = '';
 	}
 
 	static removeClassFromElement(elementId, className, specificContainerId) {
-		const element = getParentElement(elementId, specificContainerId);
+		const element = getElement(elementId, specificContainerId);
 		element.classList.remove(className);
 	}
 
 	static addClassToElement(elementId, className, specificContainerId) {
-		const element = getParentElement(elementId, specificContainerId);
+		const element = getElement(elementId, specificContainerId);
 		element.classList.add(className);
 	}
 
