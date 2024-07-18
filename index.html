@@ -11,6 +11,7 @@
 			rel="stylesheet"
 			href="./assets/font-awesome/css/font-awesome.min.css"
 		/>
+		<script defer type="text/javascript" src="multiselect-dropdown.js"></script>
 		<script defer type="text/javascript" src="classes/printData.js"></script>
 		<script defer type="text/javascript" src="classes/domUtilities.js"></script>
 		<script defer type="text/javascript" src="utilities.js"></script>
@@ -66,7 +67,7 @@
 
 			<!-- BOOK SECTION -->
 			<form class="form-wrapper" name="book-form">
-				<div class="left-side" id="create-form-wrapper">
+				<div class="left-side create-form-wrapper" id="create-form-wrapper">
 					<h3 class="form-title">Add a new book</h3>
 					<div id="create-book-form" class="form-container form-grid">
 						<label class="title-label" for="title">Book title</label>
@@ -80,10 +81,11 @@
 							>Author</label
 						>
 						<select
-							class="author-dropdown"
+							multiple
+							multiselect-select-all="true"
+							class="author-dropdown dropdown"
 							id="create-author-dropdown"
 							name="authorId"
-							class="dropdown"
 						>
 							<option value="">--</option>
 						</select>
@@ -92,10 +94,9 @@
 							<div class="book-type-field">
 								<label class="book-type-label" for="bookType">Book type</label>
 								<select
-									class="book-type-dropdown"
+									class="book-type-dropdown dropdown"
 									id="book-type-dropdown"
 									name="bookType"
-									class="dropdown"
 								>
 									<option value="">--</option>
 									<option value="hardcover">Hardcover</option>
@@ -164,10 +165,9 @@
 
 					<label class="author-label" for="edit-author-dropdown">Author</label>
 					<select
-						class="author-dropdown"
+						class="author-dropdown dropdown"
 						id="edit-author-dropdown"
 						name="authorId"
-						class="dropdown"
 					>
 						<option value="">--</option>
 					</select>

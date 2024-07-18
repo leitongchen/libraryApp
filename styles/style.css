@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import './colors.css';
+@import './multiselect.css';
 
 
 body {
@@ -44,6 +45,10 @@ a {
   background-color: var(--grey-6);
   margin-bottom: 24px;
   border-radius: 8px;
+
+  .create-form-wrapper {
+    flex-basis: 600px;
+  }
 }
 
 .book-illustration {
