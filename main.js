@@ -1,7 +1,7 @@
 let authorsArr = [];
 let booksArr = [];
 
-let copyOfBooksToSort = [];
+let copyOfBooksToRender = [];
 
 const booksTableHeaders = DOMUtilities.getTableHeaderValues(
 	BOOKS_TABLE_HEADER_ID
@@ -22,10 +22,12 @@ function updateBook(updatedBook) {
 
 	booksArr.splice(bookIndex, 1, newBookInstance);
 
-	copyOfBooksToSort = booksArr.map((book) => book.getDataToRender(authorsArr));
+	copyOfBooksToRender = booksArr.map((book) =>
+		book.getDataToRender(authorsArr)
+	);
 
 	saveDataToLocalStorage(BOOKS_KEY, processDataToBeSaved(booksArr));
-	renderSortedBooksTable(copyOfBooksToSort);
+	renderSortedBooksTable(copyOfBooksToRender);
 
 	DOMUtilities.addClassToElement('edit-book-modal-layover', 'hidden');
 }
@@ -36,9 +38,11 @@ function initiateSavedBooks(savedBooks) {
 		booksArr.push(newBookInstance);
 	});
 
-	copyOfBooksToSort = booksArr.map((book) => book.getDataToRender(authorsArr));
+	copyOfBooksToRender = booksArr.map((book) =>
+		book.getDataToRender(authorsArr)
+	);
 
-	renderSortedBooksTable(copyOfBooksToSort);
+	renderSortedBooksTable(copyOfBooksToRender);
 	Book.updateLastId(booksArr.at(-1)?.id ?? 0);
 }
 
@@ -75,6 +79,11 @@ function renderAuthorsDropdown(dropdownId) {
 			PrintData.formatDataWithId(author.id, author.fullName)
 		);
 	});
+}
+
+function getAuthorBooks(authorId) {
+	const authorsBook = booksArr.filter((book) => book.authorId == authorId);
+	return authorsBook.at(-1) ? authorsBook : [];
 }
 
 function addAuthor(author) {
@@ -125,10 +134,10 @@ function renderSortedBooksTable(books) {
 function addBook(book) {
 	const newBookInstance = getNewBookInstance(book);
 	booksArr.push(newBookInstance);
-	copyOfBooksToSort.push(newBookInstance.getDataToRender(authorsArr));
+	copyOfBooksToRender.push(newBookInstance.getDataToRender(authorsArr));
 
 	saveDataToLocalStorage(BOOKS_KEY, processDataToBeSaved(booksArr));
-	renderSortedBooksTable(copyOfBooksToSort);
+	renderSortedBooksTable(copyOfBooksToRender);
 }
 
 function addFileTypeField(
@@ -167,7 +176,7 @@ function addPagesNumberField(bookTypeContainerId, containerId) {
 }
 
 function filterBooks(e) {
-	const filteredBooks = copyOfBooksToSort.filter((book) =>
+	const filteredBooks = copyOfBooksToRender.filter((book) =>
 		searchString(book.title, e.target.value)
 	);
 	renderSortedBooksTable(filteredBooks);
@@ -175,7 +184,7 @@ function filterBooks(e) {
 
 function resetBooksSearch() {
 	searchBookInput.value = '';
-	renderSortedBooksTable(copyOfBooksToSort);
+	renderSortedBooksTable(copyOfBooksToRender);
 }
 
 function showEditBookModal(bookId) {

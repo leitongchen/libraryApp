@@ -19,6 +19,14 @@ window.addEventListener('DOMContentLoaded', () => {
 	DOMUtilities.addTableRow(BOOKS_TABLE_HEADER_ID, 'th', BookTableKeys);
 	renderSavedAuthors(savedAuthors);
 	initiateSavedBooks(savedBooks);
+
+	console.log(getAuthorBooks(1));
+
+	authorsArr.forEach((author) => {
+		author.books = getAuthorBooks(author.id);
+	});
+
+	console.log(authorsArr);
 });
 
 addAuthorForm.addEventListener('submit', (e) => onFormSubmit(e, addAuthor));
