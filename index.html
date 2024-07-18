@@ -146,7 +146,7 @@
 		</div>
 
 		<div id="edit-book-modal-layover" class="layover hidden">
-			<form id="edit-book-form" class="edit-book-modal">
+			<form id="edit-book-form" class="edit-book-modal" name="edit-book-form">
 				<div class="modal-header">
 					<h2>Edit book</h2>
 					<button id="close-modal-button">Close</button>
@@ -176,10 +176,9 @@
 						<div class="book-type-field">
 							<label class="book-type-label" for="bookType">Book type</label>
 							<select
-								class="book-type-dropdown"
-								id="book-type-dropdown"
+								class="book-type-dropdown dropdown"
+								id="edit-book-type-dropdown"
 								name="bookType"
-								class="dropdown"
 							>
 								<option value="">--</option>
 								<option value="hardcover">Hardcover</option>

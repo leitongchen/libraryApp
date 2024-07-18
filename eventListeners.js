@@ -1,11 +1,16 @@
 const addAuthorForm = document.forms['author-form'];
 const addBookForm = document.forms['book-form'];
+const editBookForm = document.forms['edit-book-form'];
 
 const searchBookInput = document.getElementById('book-search');
 
-const editBookFromTable = document.getElementById('books-table');
+const booksTableList = document.getElementById('books-table');
 
 const bookTypeField = document.getElementById('book-type-dropdown');
+const editBookTypeField = document.getElementById('edit-book-type-dropdown');
+
+const searchBookResetButton = document.getElementById('search-book-cancel');
+const closeEditModalButton = document.getElementById('close-modal-button');
 
 window.addEventListener('DOMContentLoaded', () => {
 	const savedAuthors = fetchDataFromLocalStorage(AUTHORS_KEY) ?? [];
@@ -16,13 +21,11 @@ window.addEventListener('DOMContentLoaded', () => {
 	initiateSavedBooks(savedBooks);
 });
 
-addAuthorForm.addEventListener('submit', function (e) {
-	onFormSubmit(e, addAuthor);
-});
+addAuthorForm.addEventListener('submit', (e) => onFormSubmit(e, addAuthor));
 
-addBookForm.addEventListener('submit', function (e) {
-	onFormSubmit(e, addBook);
-});
+addBookForm.addEventListener('submit', (e) => onFormSubmit(e, addBook));
+
+editBookForm.addEventListener('submit', (e) => onFormSubmit(e, updateBook));
 
 bookTypeField.addEventListener('change', (change) => {
 	const bookType = change.target.value;
@@ -32,47 +35,26 @@ bookTypeField.addEventListener('change', (change) => {
 
 searchBookInput.addEventListener('keyup', (e) => filterBooks(e));
 
-document.addEventListener('click', function (e) {
-	const formBookTypeChangeTarget = e.target.closest(
-		'#edit-book-form #book-type-dropdown'
+searchBookResetButton.addEventListener('click', () => resetBooksSearch());
+
+closeEditModalButton.addEventListener('click', () =>
+	DOMUtilities.addClassToElement('edit-book-modal-layover', 'hidden')
+);
+
+editBookTypeField.addEventListener('change', (e) => {
+	const bookType = e.target.value;
+	renderBookTypeSubfield(
+		bookType,
+		BOOK_TYPE_SUBFIELD_ID,
+		EDIT_BOOK_MODAL_FORM_ID
 	);
+});
 
-	const editBookButtonTarget = e.target.closest('#books-table button');
-
-	const closeBookModalTarget = e.target.closest('#close-modal-button');
-
-	const resetSearchButtonTarget = e.target.closest('#search-book-cancel');
-
-	if (formBookTypeChangeTarget) {
-		const bookType = formBookTypeChangeTarget.value;
-		renderBookTypeSubfield(
-			bookType,
-			BOOK_TYPE_SUBFIELD_ID,
-			EDIT_BOOK_MODAL_FORM_ID
-		);
-		return;
-	}
+booksTableList.addEventListener('click', (e) => {
+	const editBookButtonTarget = e.target.closest('button');
 
 	if (editBookButtonTarget) {
 		showEditBookModal(editBookButtonTarget.value);
 		return;
-	}
-
-	if (closeBookModalTarget) {
-		DOMUtilities.addClassToElement('edit-book-modal-layover', 'hidden');
-		return;
-	}
-
-	if (resetSearchButtonTarget) {
-		resetBooksSearch();
-		return;
-	}
-});
-
-document.addEventListener('submit', function (e) {
-	const saveBookModal = e.target.closest('#edit-book-form');
-
-	if (saveBookModal) {
-		onFormSubmit(e, updateBook);
 	}
 });
