@@ -12,8 +12,8 @@ function onFormSubmit(e, callback) {
 	const data = new FormData(e.target);
 	const newEntry = Object.fromEntries(data.entries());
 
-	callback(newEntry);
 	DOMUtilities.resetForm(e);
+	callback(newEntry);
 }
 
 function updateBook(updatedBook) {
@@ -96,17 +96,20 @@ function addAuthor(author) {
 
 	saveDataToLocalStorage(AUTHORS_KEY, processDataToBeSaved(authorsArr));
 
-	DOMUtilities.addOptionToDropdown(
-		'create-author-dropdown',
-		currentAuthor.id,
-		PrintData.formatDataWithId(currentAuthor.id, currentAuthor.fullName)
-	);
+	// needs to reload after adding an author to render the multiselect author dropdown
+	// DOMUtilities.addOptionToDropdown(
+	// 	'create-author-dropdown',
+	// 	currentAuthor.id,
+	// 	PrintData.formatDataWithId(currentAuthor.id, currentAuthor.fullName)
+	// );
 
-	DOMUtilities.addTableRow(
-		AUTHORS_TABLE_BODY_ID,
-		'td',
-		currentAuthor.getSavingsData()
-	);
+	// DOMUtilities.addTableRow(
+	// 	AUTHORS_TABLE_BODY_ID,
+	// 	'td',
+	// 	currentAuthor.getSavingsData()
+	// );
+
+	location.reload();
 }
 
 function getNewBookInstance(book) {
