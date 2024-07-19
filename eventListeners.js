@@ -24,7 +24,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		author.books = getAuthorBooks(author.id);
 	});
 
-	console.log(authorsArr);
+	console.log('AUTHORS', authorsArr);
 });
 
 addAuthorForm.addEventListener('submit', (e) => onFormSubmit(e, addAuthor));
@@ -64,3 +64,8 @@ booksTableList.addEventListener('click', (e) => {
 		return;
 	}
 });
+
+function onSelectAuthors() {
+	const select = document.getElementById('create-author-dropdown');
+	console.log(Array.from(select.selectedOptions).map((x) => x.value ?? x.text));
+}

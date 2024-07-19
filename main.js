@@ -12,8 +12,10 @@ function onFormSubmit(e, callback) {
 	const data = new FormData(e.target);
 	const newEntry = Object.fromEntries(data.entries());
 
-	DOMUtilities.resetForm(e);
+	console.log('form', e.target);
+
 	callback(newEntry);
+	DOMUtilities.resetForm(e);
 }
 
 function updateBook(updatedBook) {
@@ -96,20 +98,19 @@ function addAuthor(author) {
 
 	saveDataToLocalStorage(AUTHORS_KEY, processDataToBeSaved(authorsArr));
 
-	// needs to reload after adding an author to render the multiselect author dropdown
-	// DOMUtilities.addOptionToDropdown(
-	// 	'create-author-dropdown',
-	// 	currentAuthor.id,
-	// 	PrintData.formatDataWithId(currentAuthor.id, currentAuthor.fullName)
-	// );
+	DOMUtilities.addOptionToDropdown(
+		'create-author-dropdown',
+		currentAuthor.id,
+		PrintData.formatDataWithId(currentAuthor.id, currentAuthor.fullName)
+	);
 
-	// DOMUtilities.addTableRow(
-	// 	AUTHORS_TABLE_BODY_ID,
-	// 	'td',
-	// 	currentAuthor.getSavingsData()
-	// );
+	DOMUtilities.addTableRow(
+		AUTHORS_TABLE_BODY_ID,
+		'td',
+		currentAuthor.getSavingsData()
+	);
 
-	location.reload();
+	updateSelectOption('create-author-dropdown');
 }
 
 function getNewBookInstance(book) {
@@ -135,6 +136,12 @@ function renderSortedBooksTable(books) {
 }
 
 function addBook(book) {
+	const select = document.getElementById('create-author-dropdown');
+	const selectedAuthors = Array.from(select.selectedOptions).map(
+		(x) => x.value ?? x.text
+	);
+	console.log(selectedAuthors, book);
+
 	const newBookInstance = getNewBookInstance(book);
 	booksArr.push(newBookInstance);
 	copyOfBooksToRender.push(newBookInstance.getDataToRender(authorsArr));

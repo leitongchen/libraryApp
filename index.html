@@ -11,11 +11,15 @@
 			rel="stylesheet"
 			href="./assets/font-awesome/css/font-awesome.min.css"
 		/>
-		<script defer type="text/javascript" src="multiselect-dropdown.js"></script>
+		<script
+			defer
+			type="text/javascript"
+			src="libraries/multiselect-dropdown.js"
+		></script>
 		<script defer type="text/javascript" src="classes/printData.js"></script>
 		<script defer type="text/javascript" src="classes/domUtilities.js"></script>
 		<script defer type="text/javascript" src="utilities.js"></script>
-		<script defer type="text/javascript" src="models.js"></script>
+		<script defer type="text/javascript" src="models/models.js"></script>
 		<script defer type="text/javascript" src="classes/author.js"></script>
 		<script defer type="text/javascript" src="classes/book.js"></script>
 		<script defer type="text/javascript" src="classes/ebook.js"></script>
@@ -85,7 +89,8 @@
 							multiselect-select-all="true"
 							class="author-dropdown dropdown"
 							id="create-author-dropdown"
-							name="authorId"
+							name="authorsId"
+							onchange="onSelectAuthors()"
 						>
 							<option value="">--</option>
 						</select>

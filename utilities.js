@@ -50,3 +50,8 @@ function getElement(elementId, containerId) {
 	}
 	return document.getElementById(elementId);
 }
+
+function updateSelectOption(selectId) {
+	const select = document.getElementById(selectId);
+	select.loadOptions();
+}
