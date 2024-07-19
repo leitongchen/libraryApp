@@ -18,7 +18,7 @@ class Ebook extends Book {
 		return {
 			id: this.id,
 			title: this.title,
-			authorId: this.authorId,
+			authorsId: this.authorsId,
 			bookType: this.bookType,
 			numberOfPages: '-',
 			fileType: this.#fileType,
@@ -27,11 +27,11 @@ class Ebook extends Book {
 	}
 
 	getDataToRender(authorsArray) {
-		const author = findInstance(authorsArray, this.authorId);
+		// const author = findInstance(authorsArray, this.authorsId);
 		return {
 			id: this.id,
 			title: this.title,
-			author: PrintData.formatFullName(author),
+			author: this.authorsId,
 			bookType: this.bookType,
 			numberOfPages: '-',
 			fileType: this.#fileType,

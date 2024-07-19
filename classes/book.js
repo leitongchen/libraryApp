@@ -3,14 +3,15 @@ class Book {
 
 	#id;
 	#title;
-	#authorId;
+	#authorsId;
 	#price;
 	#bookType;
+	#authors;
 
 	constructor(book) {
 		this.#id = book.id ? +book.id : ++Book.#lastId;
 		this.#title = book.title;
-		this.#authorId = book.authorId;
+		this.#authorsId = book.authorsId;
 		this.#price = book.price;
 		this.#bookType = book.bookType;
 	}
@@ -26,8 +27,8 @@ class Book {
 		this.#title = value;
 	}
 
-	get authorId() {
-		return this.#authorId;
+	get authorsId() {
+		return this.#authorsId;
 	}
 
 	get price() {
@@ -44,6 +45,13 @@ class Book {
 		this.#bookType = value;
 	}
 
+	get authors() {
+		return this.#authors;
+	}
+	set authors(authors) {
+		this.#authors = authors;
+	}
+
 	static updateLastId(lastId) {
 		Book.#lastId = lastId;
 	}
@@ -52,14 +60,14 @@ class Book {
 		return {
 			id: this.#id,
 			title: this.#title,
-			authorId: this.#authorId,
+			authorsId: this.#authorsId,
 			bookType: this.#bookType,
 			price: this.#price,
 		};
 	}
 
 	getDataToRender(authorsArray) {
-		const author = findInstance(authorsArray, this.authorId);
+		const author = findInstance(authorsArray, this.authorsId);
 		return {
 			id: this.#id,
 			title: this.#title,

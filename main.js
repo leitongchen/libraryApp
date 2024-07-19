@@ -12,8 +12,6 @@ function onFormSubmit(e, callback) {
 	const data = new FormData(e.target);
 	const newEntry = Object.fromEntries(data.entries());
 
-	console.log('form', e.target);
-
 	callback(newEntry);
 	DOMUtilities.resetForm(e);
 }
@@ -83,11 +81,6 @@ function renderAuthorsDropdown(dropdownId) {
 	});
 }
 
-function getAuthorBooks(authorId) {
-	const authorsBook = booksArr.filter((book) => book.authorId == authorId);
-	return authorsBook.at(-1) ? authorsBook : [];
-}
-
 function addAuthor(author) {
 	const currentAuthor = new Author({
 		name: author.name,
@@ -136,11 +129,8 @@ function renderSortedBooksTable(books) {
 }
 
 function addBook(book) {
-	const select = document.getElementById('create-author-dropdown');
-	const selectedAuthors = Array.from(select.selectedOptions).map(
-		(x) => x.value ?? x.text
-	);
-	console.log(selectedAuthors, book);
+	const selectedAuthors = getSelectedValuesFromSelect('create-author-dropdown');
+	book.authorsId = selectedAuthors;
 
 	const newBookInstance = getNewBookInstance(book);
 	booksArr.push(newBookInstance);
@@ -224,4 +214,18 @@ function renderBookTypeSubfield(bookType, parentId, containerId) {
 		addFileTypeField(parentId, FILE_TYPE_DROPDOWN_ID, containerId);
 	else if (bookType === BookTypes.HARDCOVER)
 		addPagesNumberField(parentId, containerId);
+}
+
+function getAuthorBooks(authorId) {
+	const authorsBook = booksArr.filter((book) =>
+		itBelongs(book.authorsId, authorId)
+	);
+	return authorsBook.at(-1) ? authorsBook : [];
+}
+
+function getAuthors(authorsIdArr) {
+	const authorsList = authorsArr.filter((author) =>
+		itBelongs(authorsIdArr, author.id)
+	);
+	return authorsList.at(-1) ? authorsList : [];
 }

@@ -55,3 +55,12 @@ function updateSelectOption(selectId) {
 	const select = document.getElementById(selectId);
 	select.loadOptions();
 }
+
+function getSelectedValuesFromSelect(selectId) {
+	const select = document.getElementById(selectId);
+	return Array.from(select.selectedOptions).map((x) => x.value ?? x.text);
+}
+
+function itBelongs(array, idToSearch) {
+	return array.includes(idToSearch.toString());
+}

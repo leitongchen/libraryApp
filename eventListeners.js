@@ -24,7 +24,12 @@ window.addEventListener('DOMContentLoaded', () => {
 		author.books = getAuthorBooks(author.id);
 	});
 
+	booksArr.forEach((book) => {
+		book.authors = getAuthors(book.authorsId);
+	});
+
 	console.log('AUTHORS', authorsArr);
+	console.log('BOOKS', booksArr);
 });
 
 addAuthorForm.addEventListener('submit', (e) => onFormSubmit(e, addAuthor));
