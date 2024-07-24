@@ -87,10 +87,10 @@
 						<select
 							multiple
 							multiselect-select-all="true"
+							onchange="onSelectAuthors('create-author-dropdown')"
 							class="author-dropdown dropdown"
 							id="create-author-dropdown"
 							name="authorsId"
-							onchange="onSelectAuthors()"
 						>
 							<option value="">--</option>
 						</select>
@@ -171,6 +171,9 @@
 
 					<label class="author-label" for="edit-author-dropdown">Author</label>
 					<select
+            multiple
+            multiselect-select-all="true"
+            onchange="onSelectAuthors('edit-author-dropdown')"
 						class="author-dropdown dropdown"
 						id="edit-author-dropdown"
 						name="authorId"

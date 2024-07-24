@@ -70,7 +70,7 @@ booksTableList.addEventListener('click', (e) => {
 	}
 });
 
-function onSelectAuthors() {
-	const select = document.getElementById('create-author-dropdown');
+function onSelectAuthors(id) {
+	const select = document.getElementById(id);
 	console.log(Array.from(select.selectedOptions).map((x) => x.value ?? x.text));
 }

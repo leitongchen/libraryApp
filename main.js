@@ -207,6 +207,9 @@ function showEditBookModal(bookId) {
 	editFormInputs.forEach((item) => {
 		item.value = selectedBook[item.name];
 	});
+
+	updateSelectOption('edit-author-dropdown');
+	console.log(getElement('edit-author-dropdown'))
 }
 
 function renderBookTypeSubfield(bookType, parentId, containerId) {
