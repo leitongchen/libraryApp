@@ -10,6 +10,9 @@ function MultiselectDropdown(options) {
 		txtAll: 'All',
 		txtRemove: 'Remove',
 		txtSearch: 'search',
+		style: {
+			width: '200px',
+		},
 		...options,
 	};
 	function newEl(tag, attrs) {
