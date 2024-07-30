@@ -64,3 +64,4 @@ function getSelectedValuesFromSelect(selectId) {
 function itBelongs(array, idToSearch) {
 	return array.includes(idToSearch.toString());
 }
+

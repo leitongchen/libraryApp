@@ -16,7 +16,62 @@ function onFormSubmit(e, callback) {
 	DOMUtilities.resetForm(e);
 }
 
+function addAuthor(author) {
+	if (!isAuthorFormValid(author)) {
+		console.log('!!! Cannot add an author. Please insert all data!')
+		return; 
+	}
+
+	const currentAuthor = new Author({
+		name: author.name,
+		surname: author.surname,
+		birthDate: author.birthDate,
+	});
+	authorsArr.push(currentAuthor);
+
+	saveDataToLocalStorage(AUTHORS_KEY, processDataToBeSaved(authorsArr));
+
+	DOMUtilities.addOptionToDropdown(
+		'create-author-dropdown',
+		currentAuthor.id,
+		PrintData.formatDataWithId(currentAuthor.id, currentAuthor.fullName)
+	);
+
+	DOMUtilities.addTableRow(
+		AUTHORS_TABLE_BODY_ID,
+		'td',
+		currentAuthor.getSavingsData()
+	);
+
+	updateSelectOption('create-author-dropdown');
+}
+
+function addBook(book) {
+	const selectedAuthors = getSelectedValuesFromSelect('create-author-dropdown');
+	book.authorsId = selectedAuthors ?? [];
+
+	if (!isBookFormValid(book)) {
+		console.log('!!! Form data are required!')
+		return; 
+	}
+
+	const newBookInstance = getNewBookInstance(book);
+	booksArr.push(newBookInstance);
+	copyOfBooksToRender.push(newBookInstance.getDataToRender(authorsArr));
+
+	saveDataToLocalStorage(BOOKS_KEY, processDataToBeSaved(booksArr));
+	renderSortedBooksTable(copyOfBooksToRender);
+}
+
 function updateBook(updatedBook) {
+	const selectedAuthors = getSelectedValuesFromSelect('edit-author-dropdown');
+	updatedBook.authorsId = selectedAuthors ?? [];
+
+	if (!updatedBook.authorsId.at(-1)) {
+		console.log('Please selectat least an author');
+		return;
+	}
+
 	const bookIndex = booksArr.findIndex((book) => updatedBook.id == book.id);
 	const newBookInstance = getNewBookInstance(updatedBook, updatedBook.id);
 
@@ -81,31 +136,6 @@ function renderAuthorsDropdown(dropdownId) {
 	});
 }
 
-function addAuthor(author) {
-	const currentAuthor = new Author({
-		name: author.name,
-		surname: author.surname,
-		birthDate: author.birthDate,
-	});
-	authorsArr.push(currentAuthor);
-
-	saveDataToLocalStorage(AUTHORS_KEY, processDataToBeSaved(authorsArr));
-
-	DOMUtilities.addOptionToDropdown(
-		'create-author-dropdown',
-		currentAuthor.id,
-		PrintData.formatDataWithId(currentAuthor.id, currentAuthor.fullName)
-	);
-
-	DOMUtilities.addTableRow(
-		AUTHORS_TABLE_BODY_ID,
-		'td',
-		currentAuthor.getSavingsData()
-	);
-
-	updateSelectOption('create-author-dropdown');
-}
-
 function getNewBookInstance(book) {
 	let newBook;
 
@@ -126,18 +156,6 @@ function renderSortedBooksTable(books) {
 		.forEach((book) => {
 			DOMUtilities.addTableRow(BOOKS_TABLE_BODY_ID, 'td', book);
 		});
-}
-
-function addBook(book) {
-	const selectedAuthors = getSelectedValuesFromSelect('create-author-dropdown');
-	book.authorsId = selectedAuthors;
-
-	const newBookInstance = getNewBookInstance(book);
-	booksArr.push(newBookInstance);
-	copyOfBooksToRender.push(newBookInstance.getDataToRender(authorsArr));
-
-	saveDataToLocalStorage(BOOKS_KEY, processDataToBeSaved(booksArr));
-	renderSortedBooksTable(copyOfBooksToRender);
 }
 
 function addFileTypeField(
@@ -199,17 +217,25 @@ function showEditBookModal(bookId) {
 		EDIT_BOOK_MODAL_FORM_ID
 	);
 
+	console.log(selectedBook);
 	// compile the fields
 	const editFormInputs = document
 		.getElementById(EDIT_BOOK_MODAL_FORM_ID)
 		.querySelectorAll('input, select');
 
 	editFormInputs.forEach((item) => {
+		if (item.id === 'edit-author-dropdown') {
+			Array.from(item.children).forEach((option) => {
+				if (itBelongs(selectedBook.authorsId, option.value)) {
+					option.setAttribute('selected', '')
+				}
+			});
+		updateSelectOption('edit-author-dropdown');
+		}
 		item.value = selectedBook[item.name];
 	});
 
 	updateSelectOption('edit-author-dropdown');
-	console.log(getElement('edit-author-dropdown'))
 }
 
 function renderBookTypeSubfield(bookType, parentId, containerId) {
@@ -220,15 +246,30 @@ function renderBookTypeSubfield(bookType, parentId, containerId) {
 }
 
 function getAuthorBooks(authorId) {
-	const authorsBook = booksArr.filter((book) =>
+	const authorsBook = booksArr.filter((book) => 
 		itBelongs(book.authorsId, authorId)
 	);
 	return authorsBook.at(-1) ? authorsBook : [];
 }
 
 function getAuthors(authorsIdArr) {
-	const authorsList = authorsArr.filter((author) =>
+	const authorsList = authorsArr.filter((author) => {
 		itBelongs(authorsIdArr, author.id)
+	}
 	);
 	return authorsList.at(-1) ? authorsList : [];
+}
+
+function isBookFormValid(book) {
+	if (book.authorsId.at(-1) && book.bookType && book.fileType && book.price && book.title) {
+		return true; 
+	}
+	return false; 
+}
+
+function isAuthorFormValid(authorForm) {
+	if (authorForm.birthDate && authorForm.name && authorForm.surname) {
+		return true; 
+	}
+	return false; 
 }
