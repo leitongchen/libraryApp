@@ -18,8 +18,8 @@ function onFormSubmit(e, callback) {
 
 function addAuthor(author) {
 	if (!isAuthorFormValid(author)) {
-		console.log('!!! Cannot add an author. Please insert all data!')
-		return; 
+		console.log('!!! Cannot add an author. Please insert all data!');
+		return;
 	}
 
 	const currentAuthor = new Author({
@@ -51,8 +51,8 @@ function addBook(book) {
 	book.authorsId = selectedAuthors ?? [];
 
 	if (!isBookFormValid(book)) {
-		console.log('!!! Form data are required!')
-		return; 
+		console.log('!!! Form data are required!');
+		return;
 	}
 
 	const newBookInstance = getNewBookInstance(book);
@@ -225,17 +225,16 @@ function showEditBookModal(bookId) {
 
 	editFormInputs.forEach((item) => {
 		if (item.id === 'edit-author-dropdown') {
-			Array.from(item.children).forEach((option) => {
+			Array.from(item.options).forEach((option) => {
 				if (itBelongs(selectedBook.authorsId, option.value)) {
-					option.setAttribute('selected', '')
+					option.selected = true;
 				}
+				updateSelectOption('edit-author-dropdown');
 			});
-		updateSelectOption('edit-author-dropdown');
+		} else {
+			item.value = selectedBook[item.name];
 		}
-		item.value = selectedBook[item.name];
 	});
-
-	updateSelectOption('edit-author-dropdown');
 }
 
 function renderBookTypeSubfield(bookType, parentId, containerId) {
@@ -246,7 +245,7 @@ function renderBookTypeSubfield(bookType, parentId, containerId) {
 }
 
 function getAuthorBooks(authorId) {
-	const authorsBook = booksArr.filter((book) => 
+	const authorsBook = booksArr.filter((book) =>
 		itBelongs(book.authorsId, authorId)
 	);
 	return authorsBook.at(-1) ? authorsBook : [];
@@ -254,22 +253,27 @@ function getAuthorBooks(authorId) {
 
 function getAuthors(authorsIdArr) {
 	const authorsList = authorsArr.filter((author) => {
-		itBelongs(authorsIdArr, author.id)
-	}
-	);
+		itBelongs(authorsIdArr, author.id);
+	});
 	return authorsList.at(-1) ? authorsList : [];
 }
 
 function isBookFormValid(book) {
-	if (book.authorsId.at(-1) && book.bookType && book.fileType && book.price && book.title) {
-		return true; 
+	if (
+		book.authorsId.at(-1) &&
+		book.bookType &&
+		book.fileType &&
+		book.price &&
+		book.title
+	) {
+		return true;
 	}
-	return false; 
+	return false;
 }
 
 function isAuthorFormValid(authorForm) {
 	if (authorForm.birthDate && authorForm.name && authorForm.surname) {
-		return true; 
+		return true;
 	}
-	return false; 
+	return false;
 }
