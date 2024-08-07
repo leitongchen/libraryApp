@@ -66,12 +66,11 @@ class Book {
 		};
 	}
 
-	getDataToRender(authorsArray) {
-		const author = findInstance(authorsArray, this.authorsId);
+	getDataToRender() {
 		return {
 			id: this.#id,
 			title: this.#title,
-			author: PrintData.formatFullName(author),
+			author: PrintData.printAuthorListAsText(this.authors),
 			bookType: this.#bookType,
 			price: this.#price,
 		};

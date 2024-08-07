@@ -28,6 +28,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		book.authors = getAuthors(book.authorsId);
 	});
 
+	renderSavedBooks();
+
 	console.log('AUTHORS', authorsArr);
 	console.log('BOOKS', booksArr);
 });

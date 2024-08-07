@@ -26,12 +26,11 @@ class Ebook extends Book {
 		};
 	}
 
-	getDataToRender(authorsArray) {
-		// const author = findInstance(authorsArray, this.authorsId);
+	getDataToRender() {
 		return {
 			id: this.id,
 			title: this.title,
-			author: this.authorsId,
+			author: PrintData.printAuthorListAsText(this.authors),
 			bookType: this.bookType,
 			numberOfPages: '-',
 			fileType: this.#fileType,

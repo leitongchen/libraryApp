@@ -92,10 +92,12 @@ function initiateSavedBooks(savedBooks) {
 		const newBookInstance = getNewBookInstance(book, book.id);
 		booksArr.push(newBookInstance);
 	});
+}
 
-	copyOfBooksToRender = booksArr.map((book) =>
-		book.getDataToRender(authorsArr)
-	);
+function renderSavedBooks() {
+	copyOfBooksToRender = booksArr.map((book) => {
+		return book.getDataToRender(authorsArr);
+	});
 
 	renderSortedBooksTable(copyOfBooksToRender);
 	Book.updateLastId(booksArr.at(-1)?.id ?? 0);
@@ -252,20 +254,14 @@ function getAuthorBooks(authorId) {
 }
 
 function getAuthors(authorsIdArr) {
-	const authorsList = authorsArr.filter((author) => {
-		itBelongs(authorsIdArr, author.id);
-	});
+	const authorsList = authorsArr.filter((author) =>
+		itBelongs(authorsIdArr, author.id)
+	);
 	return authorsList.at(-1) ? authorsList : [];
 }
 
 function isBookFormValid(book) {
-	if (
-		book.authorsId.at(-1) &&
-		book.bookType &&
-		book.fileType &&
-		book.price &&
-		book.title
-	) {
+	if (book.authorsId.at(-1) && book.bookType && book.price && book.title) {
 		return true;
 	}
 	return false;
