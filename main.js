@@ -56,6 +56,8 @@ function addBook(book) {
 	}
 
 	const newBookInstance = getNewBookInstance(book);
+	newBookInstance.authors = getAuthors(book.authorsId);
+
 	booksArr.push(newBookInstance);
 	copyOfBooksToRender.push(newBookInstance.getDataToRender(authorsArr));
 
@@ -74,12 +76,13 @@ function updateBook(updatedBook) {
 
 	const bookIndex = booksArr.findIndex((book) => updatedBook.id == book.id);
 	const newBookInstance = getNewBookInstance(updatedBook, updatedBook.id);
+	newBookInstance.authors = getAuthors(updatedBook.authorsId);
 
 	booksArr.splice(bookIndex, 1, newBookInstance);
 
-	copyOfBooksToRender = booksArr.map((book) =>
-		book.getDataToRender(authorsArr)
-	);
+	copyOfBooksToRender = booksArr.map((book) => {
+		return book.getDataToRender(authorsArr);
+	});
 
 	saveDataToLocalStorage(BOOKS_KEY, processDataToBeSaved(booksArr));
 	renderSortedBooksTable(copyOfBooksToRender);
@@ -103,16 +106,7 @@ function renderSavedBooks() {
 	Book.updateLastId(booksArr.at(-1)?.id ?? 0);
 }
 
-function getArrayOfObjectsFromInstance(array) {
-	let newArray = [];
-	array.forEach((item) => {
-		const newItem = item.getSavingsData();
-		newArray.push(newItem);
-	});
-	return newArray;
-}
-
-function renderSavedAuthors(savedAuthors) {
+function initiateSavedAuthors(savedAuthors) {
 	savedAuthors.forEach((author) => {
 		const currentAuthor = new Author({
 			id: author.id,
@@ -125,6 +119,15 @@ function renderSavedAuthors(savedAuthors) {
 		DOMUtilities.addTableRow(AUTHORS_TABLE_BODY_ID, 'td', author);
 	});
 	renderAuthorsDropdown('create-author-dropdown');
+}
+
+function getArrayOfObjectsFromInstance(array) {
+	let newArray = [];
+	array.forEach((item) => {
+		const newItem = item.getSavingsData();
+		newArray.push(newItem);
+	});
+	return newArray;
 }
 
 function renderAuthorsDropdown(dropdownId) {

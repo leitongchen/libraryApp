@@ -17,7 +17,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	const savedBooks = fetchDataFromLocalStorage(BOOKS_KEY) ?? [];
 
 	DOMUtilities.addTableRow(BOOKS_TABLE_HEADER_ID, 'th', BookTableKeys);
-	renderSavedAuthors(savedAuthors);
+	initiateSavedAuthors(savedAuthors);
 	initiateSavedBooks(savedBooks);
 
 	authorsArr.forEach((author) => {
