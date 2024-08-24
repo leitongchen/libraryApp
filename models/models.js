@@ -23,3 +23,9 @@ const BookTableKeys = getEnumFromValues([
   'fileType',
   'price',
 ]);
+
+// Book ordering filters  
+// Title: A-Z
+// Title: Z-A
+// Price: Ascendent 
+// Price: Descendent
