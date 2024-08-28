@@ -25,3 +25,8 @@ const BookTableKeys = getEnumFromValues([
 ]);
 
 const OrderBy = getOrderedEnumFromValues(['Title A-Z', 'Title Z-A']);
+// Book ordering filters
+// Title: A-Z
+// Title: Z-A
+// Price: Ascendent
+// Price: Descendent
