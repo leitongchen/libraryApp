@@ -16,15 +16,6 @@ function fetchDataFromLocalStorage(key) {
 	return storedElementsArr;
 }
 
-function getEnumFromValues(arr) {
-	const newEnum = {};
-	arr.forEach((property) => {
-		const cleanProp = property.trim();
-		newEnum[cleanProp.toUpperCase()] = cleanProp;
-	});
-	return Object.freeze(newEnum);
-}
-
 function sortByName(a, b) {
 	if (a < b) {
 		return -1;
@@ -63,4 +54,22 @@ function getSelectedValuesFromSelect(selectId) {
 
 function itBelongs(array, idToSearch) {
 	return array.includes(idToSearch.toString());
+}
+
+function getEnumFromValues(arr) {
+	const newEnum = {};
+	arr.forEach((property) => {
+		const cleanProp = property.trim();
+		newEnum[cleanProp.toUpperCase()] = cleanProp;
+	});
+	return Object.freeze(newEnum);
+}
+
+function getOrderedEnumFromValues(arr) {
+	const newEnum = {};
+	arr.forEach((prop, index) => {
+		const cleanProp = prop.trim();
+		newEnum[index] = cleanProp;
+	});
+	return Object.freeze(newEnum);
 }

@@ -15,11 +15,13 @@ const BookTypes = getEnumFromValues(['ebook', 'hardcover']);
 const FileTypes = getEnumFromValues(['epub', 'mobi', 'pdf', 'azw3']);
 
 const BookTableKeys = getEnumFromValues([
-  'id',
-  'title',
-  'author',
-  'bookType',
-  'numberOfPages',
-  'fileType',
-  'price',
+	'id',
+	'title',
+	'author',
+	'bookType',
+	'numberOfPages',
+	'fileType',
+	'price',
 ]);
+
+const OrderBy = getOrderedEnumFromValues(['Title A-Z', 'Title Z-A']);
