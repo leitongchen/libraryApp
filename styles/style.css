@@ -151,7 +151,6 @@ button {
   background-color: var(--accent-1);
   border-radius: 4px;
   padding: 24px;
-  margin-bottom: 24px;
   display: flex;
   align-items: center;
 
@@ -200,6 +199,12 @@ button {
       outline: 4px solid var(--accent-3)
     }
   }
+}
+
+.filter-dropdown {
+  padding: 24px 0;
+  display: flex; 
+  justify-content: flex-end;
 }
 
 .overflow-hidden {
