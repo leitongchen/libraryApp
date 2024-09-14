@@ -222,7 +222,6 @@ function showEditBookModal(bookId) {
 		EDIT_BOOK_MODAL_FORM_ID
 	);
 
-	console.log(selectedBook);
 	// compile the fields
 	const editFormInputs = document
 		.getElementById(EDIT_BOOK_MODAL_FORM_ID)
@@ -275,4 +274,19 @@ function isAuthorFormValid(authorForm) {
 		return true;
 	}
 	return false;
+}
+
+function renderOrderByDropdown() {
+	for (orderType in OrderBy) {
+		DOMUtilities.addOptionToDropdown(
+			'book-table-order-by',
+			orderType,
+			OrderBy[orderType]
+		);
+	}
+}
+
+function onOrderByChange() {
+	const orderBySelect = document.getElementById('book-table-order-by');
+	console.log('onchange value', orderBySelect.value)
 }

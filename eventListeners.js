@@ -32,6 +32,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	console.log('AUTHORS', authorsArr);
 	console.log('BOOKS', booksArr);
+	renderOrderByDropdown(); 
+
+	const orderByDropdown = document.getElementById('book-table-order-by');
+	console.log('orderBy selected value', orderByDropdown.value);
 });
 
 addAuthorForm.addEventListener('submit', (e) => onFormSubmit(e, addAuthor));
