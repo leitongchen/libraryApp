@@ -62,7 +62,7 @@ function addBook(book) {
 	copyOfBooksToRender.push(newBookInstance.getDataToRender(authorsArr));
 
 	saveDataToLocalStorage(BOOKS_KEY, processDataToBeSaved(booksArr));
-	renderSortedBooksTable(copyOfBooksToRender);
+	renderSortedBooksTable(copyOfBooksToRender, getCurrentBookTableOrderValue());
 }
 
 function updateBook(updatedBook) {
@@ -85,7 +85,7 @@ function updateBook(updatedBook) {
 	});
 
 	saveDataToLocalStorage(BOOKS_KEY, processDataToBeSaved(booksArr));
-	renderSortedBooksTable(copyOfBooksToRender);
+	renderSortedBooksTable(copyOfBooksToRender, getCurrentBookTableOrderValue());
 
 	DOMUtilities.addClassToElement('edit-book-modal-layover', 'hidden');
 }
@@ -102,7 +102,7 @@ function renderSavedBooks() {
 		return book.getDataToRender(authorsArr);
 	});
 
-	renderSortedBooksTable(copyOfBooksToRender);
+	renderSortedBooksTable(copyOfBooksToRender, getCurrentBookTableOrderValue());
 	Book.updateLastId(booksArr.at(-1)?.id ?? 0);
 }
 
@@ -192,12 +192,12 @@ function filterBooks(e) {
 	const filteredBooks = copyOfBooksToRender.filter((book) =>
 		searchString(book.title, e.target.value)
 	);
-	renderSortedBooksTable(filteredBooks);
+	renderSortedBooksTable(filteredBooks, getCurrentBookTableOrderValue());
 }
 
 function resetBooksSearch() {
 	searchBookInput.value = '';
-	renderSortedBooksTable(copyOfBooksToRender);
+	renderSortedBooksTable(copyOfBooksToRender, getCurrentBookTableOrderValue());
 }
 
 function showEditBookModal(bookId) {
@@ -276,39 +276,28 @@ function renderOrderByDropdown() {
 	}
 }
 
-function onOrderByChange() {
-	const orderBySelectValue = document.getElementById('book-table-order-by').value;
-	console.log('onchange value', orderBySelectValue, OrderBy[0])
-
-	renderSortedBooksTable(copyOfBooksToRender);
+function getCurrentBookTableOrderValue() {
+	return document.getElementById('book-table-order-by').value;
 }
 
-function renderSortedBooksTable(books) {
+function onOrderByChange() {
+	renderSortedBooksTable(copyOfBooksToRender, getCurrentBookTableOrderValue());
+}
+
+function renderSortedBooksTable(books, order) {
 	DOMUtilities.removeAllChildElements(BOOKS_TABLE_BODY_ID);
 
-	const orderByType = document.getElementById('book-table-order-by').value;
 	let booksOrdered = [];
 
-	console.log(orderByType)
-
-	if (orderByType == 0) {
-		booksOrdered = books.sort((a, b) => a.title - b.title); 
-
-		console.log('qui' , books, booksOrdered)
-	} else if (orderByType == 1) {
-		booksOrdered = books.sort((a, b) => b.title - a.title); 
-		console.log('qui dopo')
+	if (order == 0) {
+		booksOrdered = books.sort((a, b) => sortByName(a.title, b.title));
+	} else if (order == 1) {
+		booksOrdered = books.sort((a, b) => sortByName(b.title, a.title));
 	}
 
 	booksOrdered.forEach((book) => {
 		DOMUtilities.addTableRow(BOOKS_TABLE_BODY_ID, 'td', book);
 	});
-
-	// books
-	// 	.sort((a, b) => sortByName(a.title, b.title))
-	// 	.forEach((book) => {
-	// 		DOMUtilities.addTableRow(BOOKS_TABLE_BODY_ID, 'td', book);
-	// 	});
 }
 
 function sortNameAscending(a, b, keyToOrder) {
