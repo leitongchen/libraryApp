@@ -153,16 +153,6 @@ function getNewBookInstance(book) {
 	return newBook;
 }
 
-function renderSortedBooksTable(books) {
-	DOMUtilities.removeAllChildElements(BOOKS_TABLE_BODY_ID);
-
-	books
-		.sort((a, b) => sortByName(a.title, b.title))
-		.forEach((book) => {
-			DOMUtilities.addTableRow(BOOKS_TABLE_BODY_ID, 'td', book);
-		});
-}
-
 function addFileTypeField(
 	bookTypeContainerId,
 	fileTypeDropdownId,
@@ -287,6 +277,41 @@ function renderOrderByDropdown() {
 }
 
 function onOrderByChange() {
-	const orderBySelect = document.getElementById('book-table-order-by');
-	console.log('onchange value', orderBySelect.value)
+	const orderBySelectValue = document.getElementById('book-table-order-by').value;
+	console.log('onchange value', orderBySelectValue, OrderBy[0])
+
+	renderSortedBooksTable(copyOfBooksToRender);
+}
+
+function renderSortedBooksTable(books) {
+	DOMUtilities.removeAllChildElements(BOOKS_TABLE_BODY_ID);
+
+	const orderByType = document.getElementById('book-table-order-by').value;
+	let booksOrdered = [];
+
+	console.log(orderByType)
+
+	if (orderByType == 0) {
+		booksOrdered = books.sort((a, b) => a.title - b.title); 
+
+		console.log('qui' , books, booksOrdered)
+	} else if (orderByType == 1) {
+		booksOrdered = books.sort((a, b) => b.title - a.title); 
+		console.log('qui dopo')
+	}
+
+	booksOrdered.forEach((book) => {
+		DOMUtilities.addTableRow(BOOKS_TABLE_BODY_ID, 'td', book);
+	});
+
+	// books
+	// 	.sort((a, b) => sortByName(a.title, b.title))
+	// 	.forEach((book) => {
+	// 		DOMUtilities.addTableRow(BOOKS_TABLE_BODY_ID, 'td', book);
+	// 	});
+}
+
+function sortNameAscending(a, b, keyToOrder) {
+	return a[keyToOrder] + b[keyToOrder];
+	if (a[keyToOrder] < b[keyToOrder]) return -1;
 }

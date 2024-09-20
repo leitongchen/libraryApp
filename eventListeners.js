@@ -13,6 +13,7 @@ const searchBookResetButton = document.getElementById('search-book-cancel');
 const closeEditModalButton = document.getElementById('close-modal-button');
 
 window.addEventListener('DOMContentLoaded', () => {
+	renderOrderByDropdown(); 
 	const savedAuthors = fetchDataFromLocalStorage(AUTHORS_KEY) ?? [];
 	const savedBooks = fetchDataFromLocalStorage(BOOKS_KEY) ?? [];
 
@@ -32,10 +33,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	console.log('AUTHORS', authorsArr);
 	console.log('BOOKS', booksArr);
-	renderOrderByDropdown(); 
 
-	const orderByDropdown = document.getElementById('book-table-order-by');
-	console.log('orderBy selected value', orderByDropdown.value);
 });
 
 addAuthorForm.addEventListener('submit', (e) => onFormSubmit(e, addAuthor));
