@@ -287,20 +287,26 @@ function onOrderByChange() {
 function renderSortedBooksTable(books, order) {
 	DOMUtilities.removeAllChildElements(BOOKS_TABLE_BODY_ID);
 
-	let booksOrdered = [];
-
-	if (order == 0) {
-		booksOrdered = books.sort((a, b) => sortByName(a.title, b.title));
-	} else if (order == 1) {
-		booksOrdered = books.sort((a, b) => sortByName(b.title, a.title));
-	}
+	const booksOrdered = getOrderedBooks(books, order);
 
 	booksOrdered.forEach((book) => {
 		DOMUtilities.addTableRow(BOOKS_TABLE_BODY_ID, 'td', book);
 	});
 }
 
-function sortNameAscending(a, b, keyToOrder) {
-	return a[keyToOrder] + b[keyToOrder];
-	if (a[keyToOrder] < b[keyToOrder]) return -1;
+function getOrderedBooks(books, order) {
+	// if (order == 0) {
+	// 	return books.sort((a, b) => sortByName(a.title, b.title));
+	// } else if (order == 1) {
+	// 	return books.sort((a, b) => sortByName(b.title, a.title));
+	// }
+	switch (order) {
+		case '0': 
+			return books.sort((a, b) => sortByName(a.title, b.title));
+		case '1':
+			return books.sort((a, b) => sortByName(b.title, a.title));
+		default:
+			console.warn("Unexpected order type. Returning books unchanged.");
+			return books;
+	}
 }
