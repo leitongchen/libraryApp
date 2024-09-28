@@ -295,16 +295,15 @@ function renderSortedBooksTable(books, order) {
 }
 
 function getOrderedBooks(books, order) {
-	// if (order == 0) {
-	// 	return books.sort((a, b) => sortByName(a.title, b.title));
-	// } else if (order == 1) {
-	// 	return books.sort((a, b) => sortByName(b.title, a.title));
-	// }
 	switch (order) {
 		case '0': 
 			return books.sort((a, b) => sortByName(a.title, b.title));
 		case '1':
 			return books.sort((a, b) => sortByName(b.title, a.title));
+		case '2': 
+			return books.sort((a, b) => a.price - b.price);
+		case '3': 
+			return books.sort((a, b) => b.price - a.price);
 		default:
 			console.warn("Unexpected order type. Returning books unchanged.");
 			return books;
